@@ -26,12 +26,6 @@ Project Dasa Wisma Dinas Komunikasi dan Informatika (DISKOMINFO) kabupaten Jepar
 
 ---
 
-`register`
-
-<img src="https://imgur.com/Wj09cu4l.png">
-
----
-
 `dashboard`
 
 <img src="https://i.imgur.com/gHCpbes.png">
