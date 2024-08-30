@@ -1,83 +1,75 @@
-# Laravel SB Admin 2
+# Laravel 11
 
-SB Admin 2 for Laravel.
+Login Portal Kominfo Laravel 11.
 
-| Laravel Version | Branch | Support     |
-|-----------------|--------|-------------|
-| 11.0            | main   |             |
-| 10.0            | v10.0  |             |
-| 9.0             | v9.0   | End of life |
-| 8.0             | v8.0   | End of life |
-
-## Requirements
-
-- PHP >= 8.2
-- Ctype PHP Extension
-- cURL PHP Extension
-- DOM PHP Extension
-- Fileinfo PHP Extension
-- Filter PHP Extension
-- Hash PHP Extension
-- Mbstring PHP Extension
-- OpenSSL PHP Extension
-- PCRE PHP Extension
-- PDO PHP Extension
-- Session PHP Extension
-- Tokenizer PHP Extension
-- XML PHP Extension
+| Laravel Version | Branch | Support |
+| --------------- | ------ | ------- |
+| 11.0            | main   |         |
 
 ## Installation
 
-- Clone the repo and `cd` into it
-- Run `composer install`
-- Rename or copy `.env.example` file to `.env`
-- Run `php artisan key:generate`
-- Set your database credentials in your `.env` file
+-   Clone the repo and `cd` into it
+-   Run `composer install`
+-   Rename or copy `.env.example` file to `.env`
+-   Run `php artisan key:generate`
+-   Set your database credentials in your `.env` file
 
 ## Note
 
-Recommend to install this preset on a project that you are starting from scratch, otherwise your project's design might break.
-
-If you found this project useful, then please consider giving it a :star:
-
-## Credits
-
-Laravel SB Admin 2 uses some open-source third-party libraries/packages, many thanks to the web community.
-
-- Laravel - Open source framework.
-- LaravelEasyNav - Making managing navigation in Laravel easy.
-- SB Admin 2 - Thanks to Start Bootstrap.
+Project Dasa Wisma Dinas Komunikasi dan Informatika (DISKOMINFO) kabupaten Jepara
 
 ## Preview
 
 `login`
 
-<img src="https://imgur.com/YjGp6Sbl.png">
+<img src="https://i.imgur.com/eTuEtpx.png">
 
-***
+---
 
 `register`
 
 <img src="https://imgur.com/Wj09cu4l.png">
 
-***
+---
 
 `dashboard`
 
-<img src="https://imgur.com/CrmOfT5l.png">
+<img src="https://i.imgur.com/gHCpbes.png">
 
-***
+---
 
 `profile`
 
-<img src="https://imgur.com/5t4eS1rl.png">
+<img src="https://i.imgur.com/zkquLWr.png">
 
-***
+---
 
-`logout`
+`register`
 
-<img src="https://imgur.com/d9JclOYl.png">
+<img src="https://i.imgur.com/HtS2lzX.png">
+
+---
+
+`reset password`
+
+<img src="https://i.imgur.com/OwosYrK.png">
+
+---
+
+`reset password`
+
+<img src="https://i.imgur.com/7n6qZpr.png">
+
+---
+
+`reset password`
+
+<img src="https://i.imgur.com/FtHd7lf.png">
 
 ## License
 
-Licensed under the [MIT](LICENSE) license.
+Politeknik Balekambang Jepara.
+
+1. Muhammad Nuril Anwar
+2. Roma Dhoni
+3. Muhammad Asroful Anam
