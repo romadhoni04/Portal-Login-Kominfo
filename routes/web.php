@@ -18,6 +18,29 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update'); // Perbarui rute ini
+    Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
+});
+
+Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/update', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
+    Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
+});
+
+// Menampilkan halaman profil
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
+
+// Menambahkan rute untuk mengupdate profil jika belum ada
+Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
+Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
 // Password Reset Routes
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
@@ -32,6 +55,11 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
 // routes/web.php
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
+Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
+Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
+
 
 // Default Routes
 Route::get('/', function () {
