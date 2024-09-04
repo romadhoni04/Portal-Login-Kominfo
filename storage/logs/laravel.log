@@ -4526,6 +4526,7 @@ into your web browser: <span class="break-all" style="box-sizing: border-box; fo
 #46 C:\\laragon\\www\\try.login.portal.kominfo.jepara\\server.php(21): require_once('C:\\\\laragon\\\\www\\\\...')
 #47 {main}
 "} 
+<<<<<<< HEAD
 [2024-09-04 00:48:49] local.ERROR: SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'last_name' (Connection: mysql, SQL: alter table `users` add `last_name` varchar(255) null) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S21): SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'last_name' (Connection: mysql, SQL: alter table `users` add `last_name` varchar(255) null) at C:\\laragon\\www\\Portal-Login-Kominfo-main\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:813)
 [stacktrace]
 #0 C:\\laragon\\www\\Portal-Login-Kominfo-main\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(767): Illuminate\\Database\\Connection->runQueryCallback('alter table `us...', Array, Object(Closure))
@@ -4673,3 +4674,5 @@ into your web browser: <span class="break-all" style="box-sizing: border-box; fo
 #19 C:\\laragon\\www\\Portal-Login-Kominfo-main\\server.php(21): require_once('C:\\\\laragon\\\\www\\\\...')
 #20 {main}
 "} 
+=======
+>>>>>>> b2c8a8a2a6b61dcd35b5c06d1e2160f925f13683

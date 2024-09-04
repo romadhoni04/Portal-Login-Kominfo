@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+<<<<<<< HEAD
             // Mengecek apakah kolom last_name sudah ada sebelum menambahkannya
             if (!Schema::hasColumn('users', 'last_name')) {
                 $table->string('last_name')->nullable();
             }
+=======
+            // Menambahkan kolom last_name ke tabel users
+            $table->string('last_name')->nullable();
+>>>>>>> b2c8a8a2a6b61dcd35b5c06d1e2160f925f13683
         });
     }
 

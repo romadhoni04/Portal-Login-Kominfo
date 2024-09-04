@@ -12,6 +12,7 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">{{ __('Reset Password') }}</h1>
+<<<<<<< HEAD
                                     <p class="mb-4">Silahkan masukan email yang sebelumnya sudah terdaftar untuk mereset password</p>
                                 </div>
 
@@ -29,6 +30,24 @@
                                 <div class="alert alert-success border-left-success" role="alert">
                                     {{ session('status') }}
                                 </div>
+=======
+                                </div>
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger border-left-danger" role="alert">
+                                        <ul class="pl-4 my-2">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                @if (session('status'))
+                                    <div class="alert alert-success border-left-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+>>>>>>> b2c8a8a2a6b61dcd35b5c06d1e2160f925f13683
                                 @endif
 
                                 <form method="POST" action="{{ route('password.email') }}" class="user">
@@ -44,6 +63,7 @@
                                         </button>
                                     </div>
                                 </form>
+<<<<<<< HEAD
                                 <hr>
                                 @if (Route::has('register'))
                                 <div class="text-center">
@@ -55,6 +75,8 @@
                                     <a class="small" href="{{ route('login') }}">{{ __('Already have an account? Login!') }}</a>
                                 </div>
                                 @endif
+=======
+>>>>>>> b2c8a8a2a6b61dcd35b5c06d1e2160f925f13683
                             </div>
                         </div>
                     </div>
@@ -63,4 +85,8 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> b2c8a8a2a6b61dcd35b5c06d1e2160f925f13683
