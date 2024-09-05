@@ -6,6 +6,13 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\SuperAdminDashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,30 +25,17 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 |
 */
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update'); // Perbarui rute ini
-    Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
+// Default Route
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
-Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+// Authentication Routes
+Auth::routes(); // This includes login, registration, password reset routes, etc.
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile/update', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
-    Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
-});
-
-// Menampilkan halaman profil
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
-
-// Menambahkan rute untuk mengupdate profil jika belum ada
-Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
-Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
 // Password Reset Routes
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->name('password.request');
 
@@ -53,26 +47,57 @@ Route::get('reset-password/{token}', [ResetPasswordController::class, 'showReset
 
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
-// routes/web.php
-Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
-Route::put('/profile/update-details', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
-Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
-
-
-// Default Routes
-Route::get('/', function () {
-    return view('welcome');
+// Profile Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/update', [ProfileController::class, 'updateDetails'])->name('profile.updateDetails');
+    Route::put('/profile/update-image', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
 });
 
-Auth::routes(); // This includes login, registration, password reset routes, etc.
+// Home Route with Role-Based Redirection
+Route::get('/home', function () {
+    $user = Auth::user();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+    if ($user->role === 'superadmin') {
+        return redirect()->route('superadmin.dashboard');
+    } elseif ($user->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    } else {
+        return redirect()->route('user.dashboard');
+    }
+})->middleware('auth');
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
+// About Route
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+// Dashboard Routes for Different Roles
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware('role:admin');
+    Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'index'])->name('superadmin.dashboard')->middleware('role:superadmin');
+});
+Route::get('/admin', function () {
+    // Admin panel logic
+})->middleware('role:admin');
+
+
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+});
+Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'index'])->name('superadmin.dashboard');
+});
