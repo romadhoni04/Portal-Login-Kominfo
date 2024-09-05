@@ -67,3 +67,20 @@ Politeknik Balekambang Jepara.
 1. Muhammad Nuril Anwar
 2. Roma Dhoni
 3. Muhammad Asroful Anam
+
+## Login
+
+1. Superadmin
+   email : dhoniroma676@gmail.com
+   password : doni12345
+
+2. admin
+   email : admin@gmail.com
+   password : doni12345
+
+3. user
+   email : doni@gmail.com
+   password : doni12345
+
+`untuk user bisa registrasi sendiri tetapi untuk admin dan superadmin silahkan login`
+`dengan email dan juga password yang tertera`

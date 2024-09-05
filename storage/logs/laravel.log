@@ -6611,3 +6611,6 @@ into your web browser: <span class="break-all" style="box-sizing: border-box; fo
 [2024-09-05 07:09:11] local.INFO: Login attempt: {"email":"anam1@gmail.com","password":"doni12345"} 
 [2024-09-05 07:09:11] local.INFO: Login successful for: {"email":"anam1@gmail.com"} 
 [2024-09-05 07:09:11] local.INFO: Redirecting to: {"redirect_path":"http://127.0.0.1:8000/user/dashboard"} 
+[2024-09-05 07:14:34] local.INFO: Login attempt: {"email":"doni@gmail.com","password":"doni12345"} 
+[2024-09-05 07:14:35] local.INFO: Login successful for: {"email":"doni@gmail.com"} 
+[2024-09-05 07:14:35] local.INFO: Redirecting to: {"redirect_path":"http://127.0.0.1:8000/user/dashboard"} 
