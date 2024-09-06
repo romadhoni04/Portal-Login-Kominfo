@@ -6614,3 +6614,12 @@ into your web browser: <span class="break-all" style="box-sizing: border-box; fo
 [2024-09-05 07:14:34] local.INFO: Login attempt: {"email":"doni@gmail.com","password":"doni12345"} 
 [2024-09-05 07:14:35] local.INFO: Login successful for: {"email":"doni@gmail.com"} 
 [2024-09-05 07:14:35] local.INFO: Redirecting to: {"redirect_path":"http://127.0.0.1:8000/user/dashboard"} 
+[2024-09-06 00:29:19] local.INFO: Login attempt: {"email":"dhoniroma676@gmail.com","password":"doni12345"} 
+[2024-09-06 00:29:19] local.INFO: Login successful for: {"email":"dhoniroma676@gmail.com"} 
+[2024-09-06 00:29:19] local.INFO: Redirecting to: {"redirect_path":"http://127.0.0.1:8000/superadmin/dashboard"} 
+[2024-09-06 00:29:39] local.INFO: Login attempt: {"email":"admin@gmail.com","password":"doni12345"} 
+[2024-09-06 00:29:39] local.INFO: Login successful for: {"email":"admin@gmail.com"} 
+[2024-09-06 00:29:39] local.INFO: Redirecting to: {"redirect_path":"http://127.0.0.1:8000/admin/dashboard"} 
+[2024-09-06 00:30:18] local.INFO: Login attempt: {"email":"doni@gmail.com","password":"doni12345"} 
+[2024-09-06 00:30:19] local.INFO: Login successful for: {"email":"doni@gmail.com"} 
+[2024-09-06 00:30:19] local.INFO: Redirecting to: {"redirect_path":"http://127.0.0.1:8000/user/dashboard"} 
