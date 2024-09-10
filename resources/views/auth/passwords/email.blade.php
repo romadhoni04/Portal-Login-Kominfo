@@ -31,18 +31,29 @@
                                 </div>
                                 @endif
 
+                                @if ($errors->any())
+                                <div class="alert alert-danger border-left-danger" role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+
+
                                 <form method="POST" action="{{ route('password.email') }}" class="user">
                                     @csrf
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ old('email') }}" required>
                                     </div>
-
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             {{ __('Send Password Reset Link') }}
                                         </button>
                                     </div>
                                 </form>
+
                                 <hr>
                                 @if (Route::has('register'))
                                 <div class="text-center">

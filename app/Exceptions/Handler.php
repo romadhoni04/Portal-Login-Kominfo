@@ -4,6 +4,13 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Illuminate\Auth\Access\AuthorizationException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -13,7 +20,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        // List exception types that should not be reported
     ];
 
     /**
@@ -32,7 +39,7 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $exception
      * @return void
      *
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function report(Throwable $exception)
     {
@@ -50,6 +57,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->view('errors.404', [], 404);
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->view('errors.405', [], 405);
+        }
+
+        if ($exception instanceof AuthorizationException) {
+            return response()->view('errors.403', [], 403);
+        }
+
+        if ($exception instanceof TooManyRequestsHttpException) {
+            return response()->view('errors.429', [], 429);
+        }
+
+        if ($exception instanceof HttpException) {
+            $statusCode = $exception->getStatusCode();
+            if ($statusCode >= 400 && $statusCode <= 504) {
+                return response()->view("errors.{$statusCode}", [], $statusCode);
+            }
+        }
+
+
+        // Handle any other exceptions
         return parent::render($request, $exception);
     }
 }

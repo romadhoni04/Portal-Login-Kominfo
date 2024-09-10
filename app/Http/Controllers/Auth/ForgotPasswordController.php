@@ -42,11 +42,6 @@ class ForgotPasswordController extends Controller
         Log::info('Response type: ' . gettype($response));
         Log::info('Response content: ', ['response' => $response]);
 
-        // Periksa apakah $response valid sebelum digunakan
-        if (!is_string($response)) {
-            return $this->sendResetLinkFailedResponse($request, 'Response from broker is invalid');
-        }
-
         // Kembalikan respon berdasarkan hasil pengiriman
         return $response == Password::RESET_LINK_SENT
             ? $this->sendResetLinkResponse($request, $response)
@@ -61,7 +56,6 @@ class ForgotPasswordController extends Controller
      */
     protected function validateEmail(Request $request)
     {
-        // Validasi bahwa email diperlukan dan harus berupa format email yang valid
         $request->validate([
             'email' => 'required|email',
         ]);
@@ -86,12 +80,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        // Pastikan $response adalah string atau pesan yang valid
-        if (is_string($response)) {
-            return response()->json(['status' => trans($response)]);
-        }
-
-        return response()->json(['status' => 'Failed to send reset link'], 500);
+        return back()->with('status', trans($response));
     }
 
     /**
@@ -103,11 +92,6 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        // Pastikan $response adalah string atau pesan yang valid
-        if (is_string($response)) {
-            return response()->json(['email' => trans($response)], 422);
-        }
-
-        return response()->json(['email' => 'Failed to send reset link'], 500);
+        return back()->withErrors(['email' => trans($response)]);
     }
 }

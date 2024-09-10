@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserDashboardController extends Controller
 {
-    //
     /**
-     * Display the dashboard for superadmin.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\View\View
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        // Your logic here
-        return view('user.dashboard'); // Assuming you have a blade file for the view
+        $users = User::count();
+
+        $widget = [
+            'users' => $users,
+            //...
+        ];
+
+        return view('user.dashboard', compact('widget'));
     }
 }

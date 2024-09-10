@@ -90,7 +90,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->hasRole('admin');
+        return $this->hasRole('administrator');
     }
 
     public function isUser()
@@ -100,5 +100,10 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return $this->role === $role;
+    }
+    // app/Models/User.php
+    public function getRoleNameAttribute()
+    {
+        return ucfirst($this->role); // Mengubah role menjadi huruf kapital awal
     }
 }

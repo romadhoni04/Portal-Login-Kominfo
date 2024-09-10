@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('superadmin.admin')
 
 @section('main-content')
 <!-- Page Heading -->
@@ -37,7 +37,8 @@
                     <div class="col-lg-12">
                         <div class="text-center">
                             <h5 class="font-weight-bold">{{ Auth::user()->fullName }}</h5>
-                            <p>Administrator</p>
+                            <p>{{ ucfirst(Auth::user()->role) }}</p> <!-- Akan menampilkan 'Administrator' -->
+
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
 
             <div class="card-body">
 
-                <form method="POST" action="{{ route('profile.update') }}" autocomplete="off">
+                <form method="POST" action="{{ route('superadmin.profile.update') }}" autocomplete="off">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <input type="hidden" name="_method" value="PUT">
