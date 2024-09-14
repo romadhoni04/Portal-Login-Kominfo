@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminProfileController extends Controller
 {
@@ -47,5 +48,34 @@ class AdminProfileController extends Controller
         $user->save();
 
         return redirect()->route('admin.profile')->withSuccess('Profile updated successfully.');
+    }
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        // Pengecekan peran, misalnya menggunakan method `isAdmin()` untuk memeriksa apakah pengguna adalah admin
+        if (!$user->isAdmin()) {
+            return redirect()->route('admin.profile')->with('error', 'Unauthorized access.');
+        }
+
+        if ($request->hasFile('profile_photo')) {
+            $photo = $request->file('profile_photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->storeAs('public/profile_photos', $photoName);
+
+            // Hapus foto lama jika ada
+            if ($user->profile_photo) {
+                Storage::delete('public/profile_photos/' . $user->profile_photo);
+            }
+
+            $user->profile_photo = $photoName;
+            $user->save();
+        }
+
+        return redirect()->route('admin.profile')->with('success', 'Profile photo updated successfully.');
     }
 }

@@ -19,6 +19,18 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\RegisterSuperAdminController;
 use App\Http\Controllers\SuperAdminActivityLogController;
 use App\Http\Controllers\SuperAdminSettingsController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MessageController;
+// routes/web.php
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +66,25 @@ Route::get('reset-password/{token}', [ResetPasswordController::class, 'showReset
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
 
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+// Ubah nama rute untuk forgot-password
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request.form');
+
+// Ubah nama rute untuk password/reset
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request.reset');
+// Ubah nama rute untuk forgot-password
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email.forgot');
+
+// Ubah nama rute untuk password/email
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email.send');
+// Ubah nama rute untuk reset-password
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset.form');
+
+// Ubah nama rute untuk reset-password (POST)
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset.update');
 
 // routes/user
 Route::get('/user/profile', [UserProfileController::class, 'index'])->name('user.profile');
@@ -63,6 +94,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/user/profile/update', [UserProfileController::class, 'updateDetails'])->name('user.profile.updateDetails');
     Route::put('/user/profile/update-image', [UserProfileController::class, 'updateImage'])->name('user.profile.updateImage');
     Route::put('/user/profile', [UserProfileController::class, 'update'])->name('user.profile.update');
+    Route::put('/user/profile/picture', [UserProfileController::class, 'updatePicture'])->name('user.profile.picture.update');
+    Route::put('/user/profile/photo', [UserProfileController::class, 'updatePhoto'])->name('user.profile.photo.update');
 });
 
 // routes/superadmin
@@ -75,6 +108,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/superadmin/profile/update', [SuperAdminProfileController::class, 'updateDetails'])->name('superadmin.profile.updateDetails');
     Route::put('/superadmin/profile/update-image', [SuperAdminProfileController::class, 'updateImage'])->name('superadmin.profile.updateImage');
     Route::put('/superadmin/profile', [SuperAdminProfileController::class, 'update'])->name('superadmin.profile.update');
+    Route::put('/superadmin/profile/photo', [SuperAdminProfileController::class, 'updatePhoto'])->name('superadmin.profile.photo.update');
 });
 
 
@@ -105,7 +139,6 @@ Route::middleware(['auth', 'role:administrator'])->prefix('admin')->group(functi
     Route::put('/users/{user}', [AdminController::class, 'userUpdate'])->name('admin.users.update');
     Route::delete('/users/{user}', [AdminController::class, 'userDestroy'])->name('admin.users.destroy');
 });
-
 
 
 
@@ -141,6 +174,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/profile/update', [AdminProfileController::class, 'updateDetails'])->name('admin.profile.updateDetails');
     Route::put('/admin/profile/update-image', [AdminProfileController::class, 'updateImage'])->name('admin.profile.updateImage');
     Route::put('/admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+    Route::put('/admin/profile/photo', [AdminProfileController::class, 'updatePhoto'])->name('admin.profile.photo.update');
 });
 // Home Route with Role-Based Redirection
 Route::get('/home', function () {
@@ -155,10 +189,55 @@ Route::get('/home', function () {
     }
 })->middleware('auth');
 
-// About Route
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+// Rute untuk halaman beranda (Home)
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+
+// Rute untuk halaman About
+Route::get('about', [AboutController::class, 'index'])->name('about');
+
+// Rute untuk halaman Services
+Route::get('services', [ServicesController::class, 'index'])->name('services');
+
+// Rute untuk halaman Portfolio
+Route::get('portfolio', [PortfolioController::class, 'index'])->name('portfolio');
+
+// Rute untuk halaman Team
+Route::get('team', [TeamController::class, 'index'])->name('team');
+
+// Rute untuk halaman Blog
+Route::get('blog', [BlogController::class, 'index'])->name('blog');
+
+
+
+// Rute untuk menampilkan formulir kontak
+Route::get('contact', [ContactController::class, 'index'])->name('contact');
+
+// Rute untuk mengirim pesan formulir kontak
+Route::post('/send-message', [ContactController::class, 'submitContactForm'])->name('send_message');
+
+Route::get('/service-details', function () {
+    return view('service-details');
+})->name('service-details');
+Route::get('/service-details', function () {
+    return view('service-details');
+})->name('service-details');
+
+Route::post('/send-message', [ContactController::class, 'submitContactForm']);
+
+Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send_message');
+
+
+Route::post('/send-message', [ContactController::class, 'sendMessage'])->name('send_message');
+Route::get('/superadmin/notifications', [SuperAdminController::class, 'getNotifications'])->name('superadmin.notifications');
+
+Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('superadmin.dashboard');
+Route::post('/send-message', [SuperAdminDashboardController::class, 'sendMessage'])->name('send.message');
+
+
 
 // Dashboard Routes for Different Roles
 Route::middleware(['auth'])->group(function () {
@@ -194,3 +273,20 @@ Route::get('/status', function () {
 Route::get('/offline', function () {
     return view('offline');
 });
+
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group(function () {
+    // Route untuk dashboard
+    Route::get('/dashboard', [SuperAdminDashboardController::class, 'index'])->name('superadmin.dashboard');
+
+    // Route untuk pesan
+    Route::get('/messages', [SuperAdminDashboardController::class, 'getMessages'])->name('superadmin.messages');
+
+    // Route untuk notifikasi
+    Route::get('/notifications', [SuperAdminDashboardController::class, 'getNotifications'])->name('superadmin.notifications');
+});
+
+Route::post('/contact', [ContactController::class, 'sendContactForm'])->name('contact.send');
+
+
+Route::post('/send-message', [ContactController::class, 'sendMessage'])->name('send_message');

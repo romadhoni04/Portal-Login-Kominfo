@@ -33,10 +33,19 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="https://sippn.menpan.go.id/images/article/large/logo-jepara-11.png" alt="Logo" style="max-height: 50px;">
                 </div>
-                <div class="sidebar-brand-text mx-3">Administrator <sup></sup></div>
+                <div class="sidebar-brand-text mx-3">
+                    @if(auth()->user()->hasRole('superadmin'))
+                    Superadmin <sup>Dasa Wisma</sup>
+                    @elseif(auth()->user()->hasRole('administrator'))
+                    Administrator <sup>Dasa Wisma</sup>
+                    @elseif(auth()->user()->hasRole('user'))
+                    User <sup>Dasa Wisma</sup>
+                    @endif
+                </div>
+
             </a>
 
             <!-- Divider -->
@@ -48,13 +57,27 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Dashboard') }}</span></a>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                {{ __('User Settings') }}
+            </div>
+
+            <li class="nav-item {{ Nav::isRoute('admin.users.index') }}">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>{{ __('User') }}</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                {{ __('Settings') }}
+                {{ __('Account Management') }}
             </div>
 
             <!-- Nav Item - Profile -->
@@ -62,6 +85,13 @@
                 <a class="nav-link" href="{{ route('admin.profile') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>{{ __('Profile') }}</span>
+                </a>
+            </li>
+            <!-- Nav Item - Logout -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>{{ __('Logout') }}</span>
                 </a>
             </li>
 
@@ -74,12 +104,7 @@
             </li>
 -->
 
-            <li class="nav-item {{ Nav::isRoute('admin.users.index') }}">
-                <a class="nav-link" href="{{ route('admin.users.index') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>{{ __('User') }}</span>
-                </a>
-            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -250,8 +275,17 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    {{ Auth::user()->fullName }}<br>
+                                    <small class="font-weight-bold text-center" style="display: block;">
+                                        {{ ucfirst(Auth::user()->role) }}
+                                    </small> <!-- Display the role -->
+                                </span>
+                                @if (Auth::user()->profile_photo)
+                                <img class="img-profile rounded-circle" src="{{ asset('storage/profile_photos/' . Auth::user()->profile_photo) }}" alt="Profile Photo">
+                                @else
                                 <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="{{ Auth::user()->name[0] }}"></figure>
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserProfileController extends Controller
 {
@@ -47,5 +49,29 @@ class UserProfileController extends Controller
         $user->save();
 
         return redirect()->route('user.profile')->withSuccess('Profile updated successfully.');
+    }
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        if ($request->hasFile('profile_photo')) {
+            $photo = $request->file('profile_photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->storeAs('public/profile_photos', $photoName);
+
+            // Hapus foto lama jika ada
+            if ($user->profile_photo) {
+                Storage::delete('public/profile_photos/' . $user->profile_photo);
+            }
+
+            $user->profile_photo = $photoName;
+            $user->save();
+        }
+
+        return redirect()->route('user.profile')->with('success', 'Profile photo updated successfully.');
     }
 }

@@ -24,11 +24,20 @@ class SuperAdminDashboardController extends Controller
      */
     public function index()
     {
-        $users = User::count();
+        $totalPengguna = User::count(); // Hitung total pengguna
+        $totalSuperadmin = User::where('role', 'superadmin')->count(); // Hitung total Superadmin
+        $totalAdmins = User::where('role', 'administrator')->count(); // Hitung total administrator
+        $totalUsers = User::where('role', 'user')->count(); // Hitung total administrator
 
         $widget = [
-            'users' => $users,
-            //...
+            'total_program' => 20, // contoh nilai
+            'total_partisipasi' => 150, // contoh nilai
+            'notifications' => 5, // contoh nilai
+            'total_pengguna' => $totalPengguna,
+            'total_admins' => $totalAdmins,
+            'total_users' => $totalUsers,
+            'total_superadmin' => $totalSuperadmin,
+            // Tambahkan data lainnya jika perlu
         ];
 
         return view('superadmin.dashboard', compact('widget'));

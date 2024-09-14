@@ -28,39 +28,33 @@
     <div class="col-lg-4 order-lg-2">
 
         <div class="card shadow mb-4">
-            <div class="card-profile-image mt-4">
-                <figure class="rounded-circle avatar avatar font-weight-bold" style="font-size: 60px; height: 180px; width: 180px;" data-initial="{{ Auth::user()->name[0] }}"></figure>
-            </div>
             <div class="card-body">
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <h5 class="font-weight-bold">{{ Auth::user()->fullName }}</h5>
-                            <p>{{ ucfirst(Auth::user()->role) }}</p> <!-- Menampilkan role dari database -->
-                        </div>
+                <div class="text-center">
+                    <h6 class="heading-small text-muted mb-4">Profile Photo</h6>
+                    <div class="card-profile-image mt-0">
+                        @if (Auth::user()->profile_photo)
+                        <img src="{{ asset('storage/profile_photos/' . Auth::user()->profile_photo) }}" alt="Profile Photo" class="rounded-circle" style="height: 180px; width: 180px; object-fit: cover;">
+                        @else
+                        <figure class="rounded-circle avatar avatar font-weight-bold" style="font-size: 60px; height: 180px; width: 180px;" data-initial="{{ Auth::user()->name[0] }}"></figure>
+                        @endif
+                        <h5 class="font-weight-bold">{{ Auth::user()->fullName }}</h5>
+                        <p>{{ ucfirst(Auth::user()->role) }}</p> <!-- Menampilkan role dari database -->
                     </div>
                 </div>
+                <div class="text-center mt-0">
+                    <!-- <h6 class="heading-small text-muted mb-4">Update Profile Photo</h6> -->
+                    <form method="POST" action="{{ route('user.profile.photo.update') }}" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <!--  <label class="form-control-label" for="profile_photo">Profile Photo</label> -->
+                            <input type="file" id="profile_photo" class="form-control" name="profile_photo">
+                        </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card-profile-stats">
-                            <span class="heading">22</span>
-                            <span class="description">Friends</span>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Upload Photo</button>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-profile-stats">
-                            <span class="heading">10</span>
-                            <span class="description">Photos</span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card-profile-stats">
-                            <span class="heading">89</span>
-                            <span class="description">Comments</span>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -78,11 +72,10 @@
             <div class="card-body">
 
                 <form method="POST" action="{{ route('user.profile.update') }}" autocomplete="off">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    @csrf
+                    @method('PUT')
 
-                    <input type="hidden" name="_method" value="PUT">
-
-                    <h6 class="heading-small text-muted mb-4">User information</h6>
+                    <h6 class="heading-small text-muted mb-4">User Information</h6>
 
                     <div class="pl-lg-4">
                         <div class="row">
@@ -94,8 +87,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group focused">
-                                    <label class="form-control-label" for="last_name">Last name</label>
-                                    <input type="text" id="last_name" class="form-control" name="last_name" placeholder="Last name" value="{{ old('last_name', Auth::user()->last_name) }}">
+                                    <label class="form-control-label" for="last_name">Last Name</label>
+                                    <input type="text" id="last_name" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name', Auth::user()->last_name) }}">
                                 </div>
                             </div>
                         </div>
@@ -103,7 +96,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="email">Email address<span class="small text-danger">*</span></label>
+                                    <label class="form-control-label" for="email">Email Address<span class="small text-danger">*</span></label>
                                     <input type="email" id="email" class="form-control" name="email" placeholder="example@example.com" value="{{ old('email', Auth::user()->email) }}">
                                 </div>
                             </div>
@@ -112,20 +105,20 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group focused">
-                                    <label class="form-control-label" for="current_password">Current password</label>
-                                    <input type="password" id="current_password" class="form-control" name="current_password" placeholder="Current password">
+                                    <label class="form-control-label" for="current_password">Current Password</label>
+                                    <input type="password" id="current_password" class="form-control" name="current_password" placeholder="Current Password">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group focused">
-                                    <label class="form-control-label" for="new_password">New password</label>
-                                    <input type="password" id="new_password" class="form-control" name="new_password" placeholder="New password">
+                                    <label class="form-control-label" for="new_password">New Password</label>
+                                    <input type="password" id="new_password" class="form-control" name="new_password" placeholder="New Password">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group focused">
-                                    <label class="form-control-label" for="confirm_password">Confirm password</label>
-                                    <input type="password" id="confirm_password" class="form-control" name="password_confirmation" placeholder="Confirm password">
+                                    <label class="form-control-label" for="confirm_password">Confirm Password</label>
+                                    <input type="password" id="confirm_password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
                                 </div>
                             </div>
                         </div>

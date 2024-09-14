@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
+use App\Models\Notification;
+use App\Models\Message;
 
 class SuperAdminController extends Controller
 {
@@ -170,5 +172,41 @@ class SuperAdminController extends Controller
         $user->delete();
 
         return redirect()->route('superadmin.users.index')->with('success', 'User berhasil dihapus.');
+    }
+    public function about()
+    {
+        return view('superadmin.about');
+    }
+    public function getNotifications()
+    {
+        $notifications = Notification::orderBy('created_at', 'desc')->limit(5)->get();
+        return view('superadmin.notifications', compact('notifications'));
+    }
+    public function getMessages()
+    {
+        $messages = Message::orderBy('created_at', 'desc')->limit(5)->get();
+        return view('superadmin.messages', compact('messages'));
+    }
+    public function sendMessage(Request $request)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        // Simpan pesan ke dalam database
+        Message::create($validatedData);
+
+        // Buat notifikasi baru
+        Notification::create([
+            'title' => 'Pesan Baru Diterima',
+            'description' => 'Anda telah menerima pesan baru dari ' . $request->name,
+        ]);
+
+        // Redirect dengan pesan sukses
+        return back()->with('success', 'Pesan Anda telah dikirim!');
     }
 }

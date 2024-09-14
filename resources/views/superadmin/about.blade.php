@@ -1,144 +1,47 @@
-@extends('layouts.auth')
+@extends('superadmin.admin')
 
 @section('main-content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Register Portal Kominfo Jepara') }}</h1>
-                                </div>
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">{{ __('Tentang Kami') }}</h1>
 
-                                @if ($errors->any())
-                                <div class="alert alert-danger border-left-danger" role="alert">
-                                    <ul class="pl-4 my-2">
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
+<div class="row justify-content-center">
 
-                                <form method="POST" action="{{ route('register.admin') }}" class="user">
-                                    @csrf
+    <div class="col-lg-8">
 
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
-                                    </div>
+        <div class="card shadow mb-4 border-0 rounded-lg">
+            <div class="card-header py-3">
+                <h5 class="font-weight-bold text-primary">Tentang Dasa Wisma Kabupaten Jepara</h5>
+            </div>
 
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" name="last_name" placeholder="{{ __('Last Name') }}" value="{{ old('last_name') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ old('email') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" name="password" placeholder="{{ __('Password') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            {{ __('Register') }}
-                                        </button>
-                                    </div>
-                                </form>
-
-                                <hr>
-
-                                <div class="text-center">
-                                    <a class="small" href="{{ route('login') }}">
-                                        {{ __('Already have an account? Login!') }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <img src="https://sippn.menpan.go.id/images/article/large/logo-jepara-11.png" class="img-fluid" alt="Logo Jepara" style="max-height: 100px; border-radius: 8px;">
                 </div>
+
+                <p class="text-justify">Kami adalah Dasa Wisma Kabupaten Jepara, sebuah platform yang berkomitmen untuk meningkatkan kualitas kehidupan masyarakat melalui berbagai program dan inisiatif sosial. Dengan pendekatan yang inovatif dan berfokus pada kebutuhan masyarakat, kami berusaha memberikan layanan terbaik dan mendukung pembangunan komunitas di Kabupaten Jepara.</p>
+
+                <p class="text-justify">Website ini dirancang untuk mempermudah akses informasi dan layanan terkait dengan program-program Dasa Wisma. Kami mengundang Anda untuk menjelajahi halaman ini dan mengetahui lebih lanjut tentang apa yang kami lakukan dan bagaimana kami dapat membantu Anda.</p>
+
+                <h5 class="font-weight-bold text-primary mt-4">Visi dan Misi</h5>
+                <p class="text-justify">Visi kami adalah menciptakan komunitas yang sejahtera dan mandiri melalui berbagai program pemberdayaan masyarakat. Misi kami adalah menyediakan fasilitas dan dukungan yang dibutuhkan oleh masyarakat untuk mencapai tujuan tersebut. Kami percaya bahwa melalui kolaborasi dan partisipasi aktif, kita dapat mencapai hasil yang luar biasa.</p>
+
+                <h5 class="font-weight-bold text-primary mt-4">Kontak Kami</h5>
+                <p class="text-justify">Jika Anda memiliki pertanyaan atau ingin mengetahui lebih lanjut, jangan ragu untuk menghubungi kami melalui email di <a href="mailto:info@dasa-wisma-jepara.id" class="text-primary">info@dasa-wisma-jepara.id</a> atau kunjungi kantor kami di Jalan Raya Jepara No. 1, Jepara. Kami siap membantu Anda dengan sepenuh hati.</p>
+
+                <a href="{{ route('superadmin.dashboard') }}" class="btn btn-primary btn-block">
+                    <i class="fas fa-home fa-fw"></i> Kembali ke Dashboard
+                </a>
             </div>
         </div>
-    </div>
-</div>
-@endsection
-@extends('layouts.auth')
 
-@section('main-content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">{{ __('Register Portal Kominfo Jepara') }}</h1>
-                                </div>
-
-                                @if ($errors->any())
-                                <div class="alert alert-danger border-left-danger" role="alert">
-                                    <ul class="pl-4 my-2">
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-
-                                <form method="POST" action="{{ route('register.admin') }}" class="user">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" name="last_name" placeholder="{{ __('Last Name') }}" value="{{ old('last_name') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" name="email" placeholder="{{ __('E-Mail Address') }}" value="{{ old('email') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" name="password" placeholder="{{ __('Password') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            {{ __('Register') }}
-                                        </button>
-                                    </div>
-                                </form>
-
-                                <hr>
-
-                                <div class="text-center">
-                                    <a class="small" href="{{ route('login') }}">
-                                        {{ __('Already have an account? Login!') }}
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="card shadow mt-4 border-0 rounded-lg">
+            <div class="card-body text-center">
+                <p class="font-weight-bold">Website ini dibuat oleh Diskominfo Jepara sebagai bagian dari upaya kami untuk mendukung perkembangan digital dan pelayanan publik di Kabupaten Jepara.</p>
             </div>
         </div>
+
     </div>
+
 </div>
+
 @endsection
