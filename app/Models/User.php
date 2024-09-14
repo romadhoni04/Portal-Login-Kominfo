@@ -107,4 +107,8 @@ class User extends Authenticatable
     {
         return ucfirst($this->role); // Mengubah role menjadi huruf kapital awal
     }
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class, 'author_id'); // Sesuaikan dengan nama kolom yang digunakan
+    }
 }

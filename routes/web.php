@@ -27,6 +27,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SuperAdminBlogController;
 // routes/web.php
 
 
@@ -226,6 +227,13 @@ Route::get('/service-details', function () {
     return view('service-details');
 })->name('service-details');
 
+Route::get('/blog-details', function () {
+    return view('blog-details');
+})->name('blog-details');
+
+
+
+
 Route::post('/send-message', [ContactController::class, 'submitContactForm']);
 
 Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send_message');
@@ -290,3 +298,25 @@ Route::post('/contact', [ContactController::class, 'sendContactForm'])->name('co
 
 
 Route::post('/send-message', [ContactController::class, 'sendMessage'])->name('send_message');
+
+// Rute untuk Blog yang diakses oleh Superadmin
+Route::prefix('superadmin')->middleware('role:superadmin')->group(function () {
+    Route::get('/blog', [SuperAdminBlogController::class, 'index'])->name('superadmin.blog.index');
+    Route::get('/blog/create', [SuperAdminBlogController::class, 'create'])->name('superadmin.blog.create');
+    Route::post('/blog', [SuperAdminBlogController::class, 'store'])->name('superadmin.blog.store');
+    Route::get('/blog/{blog}/edit', [SuperAdminBlogController::class, 'edit'])->name('superadmin.blog.edit');
+    Route::put('/blog/{blog}', [SuperAdminBlogController::class, 'update'])->name('superadmin.blog.update');
+    Route::delete('/blog/{blog}', [SuperAdminBlogController::class, 'destroy'])->name('superadmin.blog.destroy');
+});
+
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('index');
+    Route::get('/{id}', [BlogController::class, 'show'])->name('show');
+});
+
+// routes/web.php
+Route::get('/blog/{id}', [SuperAdminBlogController::class, 'show'])->name('blog.show');
+
+Route::get('blog-details/{id}', [BlogController::class, 'show'])->name('blog-details');
+Route::get('blog/{id}', [SuperAdminBlogController::class, 'show'])->name('blog.show');
+Route::get('blog/{id}', [BlogController::class, 'show'])->name('blog.show');

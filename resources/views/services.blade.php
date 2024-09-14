@@ -49,7 +49,7 @@
           <li><a href="{{ route('services') }}" class="active">Services</a></li>
           <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
           <li><a href="{{ route('team') }}">Team</a></li>
-          <li><a href="{{ route('blog') }}">Blog</a></li>
+          <li><a href="{{ route('blog.index') }}">Blog</a></li>
           <li><a href="{{ url('contact') }}">Contact</a></li>
           <li><a href="{{ url('login') }}">Login</a></li>
         </ul>

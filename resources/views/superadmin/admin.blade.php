@@ -98,6 +98,13 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('superadmin.blog.index') }}">
+                <a class="nav-link" href="{{ route('superadmin.blog.index') }}">
+                    <i class="fas fa-fw fa-blog"></i> <!-- Icon untuk Blog -->
+                    <span>{{ __('Manage Blogs') }}</span>
+                </a>
+            </li>
+
             <!-- Nav Item - About  -->
             <li class="nav-item {{ Nav::isRoute('superadmin.about') }}">
                 <a class="nav-link" href="{{ route('superadmin.about') }}">

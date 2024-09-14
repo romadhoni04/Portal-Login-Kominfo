@@ -265,7 +265,7 @@ h6 {
 # Global Header
 --------------------------------------------------------------*/
 .header {
-  --background-color: ffffff;
+  --background-color: #ffffff;
   --default-color: #ffffff;
   --heading-color: #444444;
   color: var(--default-color);
@@ -2114,6 +2114,15 @@ section,
 /*--------------------------------------------------------------
 # Blog Details Section
 --------------------------------------------------------------*/
+
+/* CSS untuk mengatur ukuran gambar dalam artikel blog */
+.post-img img {
+  width: 100%; /* Membuat gambar responsif */
+  max-width: 300px; /* Membatasi lebar maksimal gambar */
+  height: 200px; /* Menetapkan tinggi gambar */
+  object-fit: cover; /* Menjaga rasio aspek dan mengisi kontainer */
+}
+
 .blog-details {
   padding-bottom: 30px;
 }
@@ -2734,3 +2743,12 @@ a:hover {
   color: inherit;
 }
 */
+.custom-link {
+  color: white;        /* Mengubah warna teks menjadi putih */
+  font-weight: bold;   /* Membuat teks menjadi bercetak tebal */
+  text-decoration: none; /* Menghilangkan garis bawah dari tautan */
+}
+
+.custom-link:hover {
+  color: white;        /* Menjaga warna putih pada hover */
+}
