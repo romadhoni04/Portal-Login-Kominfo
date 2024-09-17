@@ -58,6 +58,43 @@
                     <span>{{ __('Dashboard') }}</span></a>
             </li>
             <!-- Divider -->
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                {{ __('Management Index') }}
+            </div>
+            <!-- Nav Item - User & Admin Management -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseManagement"
+                    aria-expanded="true" aria-controls="collapseManagement">
+                    <i class="fas fa-fw fa-cogs"></i> <!-- Ikon yang lebih relevan untuk manajemen -->
+                    <span>Management Halaman Utama</span>
+                </a>
+                <div id="collapseManagement" class="collapse" aria-labelledby="headingManagement" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Manage Sections:</h6>
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.blog.index') }}" href="{{ route('superadmin.blog.index') }}">
+                            <i class="fas fa-fw fa-blog"></i> Manage Blogs <!-- Ikon blog -->
+                        </a>
+
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.services.index') }}" href="{{ route('superadmin.services.index') }}">
+                            <i class="fas fa-fw fa-concierge-bell"></i> Manage Layanan <!-- Ikon layanan -->
+                        </a>
+
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.portofolio.index') }}" href="{{ route('superadmin.portofolio.index') }}">
+                            <i class="fas fa-fw fa-briefcase"></i> Manage Portfolios <!-- Ikon portofolio -->
+                        </a>
+
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.about.index') }}" href="{{ route('superadmin.about.index') }}">
+                            <i class="fas fa-fw fa-info-circle"></i> Manage Tentang <!-- Ikon about -->
+                        </a>
+
+                    </div>
+                </div>
+            </li>
+
             <hr class="sidebar-divider">
 
             <!-- Heading -->
@@ -98,20 +135,33 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
+
+            <!--
             <li class="nav-item {{ Nav::isRoute('superadmin.blog.index') }}">
                 <a class="nav-link" href="{{ route('superadmin.blog.index') }}">
-                    <i class="fas fa-fw fa-blog"></i> <!-- Icon untuk Blog -->
-                    <span>{{ __('Manage Blogs') }}</span>
+                    <i class="fas fa-fw fa-blog"></i> <!-- Icon untuk Blog 
+            <span>{{ __('Manage Blogs') }}</span>
+            </a>
+            </li>
+            <li class="nav-item {{ Nav::isRoute('superadmin.services.index') }}">
+                <a class="nav-link" href="{{ route('superadmin.services.index') }}">
+                    <i class="fas fa-cogs"></i> <!-- Ikon untuk Manajemen 
+                    <span>{{ __('Manage Services') }}</span>
                 </a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('superadmin.portofolio.index') }}">
+                <a class="nav-link" href="{{ route('superadmin.portofolio.index') }}">
+                    <i class="fas fa-briefcase"></i> <!-- Ikon untuk Portofolio 
+                    <span>{{ __('Manage Portfolios') }}</span>
+                </a>
+            </li>
+            <li class="nav-item {{ Nav::isRoute('superadmin.about.index') }}">
+                <a class="nav-link" href="{{ route('superadmin.about.index') }}">
+                    <i class="fas fa-info-circle"></i> <!-- Ikon untuk About 
+                    <span>{{ __('Manage About') }}</span>
+                </a>
+            </li>  -->
 
-            <!-- Nav Item - About  -->
-            <li class="nav-item {{ Nav::isRoute('superadmin.about') }}">
-                <a class="nav-link" href="{{ route('superadmin.about') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('About') }}</span>
-                </a>
-            </li>
             <!-- Nav Item - Logout -->
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">

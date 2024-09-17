@@ -8,7 +8,6 @@
     <meta name="description" content="Dasa Wisma Kabupaten Jepara adalah platform yang mendukung kegiatan pemberdayaan masyarakat melalui pendataan dan pembinaan ibu rumah tangga serta lingkungan sekitarnya di Kabupaten Jepara.">
     <meta name="keywords" content="Dasa Wisma, Kabupaten Jepara, Pemberdayaan Masyarakat, Ibu Rumah Tangga, Pendataan, Pembinaan, Kegiatan Sosial">
 
-
     <!-- Favicons -->
     <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
@@ -28,6 +27,19 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6HV0L5NBCE');
+    </script>
+
 
 </head>
 
@@ -43,18 +55,17 @@
                 <h1 class="sitename">Dasa Wisma Jepara</h1>
             </a>
 
-
             <nav id="navmenu" class="navmenu">
 
                 <ul>
-                    <a href="{{ url('/') }}" class="active">Home</a>
-                    <li><a href="{{ route('about') }}">About</a></li>
-                    <li><a href="{{ route('services') }}">Services</a></li>
-                    <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
-                    <li><a href="{{ route('team') }}">Team</a></li>
+                    <li><a href="{{ url('/') }}" class="active">Beranda</a></li>
+                    <li><a href="{{ route('about') }}">Tentang</a></li>
+                    <li><a href="{{ route('services') }}">Layanan</a></li>
+                    <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+                    <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
                     <li><a href="{{ route('blog.index') }}">Blog</a></li>
-                    <li><a href="{{ url('contact') }}">Contact</a></li>
-                    <li><a href="{{ url('login') }}">Login</a></li>
+                    <li><a href="{{ url('contact') }}">Kontak</a></li>
+                    <li><a href="{{ url('login') }}">Masuk</a></li>
                     <!-- <li>
                         <div class="theme-switcher">
                             <button id="theme-toggle" class="btn btn-dark rounded-circle">
@@ -176,62 +187,27 @@
             <div class="container">
 
                 <div class="row gy-4">
+                    <div class="container section-title" data-aos="fade-up">
+                        <h2>Layanan Dasa Wisma Jepara</h2>
+                        <p>Menyajikan beragam program inovatif yang dirancang untuk meningkatkan kesejahteraan serta memberdayakan masyarakat melalui Layanan Dasa Wisma di Kabupaten Jepara.</p>
+                    </div><!-- End Section Title -->
 
-                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="service-item item-cyan position-relative">
+                    <div class="service-slider">
+                        @foreach($services as $service)
+                        <div class="service-item {{ $loop->iteration == 1 ? 'item-cyan' : ($loop->iteration == 2 ? 'item-orange' : ($loop->iteration == 3 ? 'item-teal' : 'item-red')) }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                             <div class="icon">
-                                <i class="bi bi-person-heart"></i>
+                                <i class="{{ $loop->iteration == 1 ? 'bi bi-person-heart' : ($loop->iteration == 2 ? 'bi bi-heart-pulse' : ($loop->iteration == 3 ? 'bi bi-book' : 'bi bi-briefcase')) }}"></i>
                             </div>
-                            <a href="{{ route('service-details') }}" class="stretched-link">
-
-                                <h3>Pemberdayaan Perempuan</h3>
+                            <a href="{{ route('service-details', ['id' => $service->id]) }}" class="stretched-link">
+                                <h3>{{ Str::limit($service->title, 50) }}</h3>
                             </a>
-                            <p>Dasa Wisma Kabupaten Jepara berfokus pada pemberdayaan perempuan untuk meningkatkan kesejahteraan keluarga melalui berbagai program keterampilan dan pendidikan.</p>
-                        </div>
-                    </div><!-- End Service Item -->
-
-
-                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="service-item item-orange position-relative">
-                            <div class="icon">
-                                <i class="bi bi-heart-pulse"></i>
-                            </div>
-                            <a href="{{ route('service-details') }}" class="stretched-link">
-
-                                <h3>Kesehatan Keluarga</h3>
-                            </a>
-                            <p>Kesehatan keluarga adalah prioritas kami. Program-program kami mendukung kesehatan ibu dan anak, serta pencegahan stunting di Kabupaten Jepara.</p>
-                        </div>
-                    </div><!-- End Service Item -->
-
-
-                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="service-item item-teal position-relative">
-                            <div class="icon">
-                                <i class="bi bi-book"></i>
-                            </div>
-                            <a href="{{ route('service-details') }}" class="stretched-link">
-
-                                <h3>Pendidikan Anak Usia Dini</h3>
-                            </a>
-                            <p>Melalui program pendidikan anak usia dini, kami berupaya membentuk generasi yang cerdas dan berkualitas di Kabupaten Jepara.</p>
-                        </div>
-                    </div><!-- End Service Item -->
+                            <p>{!! nl2br(e(Str::limit($service->description, 150, '...'))) !!}</p> <!-- Hanya menampilkan paragraf pertama -->
+                        </div><!-- End Service Item -->
+                        @endforeach
+                    </div>
 
 
 
-                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                        <div class="service-item item-red position-relative">
-                            <div class="icon">
-                                <i class="bi bi-briefcase"></i>
-                            </div>
-                            <a href="{{ route('service-details') }}" class="stretched-link">
-
-                                <h3>Pengembangan Ekonomi Keluarga</h3>
-                            </a>
-                            <p>Melalui program-program ekonomi kreatif, Dasa Wisma Kabupaten Jepara membantu keluarga mengembangkan usaha kecil dan menengah untuk meningkatkan kesejahteraan ekonomi.</p>
-                        </div>
-                    </div><!-- End Service Item -->
 
 
                 </div>
@@ -246,75 +222,137 @@
         <section id="features" class="features section">
 
             <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Fitur Unggulan</h2>
-                <p>Menampilkan berbagai program unggulan yang dikembangkan untuk mendukung kesejahteraan dan pemberdayaan masyarakat melalui Dasa Wisma Kabupaten Jepara.</p>
+            <!-- Section Title -->
+            <!-- Section Title -->
+            <div class="section-title">
+                <h2>Program Unggulan Kami</h2>
+                <p>Kami berkomitmen untuk meningkatkan kualitas hidup masyarakat melalui berbagai program unggulan. Program-program ini dirancang untuk mendukung</p>
+                <p>kesejahteraan dan pemberdayaan. Temukan lebih lanjut tentang layanan-layanan inovatif kami di bawah ini.</p>
             </div><!-- End Section Title -->
+
+
 
 
             <div class="container">
 
                 <div class="row gy-4 align-items-center features-item">
+                    @if($blogs->isNotEmpty())
+                    @php
+                    $blog = $blogs->first(); // Ambil artikel pertama
+                    @endphp
                     <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
-                        <img src="assets/img/fe1.jpg" class="img-fluid" alt="Dasa Wisma Kabupaten Jepara">
+                        <a href="{{ route('blog.show', $blog->id) }}">
+                            <img src="{{ asset('storage/' . $blog->image) }}" class="img-fluid" alt="{{ $blog->title }}">
+                        </a>
                     </div>
                     <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Program Pemberdayaan Perempuan</h3>
+                        <h3>
+                            <a href="{{ route('blog.show', $blog->id) }}" class="text-dark text-decoration-none">{{ Str::limit($blog->title, 50) }}</a>
+                        </h3>
                         <p class="fst-italic">
-                            Dasa Wisma Kabupaten Jepara berfokus pada peningkatan kapasitas perempuan untuk meningkatkan kesejahteraan keluarga melalui pelatihan dan pengembangan keterampilan.
+                            {{ Str::limit($blog->content, 150, '...') }}
                         </p>
                         <ul>
-                            <li><i class="bi bi-check"></i><span> Meningkatkan keterampilan perempuan untuk berperan aktif dalam usaha keluarga.</span></li>
-                            <li><i class="bi bi-check"></i> <span>Mendukung ekonomi keluarga melalui program kewirausahaan.</span></li>
-                            <li><i class="bi bi-check"></i> <span>Pelatihan usaha kecil menengah untuk meningkatkan pendapatan keluarga.</span></li>
+                            <li><i class="bi bi-check"></i> <span>{{ Str::limit($blog->content, 150, '...') }}</span></li>
                         </ul>
                     </div>
-                </div><!-- Features Item -->
+                    @else
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="100">
+                        <p>No blog posts available.</p>
+                    </div>
+                    @endif
+                </div>
+
+                <!-- Features Item -->
 
                 <div class="row gy-4 align-items-center features-item">
+                    @if($services->isNotEmpty())
+                    @php
+                    $service = $services->first(); // Ambil layanan pertama
+                    @endphp
                     <div class="col-md-5 order-1 order-md-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                        <img src="assets/img/fe2.jpg" class="img-fluid" alt="Dasa Wisma Kabupaten Jepara">
+                        <a href="{{ route('service-details', ['id' => $service->id]) }}">
+                            <img src="{{ asset('storage/' . $service->image) }}" class="img-fluid" alt="{{ $service->title }}">
+                        </a>
                     </div>
                     <div class="col-md-7 order-2 order-md-1" data-aos="fade-up" data-aos-delay="200">
-                        <h3>Program Kesehatan Keluarga</h3>
+                        <h3>
+                            <a href="{{ route('service-details', ['id' => $service->id]) }}" class="text-dark text-decoration-none">{{ Str::limit($service->title, 50) }}</a>
+                        </h3>
                         <p class="fst-italic">
-                            Melalui program kesehatan, Dasa Wisma mendukung upaya pencegahan stunting dan peningkatan kesehatan ibu dan anak di Kabupaten Jepara.
+                            {!! nl2br(e(Str::limit($service->description, 150, '...'))) !!}
                         </p>
-                        <p>
-                            Program ini bertujuan untuk meningkatkan kualitas hidup keluarga dengan fokus pada gizi yang baik, pemeriksaan kesehatan rutin, dan edukasi kesehatan bagi ibu dan anak.
-                        </p>
+                        <ul>
+                            <li><i class="bi bi-check"></i> <span> {!! nl2br(e(Str::limit($service->description, 150, '...'))) !!}</span></li>
+                            <!-- Tambahkan lebih banyak item jika diperlukan -->
+                        </ul>
+
                     </div>
-                </div><!-- Features Item -->
+                    @else
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="200">
+                        <p>No services available.</p>
+                    </div>
+                    @endif
+                </div>
+                <!-- Features Item -->
 
                 <div class="row gy-4 align-items-center features-item">
-                    <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out">
-                        <img src="assets/img/fe3.jpg" class="img-fluid" alt="Dasa Wisma Kabupaten Jepara">
+                    @if($blogs->count() > 1)
+                    @php
+                    $blog = $blogs->skip(1)->first(); // Ambil artikel kedua
+                    @endphp
+                    <div class="col-md-5 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                        <a href="{{ route('blog.show', $blog->id) }}">
+                            <img src="{{ asset('storage/' . $blog->image) }}" class="img-fluid" alt="{{ $blog->title }}">
+                        </a>
                     </div>
-                    <div class="col-md-7" data-aos="fade-up">
-                        <h3>Pendidikan Anak Usia Dini</h3>
-                        <p>Program ini bertujuan untuk memberikan pendidikan usia dini yang berkualitas kepada anak-anak di Kabupaten Jepara agar mereka tumbuh menjadi generasi yang cerdas dan mandiri.</p>
+                    <div class="col-md-7" data-aos="fade-up" data-aos-delay="200">
+                        <h3>
+                            <a href="{{ route('blog.show', $blog->id) }}" class="text-dark text-decoration-none">{{ Str::limit($blog->title, 50) }}</a>
+                        </h3>
+                        <p class="fst-italic">
+                            {{ Str::limit($blog->content, 150, '...') }}
+                        </p>
                         <ul>
-                            <li><i class="bi bi-check"></i> <span>Fasilitasi pendidikan anak usia dini melalui kelompok bermain dan PAUD.</span></li>
-                            <li><i class="bi bi-check"></i><span> Peningkatan kualitas pendidikan melalui pelatihan guru dan penyediaan fasilitas.</span></li>
-                            <li><i class="bi bi-check"></i> <span>Program pemberian gizi seimbang untuk mendukung tumbuh kembang anak.</span></li>
+                            <li><i class="bi bi-check"></i> <span>{{ Str::limit($blog->content, 150, '...') }}</span></li>
+                            <!-- Tambahkan lebih banyak item jika diperlukan -->
                         </ul>
                     </div>
-                </div><!-- Features Item -->
+                    @else
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="200">
+                        <p>No blog posts available.</p>
+                    </div>
+                    @endif
+                </div>
+                <!-- Features Item -->
 
+                <!-- Features Item -->
                 <div class="row gy-4 align-items-center features-item">
-                    <div class="col-md-5 order-1 order-md-2 d-flex align-items-center" data-aos="zoom-out">
-                        <img src="assets/img/fe4.jpg" class="img-fluid" alt="Dasa Wisma Kabupaten Jepara">
+                    @if($secondService)
+                    <div class="col-md-5 order-1 order-md-2 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                        <a href="{{ route('service-details', ['id' => $secondService->id]) }}">
+                            <img src="{{ asset('storage/' . $secondService->image) }}" class="img-fluid" alt="{{ $secondService->title }}">
+                        </a>
                     </div>
-                    <div class="col-md-7 order-2 order-md-1" data-aos="fade-up">
-                        <h3>Pengembangan Ekonomi Kreatif</h3>
+                    <div class="col-md-7" data-aos="fade-up" data-aos-delay="200">
+                        <h3>
+                            <a href="{{ route('service-details', ['id' => $secondService->id]) }}" class="text-dark text-decoration-none">{{ Str::limit($secondService->title, 50) }}</a>
+                        </h3>
                         <p class="fst-italic">
-                            Dasa Wisma Kabupaten Jepara turut mendukung pengembangan ekonomi kreatif sebagai salah satu cara meningkatkan pendapatan keluarga.
+                            {{ Str::limit($secondService->description, 150, '...') }}
                         </p>
-                        <p>
-                            Program ini melibatkan pelatihan keterampilan seperti kerajinan tangan, kuliner, dan produk lokal lainnya untuk membantu keluarga menciptakan peluang usaha baru.
-                        </p>
+                        <ul>
+                            <li><i class="bi bi-check"></i> <span>{{ Str::limit($secondService->description, 150, '...') }}</span></li>
+                            <!-- Tambahkan lebih banyak item jika diperlukan -->
+                        </ul>
                     </div>
-                </div><!-- Features Item -->
+                    @else
+                    <div class="col-md-12" data-aos="fade-up" data-aos-delay="200">
+                        <p>No services available.</p>
+                    </div>
+                    @endif
+                </div>
+
 
             </div>
 
@@ -354,27 +392,6 @@
 
     <footer id="footer" class="footer dark-background">
 
-        <!--    <div class="footer-newsletter">
-            <div class="container">
-                <div class="row justify-content-center text-center">
-                    <div class="col-lg-6">
-                        <h4>Bergabunglah dengan Newsletter Kami</h4>
-                        <p>Daftarkan diri Anda untuk mendapatkan berita terbaru tentang program dan kegiatan Dasa Wisma Kabupaten Jepara!</p>
-                        <form action="forms/newsletter.php" method="post" class="php-email-form">
-                            <div class="newsletter-form">
-                                <input type="email" name="email" placeholder="Masukkan email Anda">
-                                <input type="submit" value="Berlangganan">
-                            </div>
-                            <div class="loading">Sedang memuat...</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">Permintaan berlangganan Anda telah terkirim. Terima kasih!</div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
--->
-
         <div class="container footer-top">
             <div class="row gy-4">
                 <div class="col-lg-4 col-md-6 footer-about">
@@ -393,10 +410,10 @@
                 <div class="col-lg-2 col-md-3 footer-links">
                     <h4>Layanan Kami</h4>
                     <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Home</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">About us</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Services</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Contact</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
                     </ul>
                 </div>
 
@@ -415,20 +432,24 @@
                     <h4>Ikuti Kami</h4>
                     <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
                     <div class="social-links d-flex">
-                        <a href=""><i class="bi bi-twitter-x"></i></a>
-                        <a href=""><i class="bi bi-facebook"></i></a>
-                        <a href=""><i class="bi bi-instagram"></i></a>
-                        <a href=""><i class="bi bi-linkedin"></i></a>
+                        <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+                        <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+                        <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">Diskominfo Jepara</strong> <span>All Rights Reserved</span></p>
-            <div class="credits">
-                Designed by <a href="https://github.com/Romadhoni04">Diskominfo Jepara</a>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
+                    </div>
+                </div>
             </div>
         </div>
 

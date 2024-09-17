@@ -27,6 +27,18 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-6HV0L5NBCE');
+  </script>
 
 </head>
 
@@ -44,15 +56,14 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <a href="{{ url('/') }}">Home</a>
-
-          <li><a href="{{ route('about') }}" class="active">About</a></li>
-          <li><a href="{{ route('services') }}">Services</a></li>
-          <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
-          <li><a href="{{ route('team') }}">Team</a></li>
+          <li><a href="{{ url('/') }}">Beranda</a></li>
+          <li><a href="{{ route('about') }}" class="active">Tentang</a></li>
+          <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+          <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
           <li><a href="{{ route('blog.index') }}">Blog</a></li>
-          <li><a href="{{ url('contact') }}">Contact</a></li>
-          <li><a href="{{ url('login') }}">Login</a></li>
+          <li><a href="{{ url('contact') }}">Kontak</a></li>
+          <li><a href="{{ url('login') }}">Masuk</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -82,24 +93,24 @@
       <div class="container">
 
         <div class="row gy-4">
+          @foreach($abouts as $about)
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/dasa-wisma.jpg" class="img-fluid" alt="Kegiatan Dasa Wisma Kabupaten Jepara">
-            <!--  <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a> --->
+            <img src="{{ asset('images/' . $about->image) }}" class="img-fluid" alt="{{ $about->title }}">
+            <!-- Edit button 
+            <a href="{{ route('superadmin.about.edit', $about->id) }}" class="btn btn-primary">Edit</a>
+            <!-- Delete button 
+            <form action="{{ route('superadmin.about.destroy', $about->id) }}" method="POST" style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+-->
           </div>
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
-            <h3>Komitmen Kami terhadap Kesejahteraan Masyarakat</h3>
-            <p class="fst-italic">
-              Dasa Wisma Kabupaten Jepara berfokus pada peningkatan kualitas hidup masyarakat melalui berbagai inisiatif sosial. Kami bekerja sama dengan berbagai pihak untuk mencapai tujuan ini.
-            </p>
-            <ul>
-              <li><i class="bi bi-check2-all"></i> <span>Program pelatihan dan pemberdayaan masyarakat.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Pengelolaan bantuan sosial dan kesehatan.</span></li>
-              <li><i class="bi bi-check2-all"></i> <span>Inisiatif lingkungan dan kebersihan untuk komunitas.</span></li>
-            </ul>
-            <p>
-              Kami percaya bahwa dengan kerjasama dan dedikasi, kita dapat mencapai perubahan positif dan memberikan dampak yang signifikan bagi masyarakat Kabupaten Jepara. Dukungan dan partisipasi Anda sangat berarti bagi kami.
-            </p>
+            <h3>{{ $about->title }}</h3>
+            <p class="fst-italic">{!! nl2br(e($about->content)) !!}</p>
           </div>
+          @endforeach
         </div>
 
 
@@ -396,23 +407,6 @@
 
   <footer id="footer" class="footer dark-background">
 
-    <!--  <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center text-center">
-          <div class="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="forms/newsletter.php" method="post" class="php-email-form">
-              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
@@ -422,56 +416,57 @@
           <div class="footer-contact pt-3">
             <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
             <p>Jl.Kartini No.1 Jepara.</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+0291591492</span></p>
+            <p class="mt-3"><strong>Phone:</strong> <span>0291591492</span></p>
             <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
+
           </div>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
+          <h4>Layanan Kami</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Contact</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Layanan Kami</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/">Website Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/">Wadul Bupati Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/">Diskominfo Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/">Samudra Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/" target="_blank" rel="noopener noreferrer">Website Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/" target="_blank" rel="noopener noreferrer">Wadul Bupati Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/" target="_blank" rel="noopener noreferrer">Diskominfo Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/" target="_blank" rel="noopener noreferrer">Samudra Jepara</a></li>
           </ul>
+
         </div>
 
         <div class="col-lg-4 col-md-12">
           <h4>Ikuti Kami</h4>
           <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
           <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+            <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
           </div>
         </div>
 
       </div>
     </div>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Diskominfo Jepara</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://github.com/Romadhoni04">Diskominfo Jepara</a>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center">
+            <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
+          </div>
+        </div>
       </div>
     </div>
-
 
   </footer>
 

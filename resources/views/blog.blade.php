@@ -26,6 +26,19 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-6HV0L5NBCE');
+  </script>
+
 </head>
 
 <body class="blog-page">
@@ -42,7 +55,7 @@
           <li><a href="{{ route('about') }}">Tentang</a></li>
           <li><a href="{{ route('services') }}">Layanan</a></li>
           <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
-          <li><a href="{{ route('team') }}">Tim</a></li>
+          <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
           <li><a href="{{ route('blog.index') }}" class="active">Blog</a></li>
           <li><a href="{{ url('contact') }}">Kontak</a></li>
           <li><a href="{{ url('login') }}">Masuk</a></li>
@@ -117,6 +130,7 @@
   </main>
 
   <footer id="footer" class="footer dark-background">
+
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
@@ -135,10 +149,10 @@
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Layanan Kami</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Contact</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
           </ul>
         </div>
 
@@ -157,20 +171,24 @@
           <h4>Ikuti Kami</h4>
           <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
           <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+            <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
           </div>
         </div>
 
       </div>
     </div>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Diskominfo Jepara</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        Designed by <a href="https://github.com/Romadhoni04">Diskominfo Jepara</a>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center">
+            <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
+          </div>
+        </div>
       </div>
     </div>
 

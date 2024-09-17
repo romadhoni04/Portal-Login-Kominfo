@@ -28,6 +28,28 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <!-- jQuery (required for Isotope) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Isotope -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/isotope/3.0.6/isotope.pkgd.min.js"></script>
+
+  <!-- GLightbox (for lightbox functionality) -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.0.8/dist/js/glightbox.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-6HV0L5NBCE');
+  </script>
+
+
 </head>
 
 <body class="portfolio-page">
@@ -44,15 +66,14 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <a href="{{ url('/') }}">Home</a>
-
-          <li><a href="{{ route('about') }}">About</a></li>
-          <li><a href="{{ route('services') }}">Services</a></li>
-          <li><a href="{{ route('portfolio') }}" class="active">Portfolio</a></li>
-          <li><a href="{{ route('team') }}">Team</a></li>
+          <li><a href="{{ url('/') }}">Beranda</a></li>
+          <li><a href="{{ route('about') }}">Tentang</a></li>
+          <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li><a href="{{ route('portfolio') }}" class="active">Portofolio</a></li>
+          <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
           <li><a href="{{ route('blog.index') }}">Blog</a></li>
-          <li><a href="{{ url('contact') }}">Contact</a></li>
-          <li><a href="{{ url('login') }}">Login</a></li>
+          <li><a href="{{ url('contact') }}">Kontak</a></li>
+          <li><a href="{{ url('login') }}">Masuk</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -82,269 +103,161 @@
 
       <div class="container">
 
+        <!-- Portfolio Items -->
+        <!-- Portfolio Items -->
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">Semua</li>
-            <li data-filter=".filter-program">Program</li>
-            <li data-filter=".filter-layanan">Layanan</li>
-            <li data-filter=".filter-kegiatan">Kegiatan</li>
-            <li data-filter=".filter-mitra">Mitra</li>
-          </ul><!-- End Portfolio Filters -->
+            <li data-filter="*" class="filter-active">Galeri</li>
+          </ul>
+          <!--  <li data-filter=".filter-app">App</li>
+            <li data-filter=".filter-product">Product</li>
+            <li data-filter=".filter-branding">Branding</li>
+            <li data-filter=".filter-books">Books</li>
+           End Portfolio Filters -->
 
 
+          <!-- Portfolio Items -->
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+            @foreach($portfolios as $portfolio)
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-program">
+            @foreach($portfolio->images as $image)
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item {{ $portfolio->category }}">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
+                <img src="{{ asset('storage/' . $image->image_url) }}" class="img-fluid" alt="{{ $portfolio->title }}">
                 <div class="portfolio-info">
-                  <h4>Program 1</h4>
-                  <p>Detail program yang dilakukan oleh Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/app-1.jpg" title="Program 1" data-gallery="portfolio-gallery-program" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <h4>{{ $portfolio->title }}</h4>
+                  <p>{{ $portfolio->description }}</p>
+                  <a href="{{ asset('storage/' . $image->image_url) }}" title="{{ $portfolio->title }}" data-gallery="portfolio-gallery-{{ $portfolio->category }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                  <a href="{{ route('portfolio-details', ['id' => $portfolio->id]) }}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-layanan">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Layanan 1</h4>
-                  <p>Informasi tentang layanan yang tersedia di Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/product-1.jpg" title="Layanan 1" data-gallery="portfolio-gallery-layanan" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-kegiatan">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Kegiatan 1</h4>
-                  <p>Deskripsi kegiatan yang dilaksanakan oleh Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/branding-1.jpg" title="Kegiatan 1" data-gallery="portfolio-gallery-kegiatan" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mitra">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Mitra 1</h4>
-                  <p>Informasi mengenai mitra yang bekerja sama dengan Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/books-1.jpg" title="Mitra 1" data-gallery="portfolio-gallery-mitra" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-program">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Program 2</h4>
-                  <p>Detail program yang dilakukan oleh Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/app-2.jpg" title="Program 2" data-gallery="portfolio-gallery-program" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-layanan">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Layanan 2</h4>
-                  <p>Informasi tentang layanan yang tersedia di Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/product-2.jpg" title="Layanan 2" data-gallery="portfolio-gallery-layanan" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-kegiatan">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/kegiatan-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Kegiatan 2</h4>
-                  <p>Deskripsi kegiatan yang dilaksanakan oleh Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/kegiatan-2.jpg" title="Kegiatan 2" data-gallery="portfolio-gallery-kegiatan" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mitra">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/mitra-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Mitra 2</h4>
-                  <p>Informasi mengenai mitra yang bekerja sama dengan Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/mitra-2.jpg" title="Mitra 2" data-gallery="portfolio-gallery-mitra" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-program">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/program-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Program 3</h4>
-                  <p>Detail program yang dilakukan oleh Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/program-3.jpg" title="Program 3" data-gallery="portfolio-gallery-program" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-layanan">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/layanan-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Layanan 3</h4>
-                  <p>Informasi tentang layanan yang tersedia di Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/layanan-3.jpg" title="Layanan 3" data-gallery="portfolio-gallery-layanan" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-kegiatan">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/kegiatan-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Kegiatan 3</h4>
-                  <p>Deskripsi kegiatan yang dilaksanakan oleh Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/kegiatan-3.jpg" title="Kegiatan 3" data-gallery="portfolio-gallery-kegiatan" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mitra">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/mitra-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Mitra 3</h4>
-                  <p>Informasi mengenai mitra yang bekerja sama dengan Dasa Wisma Kabupaten Jepara</p>
-                  <a href="assets/img/portfolio/mitra-3.jpg" title="Mitra 3" data-gallery="portfolio-gallery-mitra" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('service-details') }}" title="Detail Lebih Lanjut" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-
-          </div>
+            @endforeach
+            @endforeach
+          </div><!-- End Portfolio Container -->
 
         </div>
 
-    </section><!-- /Portfolio Section -->
+        <!-- End Portfolio Items -->
+        <script>
+          $(document).ready(function() {
+            // Initialize Isotope
+            var $grid = $('.isotope-container').isotope({
+              itemSelector: '.portfolio-item',
+              layoutMode: 'masonry'
+            });
 
-  </main>
+            // Filter items on button click
+            $('.portfolio-filters').on('click', 'li', function() {
+              var filterValue = $(this).attr('data-filter');
+              $grid.isotope({
+                filter: filterValue
+              });
 
-  <footer id="footer" class="footer dark-background">
+              // Update active class
+              $('.portfolio-filters li').removeClass('filter-active');
+              $(this).addClass('filter-active');
+            });
 
-    <!--  <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center text-center">
-          <div class="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="forms/newsletter.php" method="post" class="php-email-form">
-              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-            </form>
+            // Initialize GLightbox
+            const lightbox = GLightbox({
+              selector: '.glightbox'
+            });
+          });
+        </script>
+        <!-- /Portfolio Section -->
+        <!-- End Portfolio Items -->
+      </div>
+    </section
+
+
+      </main>
+
+    <footer id="footer" class="footer dark-background">
+
+      <div class="container footer-top">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <a href="{{ url('/') }}" class="d-flex align-items-center">
+              <span class="sitename">Dasa Wisma Kabupaten Jepara</span>
+            </a>
+            <div class="footer-contact pt-3">
+              <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
+              <p>Jl.Kartini No.1 Jepara.</p>
+              <p class="mt-3"><strong>Phone:</strong> <span>0291591492</span></p>
+              <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
+
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Layanan Kami</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Layanan Kami</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/" target="_blank" rel="noopener noreferrer">Website Jepara</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/" target="_blank" rel="noopener noreferrer">Wadul Bupati Jepara</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/" target="_blank" rel="noopener noreferrer">Diskominfo Jepara</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/" target="_blank" rel="noopener noreferrer">Samudra Jepara</a></li>
+            </ul>
+
+          </div>
+
+          <div class="col-lg-4 col-md-12">
+            <h4>Ikuti Kami</h4>
+            <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
+            <div class="social-links d-flex">
+              <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+              <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+              <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+              <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
+            </div>
           </div>
         </div>
       </div>
-    </div> -->
 
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="{{ url('/') }}" class="d-flex align-items-center">
-            <span class="sitename">Dasa Wisma Kabupaten Jepara</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
-            <p>Jl.Kartini No.1 Jepara.</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+0291591492</span></p>
-            <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
-          </div>
-        </div>
+    </footer>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Contact</a></li>
-          </ul>
-        </div>
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Layanan Kami</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/">Website Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/">Wadul Bupati Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/">Diskominfo Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/">Samudra Jepara</a></li>
-          </ul>
-        </div>
+    <!-- Preloader -->
+    <div id="preloader"></div>
 
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-        <div class="col-lg-4 col-md-12">
-          <h4>Ikuti Kami</h4>
-          <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
-          <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Diskominfo Jepara</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-
-        Designed by <a href="https://github.com/Romadhoni04">Diskominfo Jepara</a>
-      </div>
-    </div>
-
-
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
 
 </body>
 

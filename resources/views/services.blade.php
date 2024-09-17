@@ -26,6 +26,19 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-6HV0L5NBCE');
+  </script>
+
 </head>
 
 
@@ -43,15 +56,14 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <a href="{{ url('/') }}">Home</a>
-
-          <li><a href="{{ route('about') }}">About</a></li>
-          <li><a href="{{ route('services') }}" class="active">Services</a></li>
-          <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
-          <li><a href="{{ route('team') }}">Team</a></li>
+          <li><a href="{{ url('/') }}">Beranda</a></li>
+          <li><a href="{{ route('about') }}">Tentang</a></li>
+          <li><a href="{{ route('services') }}" class="active">Layanan</a></li>
+          <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+          <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
           <li><a href="{{ route('blog.index') }}">Blog</a></li>
-          <li><a href="{{ url('contact') }}">Contact</a></li>
-          <li><a href="{{ url('login') }}">Login</a></li>
+          <li><a href="{{ url('contact') }}">Kontak</a></li>
+          <li><a href="{{ url('login') }}">Masuk</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -83,54 +95,54 @@
 
         <div class="row gy-4">
 
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <!-- <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item item-cyan position-relative">
               <div class="icon">
-                <i class="bi bi-heart-pulse"></i> <!-- Mengganti ikon untuk layanan kesehatan -->
+                <i class="bi bi-heart-pulse"></i> <! Mengganti ikon untuk layanan kesehatan 
               </div>
-              <a href="{{ route('service-details') }}" class="stretched-link">
+              <a href="#" class="stretched-link">
                 <h3>Layanan Kesehatan</h3>
               </a>
               <p>Memberikan dukungan kesehatan yang komprehensif untuk meningkatkan kesejahteraan masyarakat. Termasuk layanan medis, konsultasi, dan perawatan kesehatan dasar.</p>
             </div>
           </div><!-- End Service Item -->
 
-
+          <!--
           <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item item-orange position-relative">
               <div class="icon">
-                <i class="bi bi-tools"></i> <!-- Mengganti ikon untuk pelatihan keterampilan -->
+                <i class="bi bi-tools"></i> <!-Mengganti ikon untuk pelatihan keterampilan 
               </div>
-              <a href="{{ route('service-details') }}" class="stretched-link">
+              <a href="#" class="stretched-link">
                 <h3>Pelatihan Keterampilan</h3>
               </a>
               <p>Menyediakan berbagai pelatihan keterampilan untuk meningkatkan kemampuan warga. Termasuk pelatihan teknis, kewirausahaan, dan keterampilan praktis lainnya.</p>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- End Service Item 
 
           <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item item-teal position-relative">
               <div class="icon">
-                <i class="bi bi-book"></i> <!-- Mengganti ikon untuk pengembangan pendidikan -->
+                <i class="bi bi-book"></i> <!- Mengganti ikon untuk pengembangan pendidikan 
               </div>
-              <a href="{{ route('service-details') }}" class="stretched-link">
+              <a href="#" class="stretched-link">
                 <h3>Pengembangan Pendidikan</h3>
               </a>
               <p>Program-program untuk meningkatkan kualitas pendidikan di Kabupaten Jepara. Meliputi pengadaan bahan ajar, pelatihan untuk guru, dan dukungan untuk sekolah-sekolah.</p>
             </div>
-          </div><!-- End Service Item -->
+          </div><!-- End Service Item 
 
 
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+         <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item item-red position-relative">
               <div class="icon">
-                <i class="bi bi-people"></i> <!-- Mengganti ikon untuk pemberdayaan masyarakat -->
+                <i class="bi bi-people"></i> <!-- Mengganti ikon untuk pemberdayaan masyarakat 
               </div>
-              <a href="{{ route('service-details') }}" class="stretched-link">
+              <a href="#" class="stretched-link">
                 <h3>Program Pemberdayaan Masyarakat</h3>
               </a>
               <p>Inisiatif untuk memberdayakan masyarakat dengan berbagai program sosial dan ekonomi. Fokus pada peningkatan kualitas hidup melalui bantuan langsung dan pengembangan komunitas.</p>
-              <a href="{{ route('service-details') }}" class="stretched-link"></a>
+              <a href="#" class="stretched-link"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -141,76 +153,31 @@
 
     </section><!-- /Featured Services Section -->
 
-    <!-- Services Section -->
     <section id="services" class="services section">
-
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
         <div class="row gy-4">
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="200">
+          @foreach($services as $service)
+          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration * 100 + 100 }}">
             <div class="service-item position-relative">
-              <div class="img">
-                <img src="assets/img/services-1.jpg" class="img-fluid" alt="Layanan 1">
+              <div class="img text-center mb-3">
+                <!-- Atur gambar agar selalu rapi dan tidak terlalu besar -->
+                <img src="{{ asset('storage/' . $service->image) }}" class="img-fluid services-img" alt="{{ $service->title }}" style="max-width: 100%; height: auto; max-height: 300px; object-fit: cover; border-radius: 10px;">
               </div>
               <div class="details">
-                <a href="{{ route('service-details') }}" class="stretched-link">
-                  <h3>Pendidikan dan Pelatihan</h3>
+                <!-- Batasi panjang judul dan deskripsi -->
+                <a href="{{ route('service-details', ['id' => $service->id]) }}" class="stretched-link">
+                  <h3>{{ Str::limit($service->title, 50) }}</h3>
                 </a>
-                <p>Program pendidikan dan pelatihan untuk meningkatkan keterampilan masyarakat dalam berbagai bidang, termasuk keahlian teknis dan manajerial.</p>
+                <p>{{ Str::limit($service->description, 100, '...') }}</p>
               </div>
             </div>
           </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <div class="img">
-                <img src="assets/img/services-2.jpg" class="img-fluid" alt="Layanan 2">
-              </div>
-              <div class="details">
-                <a href="{{ route('service-details') }}" class="stretched-link">
-                  <h3>Kesehatan Masyarakat</h3>
-                </a>
-                <p>Inisiatif untuk meningkatkan kesehatan masyarakat melalui layanan kesehatan, pemeriksaan rutin, dan program pencegahan penyakit.</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="400">
-            <div class="service-item position-relative">
-              <div class="img">
-                <img src="assets/img/services-3.jpg" class="img-fluid" alt="Layanan 3">
-              </div>
-              <div class="details">
-                <a href="{{ route('service-details') }}" class="stretched-link">
-                  <h3>Pembangunan Infrastruktur</h3>
-                </a>
-                <p>Proyek pembangunan infrastruktur untuk meningkatkan fasilitas publik dan aksesibilitas di wilayah kabupaten, termasuk perbaikan jalan dan fasilitas umum.</p>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="500">
-            <div class="service-item position-relative">
-              <div class="img">
-                <img src="assets/img/services-4.jpg" class="img-fluid" alt="Layanan 4">
-              </div>
-              <div class="details">
-                <a href="{{ route('service-details') }}" class="stretched-link">
-                  <h3>Program Sosial dan Ekonomi</h3>
-                </a>
-                <p>Program untuk meningkatkan kesejahteraan sosial dan ekonomi masyarakat, termasuk bantuan sosial dan pengembangan usaha kecil dan menengah.</p>
-                <a href="{{ route('service-details') }}" class="stretched-link"></a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-
+          @endforeach
         </div>
-
       </div>
-
     </section><!-- /Services Section -->
+
+
 
     <!-- Pricing Section 
     <section id="pricing" class="pricing section">
@@ -280,23 +247,6 @@
 
   <footer id="footer" class="footer dark-background">
 
-    <!-- <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center text-center">
-          <div class="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="forms/newsletter.php" method="post" class="php-email-form">
-              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
@@ -306,53 +256,55 @@
           <div class="footer-contact pt-3">
             <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
             <p>Jl.Kartini No.1 Jepara.</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+0291591492</span></p>
+            <p class="mt-3"><strong>Phone:</strong> <span>0291591492</span></p>
             <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
+
           </div>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
+          <h4>Layanan Kami</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Home</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">About us</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Services</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Contact</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
           </ul>
         </div>
 
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Layanan Kami</h4>
           <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/">Website Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/">Wadul Bupati Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/">Diskominfo Jepara</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/">Samudra Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/" target="_blank" rel="noopener noreferrer">Website Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/" target="_blank" rel="noopener noreferrer">Wadul Bupati Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/" target="_blank" rel="noopener noreferrer">Diskominfo Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/" target="_blank" rel="noopener noreferrer">Samudra Jepara</a></li>
           </ul>
+
         </div>
 
         <div class="col-lg-4 col-md-12">
           <h4>Ikuti Kami</h4>
           <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
           <div class="social-links d-flex">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+            <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
           </div>
         </div>
 
       </div>
     </div>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Diskominfo Jepara</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://github.com/Romadhoni04">Diskominfo Jepara</a>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center">
+            <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
+          </div>
+        </div>
       </div>
     </div>
 

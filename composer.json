@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "monolog/monolog": "^3.7",
+        "spatie/laravel-analytics": "^5.4",
         "spatie/laravel-permission": "^6.9",
         "symfony/http-client": "^6.1",
         "symfony/mailgun-mailer": "^6.1",

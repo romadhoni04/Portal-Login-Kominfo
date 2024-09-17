@@ -26,6 +26,19 @@
 
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6HV0L5NBCE');
+    </script>
+
 
 </head>
 
@@ -43,7 +56,7 @@
                     <li><a href="{{ route('about') }}">Tentang</a></li>
                     <li><a href="{{ route('services') }}">Layanan</a></li>
                     <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
-                    <li><a href="{{ route('team') }}">Tim</a></li>
+                    <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
                     <li><a href="{{ route('blog.index', ['id' => 1]) }}" class="active">Blog</a></li>
                     <li><a href="{{ url('contact') }}">Kontak</a></li>
                     <li><a href="{{ url('login') }}">Masuk</a></li>
@@ -167,6 +180,7 @@
     </main>
 
     <footer id="footer" class="footer dark-background">
+
         <div class="container footer-top">
             <div class="row gy-4">
                 <div class="col-lg-4 col-md-6 footer-about">
@@ -176,53 +190,57 @@
                     <div class="footer-contact pt-3">
                         <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
                         <p>Jl.Kartini No.1 Jepara.</p>
-                        <p class="mt-3"><strong>Telepon:</strong> <span>+0291591492</span></p>
+                        <p class="mt-3"><strong>Phone:</strong> <span>0291591492</span></p>
                         <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
+
                     </div>
                 </div>
 
                 <div class="col-lg-2 col-md-3 footer-links">
-                    <h4>Link Berguna</h4>
+                    <h4>Layanan Kami</h4>
                     <ul>
                         <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang Kami</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
                         <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Syarat dan Ketentuan</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-2 col-md-3 footer-links">
                     <h4>Layanan Kami</h4>
                     <ul>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Desain Web</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Pengembangan Web</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Manajemen Produk</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="#">Pemasaran</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/" target="_blank" rel="noopener noreferrer">Website Jepara</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/" target="_blank" rel="noopener noreferrer">Wadul Bupati Jepara</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/" target="_blank" rel="noopener noreferrer">Diskominfo Jepara</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/" target="_blank" rel="noopener noreferrer">Samudra Jepara</a></li>
                     </ul>
+
                 </div>
 
                 <div class="col-lg-4 col-md-12">
                     <h4>Ikuti Kami</h4>
                     <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
                     <div class="social-links d-flex">
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+                        <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+                        <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
                     </div>
                 </div>
+
             </div>
         </div>
+
         <div class="footer-bottom">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
-                        <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="#" class="custom-link">Diskominfo Jepara</a>.</p>
+                        <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
                     </div>
                 </div>
             </div>
         </div>
-
 
     </footer>
 

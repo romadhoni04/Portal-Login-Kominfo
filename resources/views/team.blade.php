@@ -43,15 +43,14 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <a href="{{ url('/') }}">Home</a>
-
-          <li><a href="{{ route('about') }}">About</a></li>
-          <li><a href="{{ route('services') }}">Services</a></li>
-          <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
-          <li><a href="{{ route('team') }}" class="active">Team</a></li>
-          <li><a href="{{ route('blog.index') }}">Blog</a></li>
-          <li><a href="{{ url('contact') }}">Contact</a></li>
-          <li><a href="{{ url('login') }}">Login</a></li>
+          <li><a href="{{ url('/') }}">Beranda</a></li>
+          <li><a href="{{ route('about') }}">Tentang</a></li>
+          <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+          <li><a href="{{ route('team') }}">Tim</a></li>
+          <li><a href="{{ route('blog.index') }}" class="active">Blog</a></li>
+          <li><a href="{{ url('contact') }}">Kontak</a></li>
+          <li><a href="{{ url('login') }}">Masuk</a></li>
         </ul>
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

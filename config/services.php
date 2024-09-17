@@ -13,6 +13,11 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'google' => [
+        'analytics' => [
+            'PROPERTY_ID' => env('GOOGLE_ANALYTICS_PROPERTY_ID', 'G-6HV0L5NBCE'),
+        ],
+    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

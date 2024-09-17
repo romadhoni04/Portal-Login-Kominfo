@@ -1080,6 +1080,11 @@ section,
   transition: 0.3s;
   border-radius: 5px;
   border: 1px solid transparent;
+  flex: 0 0 auto;
+  width: 300px; /* Atur lebar item sesuai kebutuhan */
+  margin-right: 15px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;  
 }
 
 .featured-services .service-item .icon {
@@ -2751,4 +2756,37 @@ a:hover {
 
 .custom-link:hover {
   color: white;        /* Menjaga warna putih pada hover */
+}
+
+.service-slider {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
+}
+
+.welcome-item {
+  flex: 0 0 auto;
+  width: 300px; /* Atur lebar item sesuai kebutuhan */
+  margin-right: 15px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+}
+
+.welcome-item:hover {
+  transform: scale(1.05);
+}
+
+.service-slider::-webkit-scrollbar {
+  display: none; /* Menyembunyikan scrollbar pada WebKit-based browsers */
+}
+
+.custom-title-link {
+  color: inherit; /* Mengambil warna dari elemen induk */
+  text-decoration: none; /* Menghapus garis bawah */
+}
+
+.custom-title-link:hover {
+  color: inherit; /* Warna tetap sama saat hover */
+  text-decoration: underline; /* Tambahkan garis bawah saat hover jika diinginkan */
 }

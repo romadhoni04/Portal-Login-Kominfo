@@ -22,12 +22,17 @@ use App\Http\Controllers\SuperAdminSettingsController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SuperAdminBlogController;
+use App\Http\Controllers\SuperAdminServiceController;
+use App\Http\Controllers\PortofolioController;
+use App\Http\Controllers\SuperAdminPortofolioController;
+use App\Http\Controllers\SuperAdminAboutController;
 // routes/web.php
 
 
@@ -194,14 +199,21 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
+// routes/web.php
+Route::get('/', [WelcomeController::class, 'welcome']); // Route untuk welcome page
+
+
+// routes/web.php
+Route::get('/', [WelcomeController::class, 'welcome']); // Pastikan route ini mengarah ke controller yang tepat
+
 // Rute untuk halaman beranda (Home)
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+// Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 // Rute untuk halaman About
 Route::get('about', [AboutController::class, 'index'])->name('about');
 
 // Rute untuk halaman Services
-Route::get('services', [ServicesController::class, 'index'])->name('services');
+//Route::get('services', [ServicesController::class, 'index'])->name('services');
 
 // Rute untuk halaman Portfolio
 Route::get('portfolio', [PortfolioController::class, 'index'])->name('portfolio');
@@ -230,6 +242,10 @@ Route::get('/service-details', function () {
 Route::get('/blog-details', function () {
     return view('blog-details');
 })->name('blog-details');
+Route::get('/portfolio-details', function () {
+    return view('portfolio-details');
+})->name('portfolio-details');
+
 
 
 
@@ -320,3 +336,54 @@ Route::get('/blog/{id}', [SuperAdminBlogController::class, 'show'])->name('blog.
 Route::get('blog-details/{id}', [BlogController::class, 'show'])->name('blog-details');
 Route::get('blog/{id}', [SuperAdminBlogController::class, 'show'])->name('blog.show');
 Route::get('blog/{id}', [BlogController::class, 'show'])->name('blog.show');
+
+
+
+Route::resource('superadmin/services', SuperAdminServiceController::class)->middleware('auth:superadmin');
+Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
+Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
+// Route untuk menampilkan detail layanan
+Route::get('services/{id}', [SuperAdminServiceController::class, 'show'])->name('service-details');
+// Route untuk menampilkan detail layanan
+Route::get('services/{id}', [SuperAdminServiceController::class, 'show'])->name('service-details');
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
+// web.php
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
+
+Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::resource('services', SuperAdminServiceController::class);
+});
+
+
+
+Route::get('/portofolio-details/{id}', [PortofolioController::class, 'show'])->name('portofolio-details');
+Route::get('/portofolio/{id}', [PortofolioController::class, 'show'])->name('portfolio-details');
+// SuperAdmin Portofolio Routes
+Route::prefix('superadmin')->name('superadmin.')->middleware('auth', 'isSuperAdmin')->group(function () {
+    Route::resource('portofolio', SuperAdminPortofolioController::class);
+});
+Route::prefix('superadmin')->name('superadmin.')->middleware(['auth', 'isSuperAdmin'])->group(function () {
+    Route::resource('portofolio', SuperAdminPortofolioController::class);
+});
+Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::resource('portofolio', SuperAdminPortofolioController::class);
+});
+Route::get('/portfolio', [SuperAdminPortofolioController::class, 'showAllPortfolios'])->name('portfolio');
+Route::get('/portfolio/{id}', [PortofolioController::class, 'show'])->name('portfolio.show');
+Route::get('/portfolio/{id}', [PortofolioController::class, 'show'])->name('portfolio.show');
+Route::resource('portfolios', SuperAdminPortofolioController::class);
+
+
+// Rute untuk resource About
+Route::prefix('superadmin')->middleware(['auth', 'is_superadmin'])->group(function () {
+    Route::resource('about', SuperAdminAboutController::class);
+});
+Route::middleware(['auth', 'is_superadmin'])->prefix('superadmin')->group(function () {
+    Route::resource('about', SuperAdminAboutController::class);
+});
+Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::resource('about', SuperAdminAboutController::class);
+});
+Route::get('/about', [AboutController::class, 'index'])->name('about');
