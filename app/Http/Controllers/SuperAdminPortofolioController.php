@@ -44,12 +44,11 @@ class SuperAdminPortofolioController extends Controller
             'client' => 'required|string|max:255',
             'project_date' => 'required|date',
             'project_url' => 'required|url',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048', // Validasi untuk setiap gambar
         ]);
 
         // Membuat portofolio baru
         $portfolio = Portofolio::create($request->except('images'));
-        $portfolio = Portofolio::create($request->all());
 
         // Menyimpan gambar jika ada
         if ($request->hasFile('images')) {
@@ -77,33 +76,42 @@ class SuperAdminPortofolioController extends Controller
     // Mengupdate portofolio yang ada
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $portfolio = Portofolio::findOrFail($id);
+
+        $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required',
             'category' => 'required|string|max:255',
             'client' => 'required|string|max:255',
             'project_date' => 'required|date',
-            'project_url' => 'required|url',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'project_url' => 'nullable|url',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // Mengupdate portofolio
-        $portfolio = Portofolio::findOrFail($id);
-        $portfolio->update($request->except('images'));
+        // Update data text
+        $portfolio->update($validatedData);
 
-        // Menyimpan gambar baru jika ada
+        // Jika ada gambar baru yang diupload
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('portfolios', 'public');
-                PortofolioImage::create([
-                    'portofolio_id' => $portfolio->id,
-                    'image_url' => $imagePath,
-                ]);
+            // Hapus gambar lama
+            foreach ($portfolio->images as $image) {
+                // Hapus file fisik dari storage
+                Storage::delete('public/' . $image->image_url);
+
+                // Hapus record gambar dari database
+                $image->delete();
+            }
+
+            // Simpan gambar baru
+            foreach ($request->file('images') as $file) {
+                $imagePath = $file->store('portfolios', 'public');
+                $portfolio->images()->create(['image_url' => $imagePath]);
             }
         }
 
-        return redirect()->route('superadmin.portofolio.index')->with('success', 'Portofolio updated successfully.');
+        return redirect()->route('superadmin.portofolio.index')->with('success', 'Portofolio berhasil diperbarui.');
     }
+
 
     // Menghapus portofolio
     public function destroy($id)

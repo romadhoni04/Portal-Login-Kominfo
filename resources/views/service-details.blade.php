@@ -106,6 +106,32 @@
             </div>
             <!-- End Services List -->
 
+            <!-- Tambahkan bagian author role dan nama di sini -->
+            <!-- Tambahkan bagian author role dan nama di sini -->
+
+            <div class="author-info">
+              <div class="avatar">
+                <!-- Avatar Placeholder, bisa diganti dengan gambar atau inisial -->
+                @if($service->author)
+                {{ strtoupper($service->author->fullName[0]) }}
+                @else
+                ?
+                @endif
+              </div>
+              <div class="details">
+                @if($service->author)
+                <p class="role">Pengunggah : <br> {{ $service->author->role }}</p>
+                <p class="name">Nama : <br> {{ $service->author->fullName }}</p>
+                @else
+                <p class="unknown">Role: Unknown Author</p>
+                @endif
+              </div>
+            </div>
+
+
+
+            <!-- Akhir bagian author role dan nama -->
+
             <div class="service-box">
               <h4>Download Document</h4>
               <div class="download-catalog">
@@ -121,8 +147,8 @@
                 </a>
                 @endif
               </div>
-            </div><!-- End Services List -->
-
+            </div>
+            <!-- End Services List -->
 
             <div class="help-box d-flex flex-column justify-content-center align-items-center">
               <i class="bi bi-headset help-icon"></i>
@@ -137,8 +163,8 @@
               </p>
             </div>
 
-
           </div>
+
 
           <div class="col-lg-8 ps-lg-5" data-aos="fade-up" data-aos-delay="200">
             <div style="text-align: center;">

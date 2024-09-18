@@ -27,7 +27,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -40,7 +40,7 @@
         gtag('config', 'G-6HV0L5NBCE');
     </script>
 
-
+-->
 </head>
 
 <body class="index-page">

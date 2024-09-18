@@ -52,8 +52,9 @@ class User extends Authenticatable
      */
     public function getFullNameAttribute()
     {
-        if (is_null($this->last_name)) {
-            return "{$this->name}";
+        // Check if first_name is set, if not fallback to name
+        if (is_null($this->name) || is_null($this->last_name)) {
+            return $this->name ?? 'Unknown Author'; // Fallback to name or return default value
         }
 
         return "{$this->name} {$this->last_name}";
@@ -110,5 +111,10 @@ class User extends Authenticatable
     public function blogs()
     {
         return $this->hasMany(Blog::class, 'author_id'); // Sesuaikan dengan nama kolom yang digunakan
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'author_id');
     }
 }

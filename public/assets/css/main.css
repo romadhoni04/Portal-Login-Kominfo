@@ -1528,10 +1528,12 @@ section,
   background-color: var(--surface-color);
   padding: 20px;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+  
 }
 
 .service-details .service-box+.service-box {
   margin-top: 30px;
+  
 }
 
 .service-details .service-box h4 {
@@ -1540,6 +1542,7 @@ section,
   border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 92%);
   padding-bottom: 15px;
   margin-bottom: 15px;
+  
 }
 
 .service-details .services-list {
@@ -1831,6 +1834,7 @@ section,
 /*--------------------------------------------------------------
 # Portfolio Section
 --------------------------------------------------------------*/
+
 .portfolio .portfolio-filters {
   padding: 0;
   margin: 0 auto 20px auto;
@@ -1877,6 +1881,10 @@ section,
 
 .portfolio .portfolio-content img {
   transition: 0.3s;
+  width: 100%; /* Agar gambar selalu mengikuti lebar kontainer */
+    height: 250px; /* Atur tinggi yang konsisten */
+    object-fit: cover; /* Menjaga rasio aspek tanpa merusak gambar */
+    border-radius: 10px; /* Memberikan sudut yang lebih lembut */
 }
 
 .portfolio .portfolio-content .portfolio-info {
@@ -1887,6 +1895,12 @@ section,
   transition: all ease-in-out 0.3s;
   background: rgba(0, 0, 0, 0.6);
   padding: 15px;
+  bottom: 0;
+  
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    text-align: center;
 }
 
 .portfolio .portfolio-content .portfolio-info h4 {
@@ -1896,6 +1910,8 @@ section,
   color: #ffffff;
   display: inline-block;
   background-color: var(--accent-color);
+  margin: 0;
+    padding: 0;
 }
 
 .portfolio .portfolio-content .portfolio-info p {
@@ -1939,6 +1955,7 @@ section,
 .portfolio .portfolio-content:hover img {
   transform: scale(1.1);
 }
+
 
 /*--------------------------------------------------------------
 # Team Section
@@ -2752,10 +2769,12 @@ a:hover {
   color: white;        /* Mengubah warna teks menjadi putih */
   font-weight: bold;   /* Membuat teks menjadi bercetak tebal */
   text-decoration: none; /* Menghilangkan garis bawah dari tautan */
+
 }
 
 .custom-link:hover {
   color: white;        /* Menjaga warna putih pada hover */
+
 }
 
 .service-slider {
@@ -2789,4 +2808,53 @@ a:hover {
 .custom-title-link:hover {
   color: inherit; /* Warna tetap sama saat hover */
   text-decoration: underline; /* Tambahkan garis bawah saat hover jika diinginkan */
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 10px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.author-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.author-info .avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #555;
+}
+.author-info .details {
+  font-size: 20px;
+ 
+  flex: 1;
+}
+.author-info .details .role {
+  font-size: 20px;
+  font-family: var(--heading-font);
+  font-weight: bold;
+  color: #283d50;
+}
+.author-info .details .name {
+  font-size: 16px;
+  color: #555;
+}
+.author-info .details .unknown {
+  font-size: 16px;
+  color: #999;
 }

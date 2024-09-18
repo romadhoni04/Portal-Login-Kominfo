@@ -18,6 +18,7 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = Service::findOrFail($id);
+        $service = Service::with('author')->findOrFail($id);
         $services = Service::all(); // Mengambil semua layanan untuk ditampilkan di daftar
         return view('service-details', compact('service', 'services'));
     }

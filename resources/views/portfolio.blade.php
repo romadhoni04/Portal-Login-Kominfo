@@ -102,21 +102,12 @@
     <section id="portfolio" class="portfolio section">
 
       <div class="container">
-
-        <!-- Portfolio Items -->
         <!-- Portfolio Items -->
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
             <li data-filter="*" class="filter-active">Galeri</li>
           </ul>
-          <!--  <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Product</li>
-            <li data-filter=".filter-branding">Branding</li>
-            <li data-filter=".filter-books">Books</li>
-           End Portfolio Filters -->
-
-
           <!-- Portfolio Items -->
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
             @foreach($portfolios as $portfolio)
@@ -136,128 +127,124 @@
             @endforeach
             @endforeach
           </div><!-- End Portfolio Container -->
-
-        </div>
-
-        <!-- End Portfolio Items -->
-        <script>
-          $(document).ready(function() {
-            // Initialize Isotope
-            var $grid = $('.isotope-container').isotope({
-              itemSelector: '.portfolio-item',
-              layoutMode: 'masonry'
-            });
-
-            // Filter items on button click
-            $('.portfolio-filters').on('click', 'li', function() {
-              var filterValue = $(this).attr('data-filter');
-              $grid.isotope({
-                filter: filterValue
+          <!-- End Portfolio Items -->
+          <script>
+            $(document).ready(function() {
+              // Initialize Isotope
+              var $grid = $('.isotope-container').isotope({
+                itemSelector: '.portfolio-item',
+                layoutMode: 'masonry'
               });
 
-              // Update active class
-              $('.portfolio-filters li').removeClass('filter-active');
-              $(this).addClass('filter-active');
+              // Filter items on button click
+              $('.portfolio-filters').on('click', 'li', function() {
+                var filterValue = $(this).attr('data-filter');
+                $grid.isotope({
+                  filter: filterValue
+                });
+
+                // Update active class
+                $('.portfolio-filters li').removeClass('filter-active');
+                $(this).addClass('filter-active');
+              });
+
+              // Initialize GLightbox
+              const lightbox = GLightbox({
+                selector: '.glightbox'
+              });
             });
-
-            // Initialize GLightbox
-            const lightbox = GLightbox({
-              selector: '.glightbox'
-            });
-          });
-        </script>
-        <!-- /Portfolio Section -->
-        <!-- End Portfolio Items -->
-      </div>
-    </section
-
-
-      </main>
-
-    <footer id="footer" class="footer dark-background">
-
-      <div class="container footer-top">
-        <div class="row gy-4">
-          <div class="col-lg-4 col-md-6 footer-about">
-            <a href="{{ url('/') }}" class="d-flex align-items-center">
-              <span class="sitename">Dasa Wisma Kabupaten Jepara</span>
-            </a>
-            <div class="footer-contact pt-3">
-              <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
-              <p>Jl.Kartini No.1 Jepara.</p>
-              <p class="mt-3"><strong>Phone:</strong> <span>0291591492</span></p>
-              <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
-
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Layanan Kami</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Layanan Kami</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/" target="_blank" rel="noopener noreferrer">Website Jepara</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/" target="_blank" rel="noopener noreferrer">Wadul Bupati Jepara</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/" target="_blank" rel="noopener noreferrer">Diskominfo Jepara</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/" target="_blank" rel="noopener noreferrer">Samudra Jepara</a></li>
-            </ul>
-
-          </div>
-
-          <div class="col-lg-4 col-md-12">
-            <h4>Ikuti Kami</h4>
-            <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
-            <div class="social-links d-flex">
-              <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
-              <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
-              <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
-              <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
-
-            </div>
-          </div>
-
+          </script>
         </div>
       </div>
+    </section>
 
-      <div class="footer-bottom">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-              <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
-            </div>
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="{{ url('/') }}" class="d-flex align-items-center">
+            <span class="sitename">Dasa Wisma Kabupaten Jepara</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>Lantai 2 Diskominfo Jepara, Gedung OPD Bersama.</p>
+            <p>Jl.Kartini No.1 Jepara.</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>0291591492</span></p>
+            <p><strong>Email:</strong> <span>diskominfo@jepara.go.id</span></p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Layanan Kami</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Beranda</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('about') }}">Tentang</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('services') }}">Layanan</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{{ route('contact') }}">Kontak</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Layanan Kami</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://jepara.go.id/" target="_blank" rel="noopener noreferrer">Website Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://wadul.jepara.go.id/" target="_blank" rel="noopener noreferrer">Wadul Bupati Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://diskominfo.jepara.go.id/" target="_blank" rel="noopener noreferrer">Diskominfo Jepara</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="https://samudra.jepara.go.id/" target="_blank" rel="noopener noreferrer">Samudra Jepara</a></li>
+          </ul>
+
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <h4>Ikuti Kami</h4>
+          <p>Kunjungi media sosial kami untuk berita terbaru dan informasi tentang program Dasa Wisma Kabupaten Jepara.</p>
+          <div class="social-links d-flex">
+            <a href="https://x.com/diskominfojpr"><i class="bi bi-twitter-x"></i></a>
+            <a href="https://www.facebook.com/diskominfo.jepara.go.id/"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/diskominfojpr/"><i class="bi bi-instagram"></i></a>
+            <a href="diskominfo@jepara.go.id"><i class="bi bi-envelope"></i></a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center">
+            <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>
           </div>
         </div>
       </div>
+    </div>
 
-    </footer>
+  </footer>
 
-    <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Preloader -->
-    <div id="preloader"></div>
+  <!-- Preloader -->
+  <div id="preloader"></div>
 
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
-    <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
 
 </body>
 

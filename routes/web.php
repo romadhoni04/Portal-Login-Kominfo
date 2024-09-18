@@ -386,4 +386,6 @@ Route::middleware(['auth', 'is_superadmin'])->prefix('superadmin')->group(functi
 Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
     Route::resource('about', SuperAdminAboutController::class);
 });
+
 Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::put('/portofolio/{id}', [SuperAdminPortofolioController::class, 'update'])->name('superadmin.portofolio.update');

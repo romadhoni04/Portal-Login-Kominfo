@@ -105,11 +105,20 @@
                 @endif
                 @endif
                 <div class="post-meta">
-                  <p class="post-author">{{ $blog->author ? $blog->author->name : 'Unknown Author' }}</p>
+                  <p class="post-author">
+                    {{ $blog->author ? $blog->author->role  : 'Unknown Author' }}
+                  </p>
+                  @if($blog->author)
+                  <p class="post-full-name">
+                    {{ $blog->author->fullName }}
+                  </p>
+                  @endif
                   <p class="post-date">
                     <time datetime="{{ $blog->created_at->format('Y-m-d') }}">{{ $blog->created_at->format('d M, Y') }}</time>
                   </p>
                 </div>
+
+
               </div>
             </article>
           </div>

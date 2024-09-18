@@ -29,15 +29,14 @@ class SuperAdminServiceController extends Controller
     }
 
     // Menyimpan layanan baru ke database
-    // Menyimpan layanan baru ke database
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
             'image' => 'nullable|image',
-            'catalog_pdf' => 'nullable|file|mimes:pdf',
-            'catalog_doc' => 'nullable|file|mimes:doc,docx',
+            'catalog_pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'catalog_doc' => 'nullable|file|mimes:doc,docx|max:2048',
         ]);
 
         $imagePath = $request->file('image') ? $request->file('image')->store('services', 'public') : null;
@@ -50,11 +49,11 @@ class SuperAdminServiceController extends Controller
             'image' => $imagePath,
             'catalog_pdf' => $pdfPath,
             'catalog_doc' => $docPath,
+            'user_id' => auth()->user()->id, // Menyimpan ID user yang menambah layanan
         ]);
 
         return redirect()->route('superadmin.services.index')->with('success', 'Layanan berhasil ditambahkan');
     }
-
 
     // Menampilkan form untuk edit layanan
     public function edit(Service $service)
@@ -119,13 +118,13 @@ class SuperAdminServiceController extends Controller
     {
         // Hapus gambar, PDF, dan DOC jika ada
         if ($service->image) {
-            Storage::delete('public/' . $service->image);
+            Storage::disk('public')->delete($service->image);
         }
         if ($service->catalog_pdf) {
-            Storage::delete('public/' . $service->catalog_pdf);
+            Storage::disk('public')->delete($service->catalog_pdf);
         }
         if ($service->catalog_doc) {
-            Storage::delete('public/' . $service->catalog_doc);
+            Storage::disk('public')->delete($service->catalog_doc);
         }
 
         $service->delete();
