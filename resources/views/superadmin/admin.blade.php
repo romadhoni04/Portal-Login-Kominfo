@@ -22,6 +22,15 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Tambahkan ini di bagian <head> di layout Anda -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body id="page-top">
@@ -91,6 +100,10 @@
                             <i class="fas fa-fw fa-info-circle"></i> Manage Tentang <!-- Ikon about -->
                         </a>
 
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.clients.index') }}" href="{{ route('superadmin.clients.index') }}">
+                            <i class="fas fa-fw fa-building"></i> Manage Client <!-- Ikon about -->
+                        </a>
+
                     </div>
                 </div>
             </li>
@@ -135,7 +148,14 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
-
+            <!-- 
+            <li class="nav-item {{ Nav::isRoute('superadmin.clients.index') }}">
+                <a class="nav-link" href="{{ route('superadmin.clients.index') }}">
+                    <i class="fas fa-fw fa-building"></i> <!-- Icon untuk User 
+                    <span>{{ __('Manage Client') }}</span>
+                </a>
+            </li>
+-->
             <!--
             <li class="nav-item {{ Nav::isRoute('superadmin.blog.index') }}">
                 <a class="nav-link" href="{{ route('superadmin.blog.index') }}">
@@ -465,6 +485,9 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+    @yield('scripts')
+    @yield('styles')
 </body>
 
 </html>

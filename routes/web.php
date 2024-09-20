@@ -33,6 +33,7 @@ use App\Http\Controllers\SuperAdminServiceController;
 use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\SuperAdminPortofolioController;
 use App\Http\Controllers\SuperAdminAboutController;
+use App\Http\Controllers\SuperAdminClientController;
 // routes/web.php
 
 
@@ -389,3 +390,23 @@ Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')-
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::put('/portofolio/{id}', [SuperAdminPortofolioController::class, 'update'])->name('superadmin.portofolio.update');
+//Route::resource('clients', SuperAdminClientController::class)->middleware('auth', 'role:superadmin');
+//Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
+//Route::resource('/clients', SuperAdminClientController::class);
+//});
+//Route::middleware(['auth', 'role:superadmin'])->group(function () {
+//Route::get('/superadmin/clients', [SuperAdminClientController::class, 'index'])->name('superadmin.client.index');
+//});
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group(function () {
+    Route::resource('clients', SuperAdminClientController::class);
+});
+// Rute untuk Client yang diakses oleh Superadmin
+Route::prefix('superadmin')->middleware('role:superadmin')->group(function () {
+    Route::get('/clients', [SuperAdminClientController::class, 'index'])->name('superadmin.clients.index');
+    Route::get('/clients/create', [SuperAdminClientController::class, 'create'])->name('superadmin.clients.create');
+    Route::post('/clients', [SuperAdminClientController::class, 'store'])->name('superadmin.clients.store');
+    Route::get('/clients/{client}/edit', [SuperAdminClientController::class, 'edit'])->name('superadmin.clients.edit');
+    Route::put('/clients/{client}', [SuperAdminClientController::class, 'update'])->name('superadmin.clients.update');
+    Route::delete('/clients/{client}', [SuperAdminClientController::class, 'destroy'])->name('superadmin.clients.destroy');
+});

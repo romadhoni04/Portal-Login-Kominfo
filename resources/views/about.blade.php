@@ -118,7 +118,7 @@
 
     </section><!-- /About Section -->
 
-    <!-- Stats Section -->
+    <!-- Stats Section 
     <section id="stats" class="stats section light-background">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -130,28 +130,28 @@
               <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
               <p>Jumlah Dasa Wisma</p>
             </div>
-          </div><!-- End Stats Item -->
+          </div><!-- End Stats Item 
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
               <p>Jumlah Kegiatan</p>
             </div>
-          </div><!-- End Stats Item -->
+          </div><!-- End Stats Item 
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
               <p>Jam Pelayanan</p>
             </div>
-          </div><!-- End Stats Item -->
+          </div><!-- End Stats Item 
 
           <div class="col-lg-3 col-md-6">
             <div class="stats-item text-center w-100 h-100">
               <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
               <p>Anggota</p>
             </div>
-          </div><!-- End Stats Item -->
+          </div><!-- End Stats Item 
 
         </div>
 
@@ -171,35 +171,93 @@
               "loop": true,
               "speed": 600,
               "autoplay": {
-                "delay": 5000
+                "delay": 5000,
+                "disableOnInteraction": false
               },
-              "slidesPerView": "auto",
+              "slidesPerView": 1,
               "pagination": {
                 "el": ".swiper-pagination",
                 "type": "bullets",
                 "clickable": true
               },
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
               "breakpoints": {
                 "320": {
                   "slidesPerView": 2,
-                  "spaceBetween": 40
+                  "spaceBetween": 20
                 },
                 "480": {
                   "slidesPerView": 3,
-                  "spaceBetween": 60
+                  "spaceBetween": 30
                 },
                 "640": {
                   "slidesPerView": 4,
-                  "spaceBetween": 80
+                  "spaceBetween": 40
                 },
                 "992": {
-                  "slidesPerView": 6,
-                  "spaceBetween": 120
+                  "slidesPerView": 5,
+                  "spaceBetween": 60
                 }
               }
             }
           </script>
+
+          <div class="container section-title" data-aos="fade-up">
+            <h2>Rekan Strategis Kami</h2>
+            <p>Bersama mitra terpercaya, kami siap mewujudkan inovasi dan keberhasilan Program Dasa Wisma untuk kemajuan Kabupaten Jepara.</p>
+          </div><!-- End Section Title -->
+
+
+
           <div class="swiper-wrapper align-items-center">
+            @foreach($clients as $client)
+            <div class="swiper-slide">
+              @if($client->link)
+              <a href="{{ $client->link }}" target="_blank">
+                <img src="{{ asset('storage/' . $client->logo) }}" class="img-fluid" alt="{{ $client->name }}">
+              </a>
+              @else
+              <img src="{{ asset('storage/' . $client->logo) }}" class="img-fluid" alt="{{ $client->name }}">
+              @endif
+              <p class="client-name">{{ $client->name }}</p>
+
+            </div>
+            @endforeach
+          </div>
+
+          <!-- Add Navigation Buttons 
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div> -->
+
+          <!-- Add Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+
+    <!-- 
+    <div class="swiper-wrapper align-items-center">
+            @foreach($clients as $client)
+            <div class="swiper-slide">
+              @if($client->link)
+              <a href="{{ $client->link }}" target="_blank">
+                <img src="{{ asset('storage/' . $client->logo) }}" class="img-fluid" alt="{{ $client->name }}">
+              </a>
+              @else
+              <img src="{{ asset('storage/' . $client->logo) }}" class="img-fluid" alt="{{ $client->name }}">
+              @endif
+              <p>{{ $client->name }}</p>
+            </div>
+            @endforeach
+          </div>
+          -->
+    <!--  <div class="swiper-wrapper align-items-center">
             <div class="swiper-slide"><img src="assets/img/clients/client-1.png" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="assets/img/clients/client-2.png" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt=""></div>
@@ -209,20 +267,12 @@
             <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt=""></div>
             <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt=""></div>
           </div>
-        </div>
 
-      </div>
-
-    </section><!-- /Clients Section -->
-
-    <!-- Skills Section -->
+    <!-- Skills Section 
     <section id="skills" class="skills section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Kompetensi Kami</h2>
-        <p>Keahlian yang kami miliki untuk mendukung keberhasilan program Dasa Wisma Kabupaten Jepara</p>
-      </div><!-- End Section Title -->
+      <!-- Section Title  
+
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -235,21 +285,21 @@
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div><!-- End Skills Item -->
+            </div><!-- End Skills Item 
 
             <div class="progress">
               <span class="skill"><span>Pelayanan Masyarakat</span> <i class="val">90%</i></span>
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div><!-- End Skills Item -->
+            </div><!-- End Skills Item 
 
             <div class="progress">
               <span class="skill"><span>Pengelolaan Data</span> <i class="val">85%</i></span>
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div><!-- End Skills Item -->
+            </div><!-- End Skills Item 
 
           </div>
 
@@ -260,21 +310,21 @@
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div><!-- End Skills Item -->
+            </div><!-- End Skills Item 
 
             <div class="progress">
               <span class="skill"><span>Pengembangan Program</span> <i class="val">85%</i></span>
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div><!-- End Skills Item -->
+            </div><!-- End Skills Item 
 
             <div class="progress">
               <span class="skill"><span>Desain Grafis</span> <i class="val">60%</i></span>
               <div class="progress-bar-wrap">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-            </div><!-- End Skills Item -->
+            </div><!-- End Skills Item 
 
           </div>
 
@@ -282,17 +332,17 @@
 
       </div>
 
-    </section><!-- /Skills Section -->
+    </section> /Skills Section -->
 
 
-    <!-- Testimonials Section -->
+    <!-- Testimonials Section 
     <section id="testimonials" class="testimonials section">
 
-      <!-- Section Title -->
+      <!-- Section Title 
       <div class="container section-title" data-aos="fade-up">
         <h2>Testimoni</h2>
         <p>Apa kata masyarakat dan peserta mengenai program Dasa Wisma Kabupaten Jepara</p>
-      </div><!-- End Section Title -->
+      </div><!-- End Section Title 
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
@@ -328,7 +378,7 @@
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
-            </div><!-- End testimonial item -->
+            </div><!-- End testimonial item 
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -344,7 +394,7 @@
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
-            </div><!-- End testimonial item -->
+            </div><!-- End testimonial item 
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -360,7 +410,7 @@
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
-            </div><!-- End testimonial item -->
+            </div><!-- End testimonial item 
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -376,7 +426,7 @@
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
-            </div><!-- End testimonial item -->
+            </div><!-- End testimonial item 
 
             <div class="swiper-slide">
               <div class="testimonial-item">
@@ -392,7 +442,7 @@
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
-            </div><!-- End testimonial item -->
+            </div><!-- End testimonial item -
 
           </div>
           <div class="swiper-pagination"></div>

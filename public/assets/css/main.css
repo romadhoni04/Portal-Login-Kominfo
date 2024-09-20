@@ -1310,6 +1310,60 @@ section,
 /*--------------------------------------------------------------
 # Clients Section
 --------------------------------------------------------------*/
+.client-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 10px;
+  color: #333; /* Sesuaikan warna sesuai tema */
+}
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff; /* Warna ikon */
+    background-color: rgba(0, 0, 0, 0.7); /* Latar belakang gelap */
+    border-radius: 50%; /* Bulat */
+    width: 50px; /* Lebar tombol */
+    height: 50px; /* Tinggi tombol */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Memastikan tombol tetap pada posisi */
+    z-index: 10; /* Menempatkan di atas slider */
+    transition: all 0.3s ease; /* Transisi halus */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Bayangan tombol */
+}
+
+.swiper-button-next {
+    right: 20px; /* Jarak dari tepi kanan */
+}
+
+.swiper-button-prev {
+    left: 20px; /* Jarak dari tepi kiri */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* Latar belakang lebih gelap saat hover */
+    transform: scale(1.1); /* Memperbesar saat hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Bayangan lebih kuat saat hover */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 24px; /* Ukuran ikon */
+    font-weight: bold; /* Ketebalan ikon */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Bayangan teks untuk efek 3D */
+}
+
+/* Penataan khusus untuk ikon */
+.swiper-button-next::after {
+    content: '➡️'; /* Ganti dengan ikon panah kanan sesuai font atau ikon yang Anda gunakan */
+}
+
+.swiper-button-prev::after {
+    content: '⬅️'; /* Ganti dengan ikon panah kiri */
+}
+
 .clients .swiper {
   padding: 10px 0;
 }
@@ -2857,4 +2911,12 @@ a:hover {
 .author-info .details .unknown {
   font-size: 16px;
   color: #999;
+}
+
+.card {
+  border-radius: 0.5rem;
+}
+
+.card-title {
+  font-weight: bold;
 }
