@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 14, 2024 at 11:05 PM
+-- Generation Time: Sep 20, 2024 at 01:40 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.10
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_login_kominfo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `abouts`
+--
+
+CREATE TABLE `abouts` (
+  `id` bigint UNSIGNED NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `abouts`
+--
+
+INSERT INTO `abouts` (`id`, `image`, `title`, `content`, `created_at`, `updated_at`) VALUES
+(1, '1726514829.jpg', 'Komitmen Kami terhadap Kesejahteraan Masyarakat', 'Dasa Wisma Kabupaten Jepara berfokus pada peningkatan kualitas hidup masyarakat melalui berbagai inisiatif sosial. Kami bekerja sama dengan berbagai pihak untuk mencapai tujuan ini.\r\n\r\n1. Program pelatihan dan pemberdayaan masyarakat.\r\n\r\n2. Pengelolaan bantuan sosial dan kesehatan.\r\n\r\n3. Inisiatif lingkungan dan kebersihan untuk komunitas.\r\n\r\nKami percaya bahwa dengan kerjasama dan dedikasi, kita dapat mencapai perubahan positif dan memberikan dampak yang signifikan bagi masyarakat Kabupaten Jepara. Dukungan dan partisipasi Anda sangat berarti bagi kami.', '2024-09-16 04:13:58', '2024-09-16 19:27:09');
 
 -- --------------------------------------------------------
 
@@ -105,6 +127,34 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clients`
+--
+
+CREATE TABLE `clients` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `logo`, `created_at`, `updated_at`, `link`) VALUES
+(1, 'Wadul Bupati Jepara', 'logos/NWKyS3avFW42LsqLXS5jQ21v4GNy8vDbFIBz3STJ.png', '2024-09-18 07:08:53', '2024-09-20 01:27:10', 'https://wadul.jepara.go.id/'),
+(4, 'Samudra (Satu Manajemen untuk Data Jepara)', 'logos/1jXE1tY6tYFClWWjTMg2Ebw2MdLgCvz581SzbK60.png', '2024-09-18 07:37:46', '2024-09-20 01:35:40', 'https://samudra.jepara.go.id/'),
+(6, 'Dishub Jepara', 'logos/y83uOeOSj2l3ssjypudH7ecs2mCz7fZFth2kVQCF.jpg', '2024-09-18 07:38:51', '2024-09-20 01:32:09', 'https://dishub.jepara.go.id/'),
+(8, 'DPRD Jepara', 'logos/Xu8OpzHDJo9YHtv8Xn5gBWhTeVMMD1xVaNNykKZ4.png', '2024-09-18 07:39:22', '2024-09-20 01:32:50', 'https://dprd.jepara.go.id/'),
+(9, 'DKPP Jepara', 'logos/nMOHdd4s73xoU8OjP3gmxsqQcLI0wXXdpTaT598F.png', '2024-09-18 07:39:37', '2024-09-20 01:34:11', 'https://dkpp.jepara.go.id/'),
+(10, 'Diskominfo Jepara', 'logos/lPHR0ugqTO24fR7P60Siu2wU5pxPdsfag0wPpFXp.png', '2024-09-18 07:40:28', '2024-09-20 01:35:10', 'https://diskominfo.jepara.go.id/'),
+(11, 'Dasa Wisma Jepara', 'logos/YQw7OFJX1mvswNIMsncJxASYNYv6g9bP3eukhNZr.jpg', '2024-09-18 07:40:40', '2024-09-20 01:36:03', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -156,6 +206,27 @@ CREATE TABLE `job_batches` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `layouts`
+--
+
+CREATE TABLE `layouts` (
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `css_properties` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `layouts`
+--
+
+INSERT INTO `layouts` (`id`, `name`, `css_properties`, `created_at`, `updated_at`) VALUES
+(1, 'Sample Layout', 'display: flex; align-items: center; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; background-color: #ffffff; margin: 10px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 20px auto; transition: transform 0.3s, box-shadow 0.3s;', '2024-09-18 06:52:02', '2024-09-18 06:52:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `messages`
 --
 
@@ -199,7 +270,18 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2024_09_13_190659_create_messages_table', 8),
 (13, '2024_09_13_193239_create_programs_table', 9),
 (14, '2024_09_14_132042_create_messages_table', 10),
-(15, '2024_09_14_161523_create_blogs_table', 11);
+(15, '2024_09_14_161523_create_blogs_table', 11),
+(16, '2024_09_15_060802_create_services_table', 12),
+(17, '2024_09_15_174513_create_services_table', 13),
+(18, '2024_09_15_192230_add_catalog_files_to_services_table', 14),
+(19, '2024_09_15_222245_create_portofolios_table', 15),
+(20, '2024_09_15_222312_create_portofolio_images_table', 15),
+(21, '2024_09_16_073707_add_image_to_portofolios_table', 16),
+(22, '2024_09_16_105542_create_abouts_table', 17),
+(23, '2024_09_18_110012_add_user_id_to_services_table', 18),
+(24, '2024_09_18_133502_create_layouts_table', 19),
+(25, '2024_09_18_135827_create_clients_table', 20),
+(26, '2024_09_19_075358_add_link_to_clients_table', 21);
 
 -- --------------------------------------------------------
 
@@ -292,6 +374,55 @@ CREATE TABLE `permissions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `portofolios`
+--
+
+CREATE TABLE `portofolios` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `client` varchar(255) NOT NULL,
+  `project_date` date NOT NULL,
+  `project_url` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `portofolios`
+--
+
+INSERT INTO `portofolios` (`id`, `title`, `description`, `category`, `client`, `project_date`, `project_url`, `created_at`, `updated_at`, `image`) VALUES
+(3, 'Kegiatan Adat Kebudayaan Sedekah Bumi dan Bazar Umkm Tahun 2024', 'Kegiatan Adat Kebudayaan Sedekah Bumi dan Bazar Umkm Tahun 2024 Pada Desa Singorojo Mayong Jepara', 'Kegiatan Adat', 'Desa Singorojo', '2024-09-17', 'http://singorojo.desa.id/', '2024-09-16 20:10:30', '2024-09-16 20:10:30', NULL),
+(5, 'anjayyy anjay', 'anjayyy anjay', 'anjayyy anjay', 'anjayyy anjay', '2024-09-27', 'https://polibang.ac.id', '2024-09-18 01:15:56', '2024-09-18 01:21:30', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `portofolio_images`
+--
+
+CREATE TABLE `portofolio_images` (
+  `id` bigint UNSIGNED NOT NULL,
+  `portofolio_id` bigint UNSIGNED NOT NULL,
+  `image_url` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `portofolio_images`
+--
+
+INSERT INTO `portofolio_images` (`id`, `portofolio_id`, `image_url`, `created_at`, `updated_at`) VALUES
+(3, 3, 'portfolios/3OJdQzEC5Pa9ktrbah6UoEuSQQx9hR8uLvk94WYa.jpg', '2024-09-16 20:10:30', '2024-09-16 20:10:30'),
+(9, 5, 'portfolios/T5qGFLm9sJelktnlukFkAXGghsJK94d9hv30eCZ7.jpg', '2024-09-18 01:21:30', '2024-09-18 01:21:30');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `programs`
 --
 
@@ -336,6 +467,34 @@ CREATE TABLE `role_has_permissions` (
   `permission_id` bigint UNSIGNED NOT NULL,
   `role_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `id` bigint UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `catalog_pdf` varchar(255) DEFAULT NULL,
+  `catalog_doc` varchar(255) DEFAULT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`id`, `title`, `description`, `image`, `created_at`, `updated_at`, `catalog_pdf`, `catalog_doc`, `user_id`) VALUES
+(1, 'Program Pemberdayaan Perempuan', 'Dasa Wisma Kabupaten Jepara fokus pada pemberdayaan perempuan untuk meningkatkan kesejahteraan keluarga melalui berbagai program keterampilan dan pendidikan.\r\n\r\n    1. Meningkatkan keterampilan perempuan untuk berperan aktif dalam usaha keluarga.\r\n\r\n    2. Mendukung ekonomi keluarga melalui program kewirausahaan.\r\n\r\n    3. Pelatihan usaha kecil menengah untuk meningkatkan pendapatan keluarga.\r\n\r\nsekian terimakasih', 'services/6HkT2F0qoYIAO5HPahc5gKS6MvepCbBdnfXztuf0.jpg', '2024-09-15 10:45:52', '2024-09-18 04:17:50', 'catalogs/cUHsKx0MTUqipJZfOucA1ugQgqPbMT8xh6eRzPMK.pdf', 'catalogs/BqpKy0oCaSTsGYLFTWchj4P0Wgmwij2GEEqMKicu.docx', 1),
+(2, 'Program Kesehatan Keluarga', 'Kesehatan keluarga adalah prioritas kami. Program kami mendukung kesehatan ibu dan anak, serta pencegahan stunting di Kabupaten Jepara.\r\n\r\n Melalui program kesehatan, Dasa Wisma mendukung upaya pencegahan stunting dan peningkatan kesehatan ibu dan anak di Kabupaten Jepara.\r\n\r\nProgram ini bertujuan untuk meningkatkan kualitas hidup keluarga dengan fokus pada gizi yang baik, pemeriksaan kesehatan rutin, dan edukasi kesehatan bagi ibu dan anak.', 'services/E257ednuPCtlajgl0lAcfKl6xpjBIwtasPhkqemo.jpg', '2024-09-15 12:09:38', '2024-09-18 04:24:16', NULL, NULL, 1),
+(3, 'Pendidikan Anak Usia Dini', 'Program ini bertujuan memberikan pendidikan usia dini berkualitas kepada anak-anak di Kabupaten Jepara agar mereka tumbuh cerdas dan berkepribadian mandiri.\r\n\r\n    1. Fasilitasi pendidikan anak usia dini melalui kelompok bermain dan PAUD.\r\n\r\n    2. Peningkatan kualitas pendidikan melalui pelatihan guru dan penyediaan fasilitas.\r\n\r\n    3. Program pemberian gizi seimbang untuk mendukung tumbuh kembang anak.\r\n\r\nMelalui program pendidikan anak usia dini, kami berupaya membentuk generasi yang cerdas dan berkualitas di Kabupaten Jepara.', 'services/5ZcvLmP3PzhIZ8GuDswTyA8BodqwE7WNFH7XgBzu.jpg', '2024-09-15 12:12:11', '2024-09-18 04:24:21', NULL, NULL, 1),
+(4, 'Pengembangan Ekonomi Keluarga', 'Melalui program ekonomi kreatif, Dasa Wisma Kabupaten Jepara membantu keluarga mengembangkan usaha kecil dan menengah untuk meningkatkan kesejahteraan ekonomi.\r\n \r\nDasa Wisma Kabupaten Jepara turut mendukung pengembangan ekonomi kreatif sebagai salah satu cara meningkatkan pendapatan keluarga.\r\n\r\nProgram ini melibatkan pelatihan keterampilan seperti kerajinan tangan, kuliner, dan produk lokal lainnya untuk membantu keluarga menciptakan peluang usaha baru.', 'services/vXC502db3rgLzhZaMGBj7cMyqrhOsVEGnf2o5iFs.jpg', '2024-09-15 12:13:31', '2024-09-17 02:38:04', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -393,6 +552,12 @@ INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `profile_photo`, `profi
 --
 
 --
+-- Indexes for table `abouts`
+--
+ALTER TABLE `abouts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
@@ -418,6 +583,12 @@ ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -435,6 +606,12 @@ ALTER TABLE `jobs`
 -- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `layouts`
+--
+ALTER TABLE `layouts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -484,6 +661,19 @@ ALTER TABLE `permissions`
   ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
 
 --
+-- Indexes for table `portofolios`
+--
+ALTER TABLE `portofolios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `portofolio_images`
+--
+ALTER TABLE `portofolio_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `portofolio_images_portofolio_id_foreign` (`portofolio_id`);
+
+--
 -- Indexes for table `programs`
 --
 ALTER TABLE `programs`
@@ -502,6 +692,13 @@ ALTER TABLE `roles`
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `services_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `sessions`
@@ -523,6 +720,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `abouts`
+--
+ALTER TABLE `abouts`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
@@ -533,6 +736,12 @@ ALTER TABLE `activity_logs`
 --
 ALTER TABLE `blogs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -547,6 +756,12 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `layouts`
+--
+ALTER TABLE `layouts`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
@@ -556,7 +771,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -571,6 +786,18 @@ ALTER TABLE `permissions`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `portofolios`
+--
+ALTER TABLE `portofolios`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `portofolio_images`
+--
+ALTER TABLE `portofolio_images`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
@@ -581,6 +808,12 @@ ALTER TABLE `programs`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -611,11 +844,23 @@ ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `portofolio_images`
+--
+ALTER TABLE `portofolio_images`
+  ADD CONSTRAINT `portofolio_images_portofolio_id_foreign` FOREIGN KEY (`portofolio_id`) REFERENCES `portofolios` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `services`
+--
+ALTER TABLE `services`
+  ADD CONSTRAINT `services_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
