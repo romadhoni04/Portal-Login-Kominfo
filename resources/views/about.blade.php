@@ -201,7 +201,6 @@
           </div><!-- End Section Title -->
 
 
-
           <div class="swiper-wrapper align-items-center">
             @foreach($clients as $client)
             <div class="swiper-slide">
