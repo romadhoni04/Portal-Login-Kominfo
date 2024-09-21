@@ -12,6 +12,16 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    'providers' => [
+        // Provider lainnya...
+        Barryvdh\DomPDF\ServiceProvider::class,
+    ],
+
+    'aliases' => [
+        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+    ],
+
+
 
     'name' => env('APP_NAME', 'Login Portal Kominfo Jepara'),
 

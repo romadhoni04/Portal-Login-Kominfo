@@ -61,6 +61,7 @@
                     <li><a href="{{ url('/') }}" class="active">Beranda</a></li>
                     <li><a href="{{ route('about') }}">Tentang</a></li>
                     <li><a href="{{ route('services') }}">Layanan</a></li>
+                    <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
                     <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
                     <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
                     <li><a href="{{ route('blog.index') }}">Blog</a></li>
@@ -111,19 +112,21 @@
 
                 -->
                     <!--
-                    <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                    <li class="dropdown"><a href="{{ route('services') }}"><span>Layanan</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href="#">Dropdown 1</a></li>
+                            <li><a href="{{ route('services') }}">Layanan</a></li>
+                            <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+                            <li><a href="{{ route('blog.index') }}">Blog</a></li>
                             <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Deep Dropdown 1</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Dropdown 2</a></li>
                         </ul>
                     </li>
--->
-                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                -->
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
 
         </div>
@@ -143,7 +146,7 @@
                         <div class="carousel-container">
                             <h2>Selamat Datang di Dasa Wisma Kabupaten Jepara</h2>
                             <p>Dasa Wisma Kabupaten Jepara adalah organisasi yang berperan penting dalam meningkatkan kesejahteraan masyarakat melalui partisipasi aktif perempuan. Kami berkomitmen untuk mendukung berbagai program sosial, kesehatan, dan pendidikan demi membangun masyarakat yang lebih sejahtera dan mandiri.</p>
-                            <a href="{{ route('about') }}" class="btn-get-started">Pelajari Lebih Lanjut</a>
+                            <a href="{{ route('dasawisma') }}" class="btn-get-started">Pelajari Lebih Lanjut</a>
                         </div>
                     </div><!-- End Carousel Item -->
 
@@ -205,11 +208,6 @@
                         </div><!-- End Service Item -->
                         @endforeach
                     </div>
-
-
-
-
-
                 </div>
 
             </div>
@@ -229,9 +227,6 @@
                 <p>Kami berkomitmen untuk meningkatkan kualitas hidup masyarakat melalui berbagai program unggulan. Program-program ini dirancang untuk mendukung</p>
                 <p>kesejahteraan dan pemberdayaan. Temukan lebih lanjut tentang layanan-layanan inovatif kami di bawah ini.</p>
             </div><!-- End Section Title -->
-
-
-
 
             <div class="container">
 
@@ -444,7 +439,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="container">
+            <div class="container copyright text-center mt-4">
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
                         <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>

@@ -17,7 +17,8 @@
                 <img src="{{ asset('storage/' . $client->logo) }}" class="card-img-top" alt="{{ $client->name }}" style="object-fit: cover; height: 200px;">
                 @endif
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ $client->name }}</h5>
+                    <h5 class="card-title" style="text-align: center;">{{ $client->name }}</h5>
+
                     <div class="mt-auto d-flex justify-content-center align-items-center">
                         <div class="text-center">
                             <a href="{{ route('superadmin.clients.edit', $client->id) }}" class="btn btn-warning btn-sm me-2">

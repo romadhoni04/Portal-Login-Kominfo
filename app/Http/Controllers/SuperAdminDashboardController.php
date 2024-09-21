@@ -27,7 +27,7 @@ class SuperAdminDashboardController extends Controller
         $totalPengguna = User::count(); // Hitung total pengguna
         $totalSuperadmin = User::where('role', 'superadmin')->count(); // Hitung total Superadmin
         $totalAdmins = User::where('role', 'administrator')->count(); // Hitung total administrator
-        $totalUsers = User::where('role', 'user')->count(); // Hitung total administrator
+        $totalUsers = User::where('role', 'user')->count(); // Hitung total user
         $users = User::all();
         $widget = [
             'total_program' => 20, // contoh nilai

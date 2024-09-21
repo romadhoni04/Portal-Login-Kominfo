@@ -5,8 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Laravel SB Admin 2">
-    <meta name="author" content="Alejandro RH">
+    <meta name="description" content="Login Portal Dasa Wisma Kominfo Jepara">
+    <meta name="author" content="Diskominfo Jepara">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -148,39 +148,6 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
-            <!-- 
-            <li class="nav-item {{ Nav::isRoute('superadmin.clients.index') }}">
-                <a class="nav-link" href="{{ route('superadmin.clients.index') }}">
-                    <i class="fas fa-fw fa-building"></i> <!-- Icon untuk User 
-                    <span>{{ __('Manage Client') }}</span>
-                </a>
-            </li>
--->
-            <!--
-            <li class="nav-item {{ Nav::isRoute('superadmin.blog.index') }}">
-                <a class="nav-link" href="{{ route('superadmin.blog.index') }}">
-                    <i class="fas fa-fw fa-blog"></i> <!-- Icon untuk Blog 
-            <span>{{ __('Manage Blogs') }}</span>
-            </a>
-            </li>
-            <li class="nav-item {{ Nav::isRoute('superadmin.services.index') }}">
-                <a class="nav-link" href="{{ route('superadmin.services.index') }}">
-                    <i class="fas fa-cogs"></i> <!-- Ikon untuk Manajemen 
-                    <span>{{ __('Manage Services') }}</span>
-                </a>
-            </li>
-            <li class="nav-item {{ Nav::isRoute('superadmin.portofolio.index') }}">
-                <a class="nav-link" href="{{ route('superadmin.portofolio.index') }}">
-                    <i class="fas fa-briefcase"></i> <!-- Ikon untuk Portofolio 
-                    <span>{{ __('Manage Portfolios') }}</span>
-                </a>
-            </li>
-            <li class="nav-item {{ Nav::isRoute('superadmin.about.index') }}">
-                <a class="nav-link" href="{{ route('superadmin.about.index') }}">
-                    <i class="fas fa-info-circle"></i> <!-- Ikon untuk About 
-                    <span>{{ __('Manage About') }}</span>
-                </a>
-            </li>  -->
 
             <!-- Nav Item - Logout -->
             <li class="nav-item">
@@ -189,32 +156,6 @@
                     <span>{{ __('Logout') }}</span>
                 </a>
             </li>
-
-            <!-- Nav Item - About -->
-
-            <!-- Nav Item - Admins -->
-
-            <!-- Nav Item - User & Admin Management 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserAdmin"
-                    aria-expanded="true" aria-controls="collapseUserAdmin">
-                    <i class="fas fa-fw fa-users-cog"></i>
-                    <span>User & Admin Management</span>
-                </a>
-                <div id="collapseUserAdmin" class="collapse" aria-labelledby="headingUserAdmin" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manage Roles:</h6>
-                        <a class="collapse-item {{ Nav::isRoute('superadmin.admins.index') }}" href="{{ route('superadmin.admins.index') }}">
-                            <i class="fas fa-fw fa-user-shield"></i> Administrator
-                        </a>
-                        <a class="collapse-item {{ Nav::isRoute('superadmin.users.index') }}" href="{{ route('superadmin.users.index') }}">
-                            <i class="fas fa-fw fa-user"></i> User
-                        </a>
-                    </div>
-                </div>
-            </li>
-            -->
-
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -242,16 +183,17 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="{{ route('search') }}" method="GET">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
                         </div>
                     </form>
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -263,16 +205,17 @@
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
+                                <form class="form-inline mr-auto w-100 navbar-search" action="{{ route('search') }}" method="GET">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
+                                            <button class="btn btn-primary" type="submit">
                                                 <i class="fas fa-search fa-sm"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </li>
 
@@ -468,11 +411,15 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">
+                    {{ __('Select "Logout" below if you are ready to end your current session.') }}
+                </div>
                 <div class="modal-footer">
-                    <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </div>
@@ -482,7 +429,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 

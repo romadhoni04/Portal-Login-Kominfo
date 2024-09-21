@@ -28,18 +28,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HV0L5NBCE"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-
-    gtag('config', 'G-6HV0L5NBCE');
-  </script>
 
 </head>
 
@@ -59,6 +48,7 @@
           <li><a href="{{ url('/') }}">Beranda</a></li>
           <li><a href="{{ route('about') }}">Tentang</a></li>
           <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
           <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
           <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
           <li><a href="{{ route('blog.index') }}">Blog</a></li>
@@ -310,7 +300,7 @@
     </div>
 
     <div class="footer-bottom">
-      <div class="container">
+      <div class="container copyright text-center mt-4">
         <div class="row justify-content-center">
           <div class="col-md-6 text-center">
             <p>&copy; 2024 Dasa Wisma Kabupaten Jepara. Semua hak cipta dilindungi. <br> Website ini dikembangkan oleh <a href="https://diskominfo.jepara.go.id/" class="custom-link">Diskominfo Jepara</a>.</p>

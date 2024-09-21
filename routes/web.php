@@ -34,6 +34,8 @@ use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\SuperAdminPortofolioController;
 use App\Http\Controllers\SuperAdminAboutController;
 use App\Http\Controllers\SuperAdminClientController;
+use App\Http\Controllers\SuperAdminSearchController;
+use App\Http\Controllers\DasaWismaController;
 // routes/web.php
 
 
@@ -225,6 +227,8 @@ Route::get('team', [TeamController::class, 'index'])->name('team');
 // Rute untuk halaman Blog
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
+Route::get('dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+
 
 
 // Rute untuk menampilkan formulir kontak
@@ -410,3 +414,12 @@ Route::prefix('superadmin')->middleware('role:superadmin')->group(function () {
     Route::put('/clients/{client}', [SuperAdminClientController::class, 'update'])->name('superadmin.clients.update');
     Route::delete('/clients/{client}', [SuperAdminClientController::class, 'destroy'])->name('superadmin.clients.destroy');
 });
+
+Route::get('/superadmin/search', [SuperAdminSearchController::class, 'search'])->name('search');
+Route::get('/download/pdf', [DasaWismaController::class, 'downloadPDF'])->name('download.pdf');
+Route::get('/download/excel', [DasaWismaController::class, 'downloadExcel'])->name('download.excel');
+
+use App\Http\Controllers\ImageController;
+
+Route::get('/download-image', [ImageController::class, 'downloadImage'])->name('download.image');
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('services-details');

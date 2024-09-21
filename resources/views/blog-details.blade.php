@@ -42,6 +42,7 @@
           <li><a href="{{ url('/') }}">Beranda</a></li>
           <li><a href="{{ route('about') }}">Tentang</a></li>
           <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
           <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
           <li><a href="{{ route('team') }}">Tim</a></li>
           <li><a href="{{ route('blog.show', ['id' => 1]) }}" class="active">Blog</a></li>

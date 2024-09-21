@@ -27,7 +27,7 @@
                 <td>{{ $about->title }}</td>
                 <td>{{ Str::limit($about->content, 50) }}</td>
                 <td>
-                    <a href="{{ route('superadmin.about.show', $about->id) }}" class="btn btn-info btn-sm">Lihat</a>
+                    <!-- <a href="{{ route('superadmin.about.show', $about->id) }}" class="btn btn-info btn-sm">Lihat</a> -->
                     <a href="{{ route('superadmin.about.edit', $about->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('superadmin.about.destroy', $about->id) }}" method="POST" style="display:inline;">
                         @csrf
