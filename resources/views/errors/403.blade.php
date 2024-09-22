@@ -1,123 +1,59 @@
-@extends('layouts.auth')
+<!DOCTYPE html>
+<html lang="id">
 
-@section('main-content')
-<!-- Begin Page Content -->
-<div class="container-fluid">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Halaman tidak ditemukan - Dasa Wisma Kabupaten Jepara" />
+    <meta name="author" content="Diskominfo Jepara" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>403 - Akses Ditolak - Dasa Wisma Kabupaten Jepara</title>
+    <link href="https://sb-admin-pro.startbootstrap.com/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
+</head>
 
-    <!-- 403 Error Text -->
-    <div class="text-center">
-        <!-- Error Icon with Animation -->
-        <div class="error mx-auto" data-text="403">
-            <div class="number">403</div>
-            <div class="icon">
-                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h-2v6h2V7zm-2 8h2v2h-2v-2z" fill="#fff" />
-                </svg>
-            </div>
+<body class="bg-white">
+    <div id="layoutError">
+        <div id="layoutError_content">
+            <main>
+                <div class="container-xl px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="text-center mt-4">
+                                <img class="img-fluid p-4" src="https://sb-admin-pro.startbootstrap.com/assets/img/illustrations/403-error-forbidden.svg" alt="403 Error" />
+                                <p class=" lead">Anda tidak memiliki izin untuk mengakses halaman ini.</p>
+                                <a class="text-arrow-icon" href="{{ url('/') }}">
+                                    <i class="ms-0 me-1" data-feather="arrow-left"></i>
+                                    Kembali ke Beranda
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-        <p class="lead text-gray-800 mb-5">Forbidden</p>
-        <p class="text-gray-500 mb-4">You don't have permission to access this resource.</p>
-        <a class="btn btn-primary btn-lg" href="{{ url('/') }}">
-            &larr; Back to Dashboard
-        </a>
+        <div id="layoutError_footer">
+            <footer class="footer-admin mt-auto footer-light">
+                <div class="container-xl px-4">
+                    <div class="row">
+                        <div class="col-md-6 small">
+                            <a href="https://diskominfo.jepara.go.id" target="_blank" rel="noopener noreferrer">Copyright © Diskominfo Jepara 2024</a>
+                        </div>
+                        <div class="col-md-6 text-md-end small">
+                            <a href="{{ route('dasawisma') }}">Dasa Wisma Kabupaten Jepara</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
 
-</div>
-<!-- End of Main Content -->
-@endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://sb-admin-pro.startbootstrap.com/js/scripts.js"></script>
+    <script src="https://assets.startbootstrap.com/js/sb-customizer.js"></script>
+    <sb-customizer project="Dasa Wisma Kabupaten Jepara"></sb-customizer>
+</body>
 
-@section('styles')
-<style>
-    body {
-        background: linear-gradient(135deg, #e0eafc, #cfdef3);
-        background-size: 200% 200%;
-        animation: backgroundAnimation 15s ease infinite;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .error {
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        position: relative;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        animation: pulse 1.5s infinite;
-    }
-
-    .error .number {
-        font-size: 4rem;
-        font-weight: bold;
-        color: #fff;
-        z-index: 1;
-    }
-
-    .error .icon {
-        position: absolute;
-        bottom: -20px;
-        right: -20px;
-        opacity: 0.6;
-        animation: rotate 3s linear infinite;
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.05);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    @keyframes rotate {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes backgroundAnimation {
-        0% {
-            background-position: 0% 0%;
-        }
-
-        50% {
-            background-position: 100% 100%;
-        }
-
-        100% {
-            background-position: 0% 0%;
-        }
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        border-radius: 5px;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004085;
-        transform: translateY(-2px);
-    }
-
-    .btn-primary:active {
-        transform: translateY(0);
-    }
-</style>
-@endsection
+</html>

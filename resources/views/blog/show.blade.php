@@ -43,11 +43,15 @@
                 <ul>
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li><a href="{{ route('about') }}">Tentang</a></li>
-                    <li><a href="{{ route('services') }}">Layanan</a></li>
+                    <li class="dropdown"><a href="#" class="active"> <span>Informasi</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="{{ route('services') }}">Layanan</a></li>
+                            <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+                            <li><a href="{{ route('blog.index') }}" class="active">Blog</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
-                    <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
                     <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
-                    <li><a href="{{ route('blog.index', ['id' => 1]) }}" class="active">Blog</a></li>
                     <li><a href="{{ url('contact') }}">Kontak</a></li>
                     <li><a href="{{ url('login') }}">Masuk</a></li>
                 </ul>
@@ -82,8 +86,9 @@
 
                                 <!-- Gambar Post -->
                                 <div class="post-img" style="text-align: center;">
-                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid" style="width: 350px; height: auto;">
+                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid" style="max-width: 100%; width: 500px; height: auto; object-fit: contain;">
                                 </div>
+
 
                                 <!-- Judul Post -->
                                 <h2 class="title">{{ $blog->title }}</h2>
@@ -137,7 +142,7 @@
                         <div class="recent-posts-widget widget-item">
 
                             <h3 style="font-size: 1.5em;">Recent Posts</h3>
-
+                            <br>
                             <!-- blog/show.blade.php -->
                             @if($recentPosts->isNotEmpty())
                             @foreach($recentPosts as $post)

@@ -57,13 +57,18 @@
         <ul>
           <li><a href="{{ url('/') }}">Beranda</a></li>
           <li><a href="{{ route('about') }}">Tentang</a></li>
-          <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li class="dropdown"><a href="#" class="active"><span>Informasi</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="{{ route('services') }}">Layanan</a></li>
+              <li><a href="{{ route('portfolio') }}" class="active">Portofolio</a></li>
+              <li><a href="{{ route('blog.index') }}">Blog</a></li>
+            </ul>
+          </li>
           <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
-          <li><a href="{{ route('portfolio') }}" class="active">Portofolio</a></li>
           <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
-          <li><a href="{{ route('blog.index') }}">Blog</a></li>
           <li><a href="{{ url('contact') }}">Kontak</a></li>
           <li><a href="{{ url('login') }}">Masuk</a></li>
+
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -96,55 +101,85 @@
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">Galeri</li>
+            <li data-filter="*" class="filter-active">portfolio Galeri</li>
           </ul>
           <!-- Portfolio Items -->
+
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
             @foreach($portfolios as $portfolio)
-
-            @foreach($portfolio->images as $image)
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item {{ $portfolio->category }}">
               <div class="portfolio-content h-100">
-                <img src="{{ asset('storage/' . $image->image_url) }}" class="img-fluid" alt="{{ $portfolio->title }}">
+                @if($portfolio->images->isNotEmpty())
+                <img src="{{ asset('storage/' . $portfolio->images->first()->image_url) }}" class="img-fluid" alt="{{ $portfolio->title }}">
+                @endif
                 <div class="portfolio-info">
                   <h4>{{ $portfolio->title }}</h4>
                   <p>{{ $portfolio->description }}</p>
-                  <a href="{{ asset('storage/' . $image->image_url) }}" title="{{ $portfolio->title }}" data-gallery="portfolio-gallery-{{ $portfolio->category }}" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="{{ route('portfolio-details', ['id' => $portfolio->id]) }}" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <a href="{{ asset('storage/' . $portfolio->images->first()->image_url) }}" title="{{ $portfolio->title }}" data-gallery="portfolio-gallery-{{ $portfolio->id }}" class="glightbox preview-link" title="Lihat Gambar">
+                    <i class="bi bi-zoom-in"></i>
+                  </a>
+                  <a href="{{ route('portfolio-details', ['id' => $portfolio->id]) }}" title="More Details" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                  </a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
+
+            <!-- Modal untuk Galeri Gambar -->
+            <div class="modal fade" id="portfolioModal{{ $portfolio->id }}" tabindex="-1" aria-labelledby="portfolioModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="portfolioModalLabel">{{ $portfolio->title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      @foreach($portfolio->images as $image)
+                      <div class="col-4">
+                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-fluid" alt="{{ $portfolio->title }}">
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Modal -->
             @endforeach
-            @endforeach
+
           </div><!-- End Portfolio Container -->
-          <!-- End Portfolio Items -->
-          <script>
-            $(document).ready(function() {
-              // Initialize Isotope
-              var $grid = $('.isotope-container').isotope({
-                itemSelector: '.portfolio-item',
-                layoutMode: 'masonry'
-              });
 
-              // Filter items on button click
-              $('.portfolio-filters').on('click', 'li', function() {
-                var filterValue = $(this).attr('data-filter');
-                $grid.isotope({
-                  filter: filterValue
-                });
 
-                // Update active class
-                $('.portfolio-filters li').removeClass('filter-active');
-                $(this).addClass('filter-active');
-              });
 
-              // Initialize GLightbox
-              const lightbox = GLightbox({
-                selector: '.glightbox'
-              });
+        </div><!-- End Portfolio Container -->
+        <!-- End Portfolio Items -->
+        <script>
+          $(document).ready(function() {
+            // Initialize Isotope
+            var $grid = $('.isotope-container').isotope({
+              itemSelector: '.portfolio-item',
+              layoutMode: 'masonry'
             });
-          </script>
-        </div>
+
+            // Filter items on button click
+            $('.portfolio-filters').on('click', 'li', function() {
+              var filterValue = $(this).attr('data-filter');
+              $grid.isotope({
+                filter: filterValue
+              });
+
+              // Update active class
+              $('.portfolio-filters li').removeClass('filter-active');
+              $(this).addClass('filter-active');
+            });
+
+            // Initialize GLightbox
+            const lightbox = GLightbox({
+              selector: '.glightbox'
+            });
+          });
+        </script>
+      </div>
       </div>
     </section>
 

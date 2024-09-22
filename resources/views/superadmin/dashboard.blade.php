@@ -4,7 +4,7 @@
 
 <!-- Page Heading -->
 
-<h1 class="h3 mb-4  card-title">{{ __('Dashboard Dasa Wisma Kabupaten Jepara') }}</h1>
+<h1 class="h3 mb-4  card-title">{{ __('Dashboard Super Admin Dasa Wisma Kabupaten Jepara') }}</h1>
 
 @if (session('success'))
 <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
@@ -101,7 +101,8 @@
                     <table class="table table-bordered table-hover table-striped">
                         <thead class="bg-primary text-white font-weight-bold">
                             <tr>
-                                <th>ID</th>
+                                <th>NO</th>
+                                <!--  <th>ID</th> -->
                                 <th>Nama Depan</th>
                                 <th>Nama Belakang</th>
                                 <th>Email</th>
@@ -111,7 +112,8 @@
                         <tbody>
                             @foreach($users as $user)
                             <tr>
-                                <td>{{ $user->id }}</td>
+                                <td>{{ $loop->iteration }}</td> <!-- Nomor urut -->
+                                <!--  <td>{{ $user->id }}</td> -->
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>

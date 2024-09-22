@@ -11,6 +11,12 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
+                                    <!-- Logo untuk mobile -->
+                                    <div class="d-lg-none mb-3">
+                                        <a href="{{ url('/') }}">
+                                            <img src="{{ asset('assets/img/logo-jepara.png') }}" alt="Logo" class="img-fluid" style="max-width: 85px;">
+                                        </a>
+                                    </div>
                                     <h1 class="h4 text-gray-900 mb-4">{{ __('Register Portal Kominfo Jepara') }}</h1>
                                 </div>
 
@@ -25,7 +31,7 @@
                                 @endif
 
                                 <form method="POST" action="{{ route('register') }}" class="user">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    @csrf
 
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user" name="name" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>

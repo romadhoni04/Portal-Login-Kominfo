@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Data Statistik - Dasa Wisma Kabupaten Jepara</title>
@@ -51,11 +52,15 @@
         <ul>
           <li><a href="{{ url('/') }}">Beranda</a></li>
           <li><a href="{{ route('about') }}">Tentang</a></li>
-          <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li class="dropdown"><a href="#"><span>Informasi</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="{{ route('services') }}">Layanan</a></li>
+              <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+              <li><a href="{{ route('blog.index') }}">Blog</a></li>
+            </ul>
+          </li>
           <li><a href="{{ route('dasawisma') }}" class="active">Dasa Wisma</a></li>
-          <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
           <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
-          <li><a href="{{ route('blog.index') }}">Blog</a></li>
           <li><a href="{{ url('contact') }}">Kontak</a></li>
           <li><a href="{{ url('login') }}">Masuk</a></li>
         </ul>
@@ -94,7 +99,8 @@
             .table-container {
               margin: 20px auto;
               max-width: 800px;
-              overflow: hidden;
+              overflow-x: auto;
+              /* Memungkinkan scroll horizontal */
               border-radius: 10px;
               box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             }
@@ -139,6 +145,18 @@
               text-align: center;
               font-style: italic;
               color: #888;
+            }
+
+            /* Media query untuk tampilan mobile */
+            @media (max-width: 768px) {
+
+              .table th,
+              .table td {
+                padding: 10px;
+                /* Kurangi padding di tampilan mobile */
+                font-size: 14px;
+                /* Sesuaikan ukuran font */
+              }
             }
           </style>
 
@@ -258,29 +276,43 @@
           </div>
           <!-- CSS untuk tombol download dan animasi -->
           <style>
-            .download-btn {
-              padding: 8px 16px;
-              background-color: #4CAF50;
-              color: white;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-              transition: background-color 0.3s ease, transform 0.3s ease;
-              margin: 5px;
-            }
+            @media (max-width: 768px) {
+              .chart-container {
+                flex-direction: column;
+                /* Mengubah arah dari horizontal menjadi vertikal */
+                gap: 10px;
+                justify-content: center;
+              }
 
-            .download-btn:hover {
-              background-color: #45a049;
-              transform: scale(1.05);
-            }
+              .download-btn {
+                padding: 8px 14px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                margin: 3px;
 
-            .chart-item {
-              transition: transform 0.3s, box-shadow 0.3s;
-            }
+              }
 
-            .chart-item:hover {
-              transform: translateY(-10px);
-              box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+              .download-btn:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+              }
+
+              .chart-item {
+                transition: transform 0.3s, box-shadow 0.3s;
+                max-width: 100%;
+                /* Membuat chart-item mengambil lebar penuh di mobile */
+                margin: 0 auto;
+                /* Membuat chart berada di tengah */
+              }
+
+              .chart-item:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+              }
             }
           </style>
         </div>

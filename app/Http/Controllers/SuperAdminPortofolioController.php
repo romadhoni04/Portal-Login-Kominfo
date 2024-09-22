@@ -61,8 +61,9 @@ class SuperAdminPortofolioController extends Controller
             }
         }
 
-        return redirect()->route('superadmin.portofolio.index')->with('success', 'Portofolio created successfully.');
+        return redirect()->route('superadmin.portofolio.index')->with('success', 'Portofolio berhasil dibuat.');
     }
+
 
     // Menampilkan form untuk mengedit portofolio
     public function edit($id)
@@ -91,18 +92,21 @@ class SuperAdminPortofolioController extends Controller
         // Update data text
         $portfolio->update($validatedData);
 
+        // Hapus gambar yang dipilih untuk dihapus
+        if ($request->has('remove_images')) {
+            foreach ($request->remove_images as $imageId) {
+                $image = $portfolio->images()->find($imageId);
+                if ($image) {
+                    // Hapus file fisik dari storage
+                    Storage::delete('public/' . $image->image_url);
+                    // Hapus record gambar dari database
+                    $image->delete();
+                }
+            }
+        }
+
         // Jika ada gambar baru yang diupload
         if ($request->hasFile('images')) {
-            // Hapus gambar lama
-            foreach ($portfolio->images as $image) {
-                // Hapus file fisik dari storage
-                Storage::delete('public/' . $image->image_url);
-
-                // Hapus record gambar dari database
-                $image->delete();
-            }
-
-            // Simpan gambar baru
             foreach ($request->file('images') as $file) {
                 $imagePath = $file->store('portfolios', 'public');
                 $portfolio->images()->create(['image_url' => $imagePath]);

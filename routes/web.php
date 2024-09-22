@@ -35,6 +35,7 @@ use App\Http\Controllers\SuperAdminPortofolioController;
 use App\Http\Controllers\SuperAdminAboutController;
 use App\Http\Controllers\SuperAdminClientController;
 use App\Http\Controllers\SuperAdminSearchController;
+use App\Http\Controllers\AdminSearchController;
 use App\Http\Controllers\DasaWismaController;
 // routes/web.php
 
@@ -61,13 +62,8 @@ Route::get('/', function () {
 Auth::routes(); // This includes login, registration, password reset routes, etc.
 
 // Password Reset Routes
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])
-    ->name('password.request');
 
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])
-    ->name('password.email');
 
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])
     ->name('password.reset');
@@ -75,20 +71,29 @@ Route::get('reset-password/{token}', [ResetPasswordController::class, 'showReset
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
 
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 // Ubah nama rute untuk forgot-password
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request.form');
+
+
+
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
 // Ubah nama rute untuk password/reset
-Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request.reset');
-// Ubah nama rute untuk forgot-password
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email.forgot');
 
-// Ubah nama rute untuk password/email
-Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email.send');
+
 // Ubah nama rute untuk reset-password
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset.form');
 
@@ -415,7 +420,13 @@ Route::prefix('superadmin')->middleware('role:superadmin')->group(function () {
     Route::delete('/clients/{client}', [SuperAdminClientController::class, 'destroy'])->name('superadmin.clients.destroy');
 });
 
-Route::get('/superadmin/search', [SuperAdminSearchController::class, 'search'])->name('search');
+// Rute untuk Superadmin
+Route::get('/superadmin/search', [SuperAdminSearchController::class, 'search'])->name('superadmin.search');
+
+// Rute untuk Admin
+Route::get('/admin/search', [AdminSearchController::class, 'search'])->name('admin.search');
+
+
 Route::get('/download/pdf', [DasaWismaController::class, 'downloadPDF'])->name('download.pdf');
 Route::get('/download/excel', [DasaWismaController::class, 'downloadExcel'])->name('download.excel');
 

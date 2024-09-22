@@ -642,7 +642,7 @@ h6 {
   margin-right: 3px;
   font-size: 12px;
   line-height: 0;
-  color: var(--accent-color);
+  color: var(--heading-color)
 }
 
 .footer .footer-links ul li {
@@ -938,7 +938,7 @@ section,
   width: 130%;
   height: 95%;
   background: url("../img/hero-bg.jpg") center top no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
   z-index: 0;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) rotate(0deg);
@@ -951,8 +951,8 @@ section,
   top: 0;
   width: 130%;
   height: 96%;
-  background:  rgba(0, 0, 0, 0.7);
-  opacity: 1;
+  background: var(--background-color);
+  opacity: 0.5;
   z-index: 1;
   border-radius: 0 0 50% 50%;
   transform: translateX(-50%) translateY(18px) rotate(2deg);
@@ -2231,11 +2231,17 @@ section,
 
 /* CSS untuk mengatur ukuran gambar dalam artikel blog */
 .post-img img {
-  width: 100%; /* Membuat gambar responsif */
-  max-width: 300px; /* Membatasi lebar maksimal gambar */
-  height: 200px; /* Menetapkan tinggi gambar */
-  object-fit: cover; /* Menjaga rasio aspek dan mengisi kontainer */
+  width: 100%; /* Pastikan gambar menyesuaikan dengan lebar kontainer */
+  height: auto; /* Pertahankan proporsi asli gambar */
+  object-fit: cover; /* Atur gambar agar tetap memenuhi area tanpa terdistorsi */
+  border-radius: 10px; /* Opsional: Memberikan sudut yang lebih halus */
 }
+
+/* Jika ingin gambar terlihat seluruhnya tanpa terpotong, gunakan object-fit: contain */
+.post-img img.contain {
+  object-fit: contain;
+}
+
 
 .blog-details {
   padding-bottom: 30px;

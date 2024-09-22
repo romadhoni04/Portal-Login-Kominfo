@@ -42,11 +42,15 @@
         <ul>
           <li><a href="{{ url('/') }}">Beranda</a></li>
           <li><a href="{{ route('about') }}">Tentang</a></li>
-          <li><a href="{{ route('services') }}">Layanan</a></li>
+          <li class="dropdown"><a href="#" class="active"><span>Informasi</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="{{ route('services') }}">Layanan</a></li>
+              <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
+              <li><a href="{{ route('blog.index') }}" class="active">Blog</a></li>
+            </ul>
+          </li>
           <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
-          <li><a href="{{ route('portfolio') }}">Portofolio</a></li>
           <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
-          <li><a href="{{ route('blog.index') }}" class="active">Blog</a></li>
           <li><a href="{{ url('contact') }}">Kontak</a></li>
           <li><a href="{{ url('login') }}">Masuk</a></li>
         </ul>

@@ -11,6 +11,12 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
+                                    <!-- Link logo untuk pengguna mobile -->
+                                    <div class="text-center d-lg-none mb-3">
+                                        <a href="{{ url('/') }}">
+                                            <img src="{{ asset('assets/img/logo-jepara.png') }}" alt="Logo" class="img-fluid" style="max-width: 85px;">
+                                        </a>
+                                    </div>
                                     <h1 class="h4 text-gray-900 mb-4">{{ __('Reset Password') }}</h1>
                                     <p class="mb-4">Silahkan masukkan email yang sebelumnya sudah terdaftar untuk mereset password</p>
                                 </div>
@@ -31,17 +37,6 @@
                                 </div>
                                 @endif
 
-                                @if ($errors->any())
-                                <div class="alert alert-danger border-left-danger" role="alert">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-
-
                                 <form method="POST" action="{{ route('password.email') }}" class="user">
                                     @csrf
                                     <div class="form-group">
@@ -55,6 +50,7 @@
                                 </form>
 
                                 <hr>
+
                                 @if (Route::has('register'))
                                 <div class="text-center">
                                     <a class="small" href="{{ route('register') }}">{{ __('Create an Account!') }}</a>

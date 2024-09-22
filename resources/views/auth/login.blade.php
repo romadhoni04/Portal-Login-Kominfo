@@ -11,6 +11,12 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
+                                    <!-- Logo untuk mobile -->
+                                    <div class="d-lg-none mb-3">
+                                        <a href="{{ url('/') }}">
+                                            <img src="{{ asset('assets/img/logo-jepara.png') }}" alt="Logo" class="img-fluid" style="max-width: 85px;">
+                                        </a>
+                                    </div>
                                     <h1 class="h4 text-gray-900 mb-4">{{ __('Login Portal Kominfo Jepara') }}</h1>
                                 </div>
 
@@ -65,7 +71,12 @@
                                             {{ __('Forgot Password?') }}
                                         </a>
                                     </div>
+                                    @else
+                                    <div class="text-center">
+                                        <p>Rute reset password tidak ditemukan.</p>
+                                    </div>
                                     @endif
+
 
                                     @if (Route::has('register'))
                                     <div class="text-center">

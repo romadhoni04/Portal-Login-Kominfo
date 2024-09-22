@@ -25,12 +25,14 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $users = User::count();
-
+        $totalUsers = User::where('role', 'user')->count();
+        $users = User::all();
         $widget = [
             'users' => $users,
+            'total_users' => $totalUsers,
             //...
         ];
 
-        return view('admin.dashboard', compact('widget'));
+        return view('admin.dashboard', compact('widget', 'users'));
     }
 }

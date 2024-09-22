@@ -11,17 +11,23 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
+                                    <!-- Link logo untuk pengguna mobile -->
+                                    <div class="text-center d-lg-none mb-3">
+                                        <a href="{{ url('/') }}">
+                                            <img src="{{ asset('assets/img/logo-jepara.png') }}" alt="Logo" class="img-fluid" style="max-width: 100px;">
+                                        </a>
+                                    </div>
                                     <h1 class="h4 text-gray-900 mb-4">{{ __('Reset Password') }}</h1>
                                 </div>
 
                                 @if ($errors->any())
-                                    <div class="alert alert-danger border-left-danger" role="alert">
-                                        <ul class="pl-4 my-2">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <div class="alert alert-danger border-left-danger" role="alert">
+                                    <ul class="pl-4 my-2">
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                                 @endif
 
                                 <form method="POST" action="{{ route('password.update') }}" class="user">
