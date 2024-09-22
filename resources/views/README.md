@@ -1,8 +1,6 @@
----
-
 # Dasa Wisma Kabupaten Jepara
 
-Selamat datang di repositori website **Dasa Wisma Kabupaten Jepara**. Proyek ini bertujuan untuk memfasilitasi administrasi, organisasi, dan komunikasi dalam komunitas Dasa Wisma di Kabupaten Jepara. Platform ini menyediakan alat untuk mengelola peran pengguna, visualisasi data, layanan, dan fitur lainnya yang dirancang khusus untuk mendukung pemerintahan lokal dan komunitas di Jepara.
+Selamat datang di repositori website **Dasa Wisma Kabupaten Jepara**. Proyek ini bertujuan untuk memfasilitasi administrasi, organisasi, dan komunikasi dalam komunitas Dasa Wisma di Kabupaten Jepara. Platform ini menyediakan alat untuk mengelola peran pengguna, visualisasi data, layanan, portofolio, dan fitur lainnya yang dirancang khusus untuk mendukung pemerintahan lokal dan komunitas di Jepara.
 
 ## Gambaran Proyek
 
@@ -25,25 +23,26 @@ Dasa Wisma adalah inisiatif yang bertujuan untuk meningkatkan kesejahteraan masy
 
 ## Cara Penggunaan
 
-1. Clone repositori ini ke direktori lokal Anda.
-2. Install dependensi menggunakan Composer dan NPM:
+1. Clone repositori ini ke direktori lokal Anda:
+    ```bash
+    git clone <url-repositori>
     ```
+2. Install dependensi menggunakan Composer dan NPM:
+    ```bash
     composer install
     npm install
     npm run dev
     ```
 3. Jalankan migrasi database:
-    ```
+    ```bash
     php artisan migrate
     ```
 4. Jalankan server lokal:
-    ```
+    ```bash
     php artisan serve
     ```
 
 ## Lisensi
 
 Proyek ini dibuat dengan dukungan oleh **Diskominfo Kabupaten Jepara**. Semua hak cipta dilindungi.
-
----
 
