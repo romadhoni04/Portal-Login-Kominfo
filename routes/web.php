@@ -72,6 +72,8 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
 
 
+Route::get('/superadmin/services/{id}', [SuperAdminServiceController::class, 'show'])->name('superadmin.service-details');
+
 
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
@@ -242,11 +244,12 @@ Route::get('contact', [ContactController::class, 'index'])->name('contact');
 // Rute untuk mengirim pesan formulir kontak
 Route::post('/send-message', [ContactController::class, 'submitContactForm'])->name('send_message');
 
-Route::get('/service-details', function () {
-    return view('service-details');
-})->name('service-details');
-Route::get('/service-details', function () {
-    return view('service-details');
+use App\Models\Service;
+
+Route::get('/service-details/{id}', function ($id) {
+    $service = Service::findOrFail($id);
+    $services = Service::all(); // Ambil semua layanan
+    return view('service-details', compact('service', 'services'));
 })->name('service-details');
 
 Route::get('/blog-details', function () {
@@ -340,6 +343,9 @@ Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/{id}', [BlogController::class, 'show'])->name('show');
 });
 
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
+
+
 // routes/web.php
 Route::get('/blog/{id}', [SuperAdminBlogController::class, 'show'])->name('blog.show');
 
@@ -350,17 +356,14 @@ Route::get('blog/{id}', [BlogController::class, 'show'])->name('blog.show');
 
 
 Route::resource('superadmin/services', SuperAdminServiceController::class)->middleware('auth:superadmin');
+Route::get('/superadmin/services/{id}', [SuperAdminServiceController::class, 'show'])->name('superadmin.service-details');
 Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
 // Route untuk menampilkan detail layanan
-Route::get('services/{id}', [SuperAdminServiceController::class, 'show'])->name('service-details');
+
 // Route untuk menampilkan detail layanan
-Route::get('services/{id}', [SuperAdminServiceController::class, 'show'])->name('service-details');
-Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
-Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
-// web.php
-Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service-details');
+
 
 Route::middleware('role:superadmin')->prefix('superadmin')->name('superadmin.')->group(function () {
     Route::resource('services', SuperAdminServiceController::class);

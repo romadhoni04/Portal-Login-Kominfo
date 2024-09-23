@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>{{ $service->title }} - Dasa Wisma Kabupaten Jepara</title>
-  <meta name="description" content="Detail layanan {{ $service->title }} dari Dasa Wisma Kabupaten Jepara.">
-  <meta name="keywords" content="Dasa Wisma, Jepara, {{ $service->title }}, Layanan">
+  <title>Service Details - Dasa Wisma Kabupaten Jepara</title>
+  <meta name="description" content="Detail layanan - dari Dasa Wisma Kabupaten Jepara.">
+  <meta name="keywords" content="Dasa Wisma, Jepara, Layanan">
 
   <!-- Favicons -->
   <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">

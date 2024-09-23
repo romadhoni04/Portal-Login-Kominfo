@@ -17,11 +17,15 @@ class ServiceController extends Controller
     // Menampilkan detail layanan
     public function show($id)
     {
-        $service = Service::findOrFail($id);
+        // Ambil service dengan relasi author
         $service = Service::with('author')->findOrFail($id);
-        $services = Service::all(); // Mengambil semua layanan untuk ditampilkan di daftar
+        $services = Service::all();
+
         return view('service-details', compact('service', 'services'));
     }
+
+
+    // Menampilkan halaman welcome
     public function welcome()
     {
         $services = Service::all(); // Ambil semua data dari model Service

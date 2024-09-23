@@ -18,9 +18,21 @@ class SuperAdminServiceController extends Controller
     // Menampilkan detail layanan
     public function show($id)
     {
+        // Ambil service berdasarkan ID
         $service = Service::findOrFail($id);
-        return view('services.service-details', compact('service'));
+
+        // Ambil semua layanan untuk ditampilkan di daftar layanan
+        $services = Service::all();
+
+        // Kirim data ke view
+        return view('service-details', [
+            'service' => $service,
+            'services' => $services
+        ]);
     }
+
+
+
 
     // Menampilkan form untuk menambah layanan baru
     public function create()
