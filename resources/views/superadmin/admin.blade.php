@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
 
@@ -29,6 +29,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -72,14 +74,14 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                {{ __('Management Index') }}
+                {{ __('Management Halaman Utama') }}
             </div>
             <!-- Nav Item - User & Admin Management -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseManagement"
                     aria-expanded="true" aria-controls="collapseManagement">
                     <i class="fas fa-fw fa-cogs"></i> <!-- Ikon yang lebih relevan untuk manajemen -->
-                    <span>Management Halaman Utama</span>
+                    <span>Management Index</span>
                 </a>
                 <div id="collapseManagement" class="collapse" aria-labelledby="headingManagement" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -108,18 +110,57 @@
                 </div>
             </li>
 
+            <!-- Nav Item - Management User -->
+            <!-- Heading -->
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                {{ __('Management Dasa Wisma') }}
+            </div>
+
+            <!-- Nav Item - Management Dasa Wisma -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDasaWisma"
+                    aria-expanded="false" aria-controls="collapseDasaWisma">
+                    <i class="fas fa-fw fa-users-cog"></i>
+                    <span>Management Dasa Wisma</span>
+                </a>
+                <div id="collapseDasaWisma" class="collapse" aria-labelledby="headingDasaWisma" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Manage Dasa Wisma:</h6>
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.provinsi.index') }}" href="{{ route('superadmin.provinsi.index') }}">
+                            <i class="fas fa-fw fa-map-signs"></i> Manage Provinsi
+                        </a>
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.kabupaten.index') }}" href="{{ route('superadmin.kabupaten.index') }}">
+                            <i class="fas fa-fw fa-map"></i> Manage Kabupaten
+                        </a>
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.kecamatan.index') }}" href="{{ route('superadmin.kecamatan.index') }}">
+                            <i class="fas fa-fw fa-map-marker-alt"></i> Manage Kecamatan
+                        </a>
+                        <a class="collapse-item {{ Nav::isRoute('superadmin.kelurahan.index') }}" href="{{ route('superadmin.kelurahan.index') }}">
+                            <i class="fas fa-fw fa-home"></i> Manage Kelurahan
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
                 {{ __('User & Admin Setting') }}
             </div>
+
             <!-- Nav Item - User & Admin Management -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserAdmin"
-                    aria-expanded="true" aria-controls="collapseUserAdmin">
+                    aria-expanded="false" aria-controls="collapseUserAdmin">
                     <i class="fas fa-fw fa-users-cog"></i>
-                    <span>User & Admin Management</span>
+                    <span>Management User & Admin </span>
                 </a>
                 <div id="collapseUserAdmin" class="collapse" aria-labelledby="headingUserAdmin" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -133,6 +174,7 @@
                     </div>
                 </div>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -148,6 +190,13 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
+            <li class="nav-item {{ Nav::isRoute('superadmin.dawis.index') }}">
+                <a class="nav-link" href="{{ route('superadmin.dawis.index') }}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>{{ __('Dawis') }}</span>
+                </a>
+            </li>
+
 
             <!-- Nav Item - Logout -->
             <li class="nav-item">
@@ -156,6 +205,7 @@
                     <span>{{ __('Logout') }}</span>
                 </a>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -220,109 +270,6 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -362,6 +309,7 @@
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Logout') }}
                                 </a>
+
                             </div>
                         </li>
 
@@ -428,13 +376,16 @@
     </div>
 
     <!-- Scripts -->
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- Memanggil jQuery sekali -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Pastikan Bootstrap ditambahkan setelah jQuery -->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-
     @yield('scripts')
     @yield('styles')
+
 </body>
 
 </html>

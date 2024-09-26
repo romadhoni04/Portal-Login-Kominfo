@@ -42,7 +42,8 @@
                             <a href="https://diskominfo.jepara.go.id" target="_blank" rel="noopener noreferrer">Copyright © Diskominfo Jepara 2024</a>
                         </div>
                         <div class="col-md-6 text-md-end small">
-                            <a href="{{ route('dasawisma') }}">Dasa Wisma Kabupaten Jepara</a>
+                            <a href="#">Dasa Wisma Kabupaten Jepara</a>
+
                             <!-- ·
                             <a href="#!">Syarat &amp; Ketentuan</a> -->
                         </div>

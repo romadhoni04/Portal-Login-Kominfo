@@ -37,6 +37,7 @@ use App\Http\Controllers\SuperAdminClientController;
 use App\Http\Controllers\SuperAdminSearchController;
 use App\Http\Controllers\AdminSearchController;
 use App\Http\Controllers\DasaWismaController;
+
 // routes/web.php
 
 
@@ -437,3 +438,119 @@ use App\Http\Controllers\ImageController;
 
 Route::get('/download-image', [ImageController::class, 'downloadImage'])->name('download.image');
 Route::get('/services/{id}', [ServiceController::class, 'show'])->name('services-details');
+
+use App\Http\Controllers\Superadmin\ProvinsiController;
+use App\Http\Controllers\PropController;
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group(function () {
+    Route::get('provinsi', [PropController::class, 'index'])->name('superadmin.provinsi.index'); // Halaman list provinsi
+    Route::get('provinsi/create', [PropController::class, 'create'])->name('superadmin.provinsi.create'); // Halaman form tambah
+    Route::post('provinsi', [PropController::class, 'store'])->name('superadmin.provinsi.store'); // Menyimpan data provinsi
+    Route::get('provinsi/{provinsi}', [PropController::class, 'show'])->name('superadmin.provinsi.show'); // Detail provinsi
+    Route::get('provinsi/{provinsi}/edit', [PropController::class, 'edit'])->name('superadmin.provinsi.edit'); // Form edit
+    Route::put('provinsi/{provinsi}', [PropController::class, 'update'])->name('superadmin.provinsi.update'); // Update provinsi
+    Route::delete('provinsi/{provinsi}', [PropController::class, 'destroy'])->name('superadmin.provinsi.destroy'); // Hapus provinsi
+    Route::get('provinsi/search', [PropController::class, 'search'])->name('superadmin.provinsi.search'); // Pencarian
+});
+
+use App\Http\Controllers\KabController;
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->as('superadmin.')->group(function () {
+    // Rute untuk Kabupaten
+    Route::resource('kabupaten', KabController::class);
+});
+
+use App\Http\Controllers\KecController;
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->as('superadmin.')->group(function () {
+    // Rute untuk Kabupaten
+    Route::resource('kecamatan', KecController::class);
+});
+
+use App\Http\Controllers\KelController;
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->as('superadmin.')->group(function () {
+    // Rute untuk Kabupaten
+    Route::resource('kelurahan', KelController::class);
+});
+
+
+
+use App\Http\Controllers\UserPropController;
+
+// Rute untuk pengguna
+Route::prefix('user')->group(function () {
+    Route::resource('provinsi', UserPropController::class)->except(['edit', 'update', 'destroy']);
+});
+
+use App\Http\Controllers\UserDasaWismaController;
+
+// Route untuk menampilkan halaman pemilihan Dasa Wisma
+
+
+// Route untuk meng-handle form submission
+//Route::post('/user/dasawisma/submit', [UserDasaWismaController::class, 'submit'])->name('user.dasawisma.submit');
+
+// Grup routes untuk Dasa Wisma
+
+
+Route::middleware(['auth'])->prefix('user/dasawisma')->name('user.dasawisma.')->group(function () {
+    Route::get('/', [UserDasaWismaController::class, 'index'])->name('index');
+    Route::get('/create', [UserDasaWismaController::class, 'create'])->name('create');
+    Route::post('/store', [UserDasaWismaController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [UserDasaWismaController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [UserDasaWismaController::class, 'update'])->name('update');
+    Route::get('/{id}', [UserDasaWismaController::class, 'show'])->name('show');
+    Route::delete('/{id}', [UserDasaWismaController::class, 'destroy'])->name('destroy');
+});
+
+
+
+Route::post('/dasawisma/submit', [UserDasaWismaController::class, 'store'])->name('user.dasawisma.submit');
+
+Route::get('/api/kabupaten/{provinsi}', [UserDasaWismaController::class, 'getKabupaten']);
+Route::get('/api/kecamatan/{kabupaten}', [UserDasaWismaController::class, 'getKecamatan']);
+Route::get('/api/kelurahan/{kecamatan}', [UserDasaWismaController::class, 'getKelurahan']);
+
+
+// Jika Anda tidak menggunakan AJAX untuk mengambil data kabupaten, kecamatan, dan kelurahan, hapus route berikut
+// Route::get('/user/dasawisma/kabupaten/{no_prop}', [UserDasaWismaController::class, 'getKabupaten'])->name('user.dasawisma.kabupaten');
+// Route::get('/user/dasawisma/kecamatan/{no_kab}', [UserDasaWismaController::class, 'getKecamatan'])->name('user.dasawisma.kecamatan');
+// Route::get('/user/dasawisma/kelurahan/{no_kec}', [UserDasaWismaController::class, 'getKelurahan'])->name('user.dasawisma.kelurahan');
+
+// Route untuk mengambil kabupaten berdasarkan provinsi (jika menggunakan AJAX, tetapi tidak diperlukan dalam permintaan saat ini)
+// Route::get('/kabupaten/{no_prop}', [UserDasaWismaController::class, 'getKabupaten']);
+
+// Route untuk mengambil kecamatan berdasarkan kabupaten (jika menggunakan AJAX)
+// Route::get('/kecamatan/{no_kab}', [UserDasaWismaController::class, 'getKecamatan']);
+
+// Route untuk mengambil kelurahan berdasarkan kecamatan (jika menggunakan AJAX)
+// Route::get('/kelurahan/{no_kec}', [UserDasaWismaController::class, 'getKelurahan']);
+
+
+
+use App\Http\Controllers\DawisController;
+
+Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group(function () {
+    // Route untuk CRUD Dawis
+    Route::resource('dawis', DawisController::class);
+});
+Route::resource('dawis', DawisController::class)->names([
+    'index' => 'superadmin.dawis.index',
+    'create' => 'superadmin.dawis.create',
+    'store' => 'superadmin.dawis.store',
+    'show' => 'superadmin.dawis.show',
+    'edit' => 'superadmin.dawis.edit',
+    'update' => 'superadmin.dawis.update',
+    'destroy' => 'superadmin.dawis.destroy',
+]);
+
+
+
+
+// routes/web.php
+
+
+Route::get('/welcome', function () {
+    return view('welcome'); // Pastikan Anda memiliki view bernama 'welcome.blade.php'
+})->name('welcome');

@@ -14,7 +14,7 @@ class RoleMiddleware
         // Jika user tidak memiliki role yang diperlukan
         if (!$request->user() || !$request->user()->hasRole($role)) {
             // Arahkan ke halaman lain, jangan ke route yang memeriksa middleware ini
-            return redirect()->route('home')->with('error', 'You do not have the required role.');
+            return redirect()->route('welcome')->with('error', 'You do not have the required role.');
         }
 
         if (!Auth::check() || !Auth::user()->hasRole($role)) {

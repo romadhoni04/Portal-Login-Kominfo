@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
@@ -65,6 +66,7 @@
                 {{ __('Account Management') }}
             </div>
 
+
             <!-- Nav Item - Profile -->
             <li class="nav-item {{ Nav::isRoute('user.profile') }}">
                 <a class="nav-link" href="{{ route('user.profile') }}">
@@ -72,6 +74,20 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('provinsi.index') }}">
+                    <i class="fas fa-fw fa-map-marker-alt"></i>
+                    <span>Manage Props</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.dasawisma.index') }}">
+                    <i class="fas fa-fw fa-map-marker-alt"></i>
+                    <span>Manage Props</span>
+                </a>
+            </li>
+
+
             <!-- Nav Item - Logout -->
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
