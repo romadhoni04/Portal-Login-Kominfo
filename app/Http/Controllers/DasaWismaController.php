@@ -35,7 +35,7 @@ class DasaWismaController extends Controller
         ];
 
         // Kirim data ke view
-        return view('dasawisma', compact('dailyCounts', 'userCounts', 'widget', 'users'));
+        return view('dasawisma-show', compact('dailyCounts', 'userCounts', 'widget', 'users'));
     }
 
     // Unduh PDF

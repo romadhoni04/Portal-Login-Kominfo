@@ -16,13 +16,13 @@ class UserDasaWismaController extends Controller
     /**
      * Menampilkan halaman pemilihan Dasa Wisma oleh user.
      */
+
     public function index(Request $request)
     {
         $provinsi = Prop::all();
         $kabupaten = [];
         $kecamatan = [];
         $kelurahan = [];
-        $dawis = null; // Awal sebagai null
 
         // Pencarian berdasarkan provinsi
         if ($request->has('provinsi') && !empty($request->provinsi)) {
@@ -39,16 +39,56 @@ class UserDasaWismaController extends Controller
             $kelurahan = Kel::where('no_kec', $request->kecamatan)->get();
         }
 
-        // Cek apakah pengguna sudah memiliki data Dasa Wisma
-        $dawis = Dawis::where('user_id', Auth::id())->with(['kel', 'kec', 'kab', 'prop'])->first();
+        // Tangkap input pencarian
+        $search = $request->input('search');
+        $tahun = $request->input('tahun');
+        $provinsiId = $request->input('provinsi');
+        $kabupatenId = $request->input('kabupaten');
+        $kecamatanId = $request->input('kecamatan');
+        $kelurahanId = $request->input('kelurahan');
 
-        // Mengambil semua data untuk ditampilkan, jika ada
-        $dawisList = Dawis::with(['kel', 'kec', 'kab', 'prop'])->paginate(10);
+        // Query untuk mengambil data Dasa Wisma dengan pencarian
+        $query = Dawis::with(['kel', 'kec', 'kab', 'prop']);
 
-        return view('user.dasawisma.index', compact('dawis', 'dawisList', 'provinsi', 'kabupaten', 'kecamatan', 'kelurahan'));
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_dawis', 'like', '%' . $search . '%')
+                    ->orWhere('rt', 'like', '%' . $search . '%')
+                    ->orWhere('rw', 'like', '%' . $search . '%')
+                    ->orWhere('dusun', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filter berdasarkan tahun
+        if ($tahun) {
+            $query->where('tahun', $tahun);
+        }
+
+        // Filter berdasarkan provinsi
+        if ($provinsiId) {
+            $query->where('no_prop', $provinsiId);
+        }
+
+        // Filter berdasarkan kabupaten
+        if ($kabupatenId) {
+            $query->where('no_kab', $kabupatenId);
+        }
+
+        // Filter berdasarkan kecamatan
+        if ($kecamatanId) {
+            $query->where('no_kec', $kecamatanId);
+        }
+
+        // Filter berdasarkan kelurahan
+        if ($kelurahanId) {
+            $query->where('no_kel', $kelurahanId);
+        }
+
+        // Eksekusi query dengan pagination
+        $dawisList = $query->paginate(10);
+
+        return view('user.dasawisma.index', compact('dawisList', 'provinsi', 'kabupaten', 'kecamatan', 'kelurahan'));
     }
-
-
 
 
     /**
@@ -118,14 +158,10 @@ class UserDasaWismaController extends Controller
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
 
-        // Cek jika pengguna sudah memiliki data
-        if (Dawis::where('user_id', Auth::id())->exists()) {
-            return redirect()->route('user.dasawisma.index')->with('warning', 'Anda sudah memiliki data Dasa Wisma. Silakan edit jika perlu.');
-        }
+
 
         // Menyimpan data Dasa Wisma
         Dawis::create([
-            'user_id' => Auth::id(), // Menambahkan user_id
             'nama_dawis' => $request->nama_dawis,
             'rt' => $request->rt,
             'rw' => $request->rw,
@@ -136,6 +172,7 @@ class UserDasaWismaController extends Controller
             'no_prop' => $request->provinsi,
             'tahun' => $request->tahun,
         ]);
+
 
         return redirect()->route('user.dasawisma.index')->with('success', 'Data Dasa Wisma berhasil disimpan.');
     }
@@ -151,7 +188,7 @@ class UserDasaWismaController extends Controller
 
     public function edit($id)
     {
-        $dawis = Dawis::findOrFail($id);
+        $dawis = Dawis::with(['provinsi', 'kabupaten', 'kecamatan', 'kelurahan'])->findOrFail($id);
         $provinsi = Prop::all();
         $kabupaten = Kab::where('no_prop', $dawis->no_prop)->get();
         $kecamatan = Kec::where('no_kab', $dawis->no_kab)->get();
@@ -159,6 +196,7 @@ class UserDasaWismaController extends Controller
 
         return view('user.dasawisma.edit', compact('dawis', 'provinsi', 'kabupaten', 'kecamatan', 'kelurahan'));
     }
+
 
     public function update(Request $request, $id)
     {

@@ -51,7 +51,7 @@
               <li><a href="{{ route('blog.index') }}">Blog</a></li>
             </ul>
           </li>
-          <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
+          <li><a href="{{ url('dasawisma-show') }}">Dasa Wisma</a></li>
           <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
           <li><a href="{{ url('contact') }}">Kontak</a></li>
           <li><a href="{{ url('login') }}">Masuk</a></li>

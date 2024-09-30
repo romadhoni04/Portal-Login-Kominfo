@@ -22,6 +22,9 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+    <!-- Bootstrap 5 JavaScript CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93FUTfN7uZeWkh5f6vPuqG8tj1wC1rPZQx40L+qOFRp1lH3FIBczuWwZ5yJvN" crossorigin="anonymous"></script>
+
 </head>
 
 <body id="page-top">
@@ -57,6 +60,24 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Dashboard') }}</span></a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                {{ __('Halaman Dasa Wisma') }}
+            </div>
+
+            <!-- Navigasi Dasa Wisma -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.dasawisma.index') }}">
+                    <i class="fas fa-fw fa-home"></i> <!-- Ganti dengan ikon rumah -->
+                    <span>{{ __('Dasa Wisma') }}</span>
+                </a>
+            </li>
+
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 

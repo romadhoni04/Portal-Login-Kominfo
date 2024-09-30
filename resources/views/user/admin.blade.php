@@ -19,10 +19,21 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Tambahkan ini di bagian <head> di layout Anda -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -74,19 +85,6 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('provinsi.index') }}">
-                    <i class="fas fa-fw fa-map-marker-alt"></i>
-                    <span>Manage Props</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.dasawisma.index') }}">
-                    <i class="fas fa-fw fa-map-marker-alt"></i>
-                    <span>Manage Props</span>
-                </a>
-            </li>
-
 
             <!-- Nav Item - Logout -->
             <li class="nav-item">

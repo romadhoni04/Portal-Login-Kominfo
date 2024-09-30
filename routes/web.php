@@ -235,8 +235,16 @@ Route::get('team', [TeamController::class, 'index'])->name('team');
 // Rute untuk halaman Blog
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
 
-Route::get('dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+//Route::get('dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+//Route::get('dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
 
+//Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+
+//Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+
+
+
+Route::get('/dasawisma-show', [DasaWismaController::class, 'index'])->name('dasawisma-show');
 
 
 // Rute untuk menampilkan formulir kontak
@@ -262,6 +270,23 @@ Route::get('/portfolio-details', function () {
 
 
 
+// Route::get('/dasawisma', function () {
+// return view('dasawisma');  // Menampilkan template dasawisma.blade.php
+// })->name('dasawisma');  // Menyertakan nama route sebagai 'dasawisma'
+
+
+//use App\Http\Controllers\DasaWismaController;
+
+//Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+
+//Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+//Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
+
+// Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma.index');
+
+
+
+//Route::get('/dasawisma', [DasaWismaController::class, 'index'])->name('dasawisma');
 
 
 Route::post('/send-message', [ContactController::class, 'submitContactForm']);
@@ -485,6 +510,33 @@ Route::prefix('user')->group(function () {
 
 
 
+use App\Http\Controllers\AdminDasaWismaController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('dasawisma', AdminDasaWismaController::class)->names('admin.dasawisma');
+});
+
+Route::prefix('admin/dasawisma')->group(function () {
+    Route::get('/', [AdminDasaWismaController::class, 'index'])->name('admin.dasawisma.index'); // Menampilkan daftar Dasa Wisma
+    Route::get('/create', [AdminDasaWismaController::class, 'create'])->name('admin.dasawisma.create'); // Menampilkan form untuk membuat Dasa Wisma baru
+    Route::post('/', [AdminDasaWismaController::class, 'store'])->name('admin.dasawisma.store'); // Menyimpan Dasa Wisma baru
+    Route::get('/{id}', [AdminDasaWismaController::class, 'show'])->name('admin.dasawisma.show'); // Menampilkan detail Dasa Wisma
+    Route::get('/{id}/edit', [AdminDasaWismaController::class, 'edit'])->name('admin.dasawisma.edit'); // Menampilkan form untuk mengedit Dasa Wisma
+    Route::put('/{id}', [AdminDasaWismaController::class, 'update'])->name('admin.dasawisma.update'); // Memperbarui Dasa Wisma
+    Route::delete('/{id}', [AdminDasaWismaController::class, 'destroy'])->name('admin.dasawisma.destroy'); // Menghapus Dasa Wisma
+});
+
+Route::resource('dasawisma', AdminDasaWismaController::class)->middleware('auth');
+
+
+//Route::post('/dasawisma/submit', [UserDasaWismaController::class, 'store'])->name('user.dasawisma.submit');
+
+Route::get('/api/kabupaten/{provinsi}', [AdminDasaWismaController::class, 'getKabupaten']);
+Route::get('/api/kecamatan/{kabupaten}', [AdminDasaWismaController::class, 'getKecamatan']);
+Route::get('/api/kelurahan/{kecamatan}', [AdminDasaWismaController::class, 'getKelurahan']);
+
+
+
 // Route untuk menampilkan halaman pemilihan Dasa Wisma
 
 
@@ -493,7 +545,8 @@ Route::prefix('user')->group(function () {
 
 // Grup routes untuk Dasa Wisma
 
-use App\Http\Controllers\UserDasaWismaController;
+
+
 
 //Route::prefix('user/dasawisma')->middleware(['auth'])->name('user.dasawisma.')->group(function () {
 //  Route::get('/', [UserDasaWismaController::class, 'index'])->name('index');
@@ -506,28 +559,30 @@ use App\Http\Controllers\UserDasaWismaController;
 //});
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('dasawisma', UserDasaWismaController::class)->names('user.dasawisma');
-});
+//use App\Http\Controllers\UserDasaWismaController;
 
-Route::prefix('user/dasawisma')->group(function () {
-    Route::get('/', [UserDasaWismaController::class, 'index'])->name('user.dasawisma.index'); // Menampilkan daftar Dasa Wisma
-    Route::get('/create', [UserDasaWismaController::class, 'create'])->name('user.dasawisma.create'); // Menampilkan form untuk membuat Dasa Wisma baru
-    Route::post('/', [UserDasaWismaController::class, 'store'])->name('user.dasawisma.store'); // Menyimpan Dasa Wisma baru
-    Route::get('/{id}', [UserDasaWismaController::class, 'show'])->name('user.dasawisma.show'); // Menampilkan detail Dasa Wisma
-    Route::get('/{id}/edit', [UserDasaWismaController::class, 'edit'])->name('user.dasawisma.edit'); // Menampilkan form untuk mengedit Dasa Wisma
-    Route::put('/{id}', [UserDasaWismaController::class, 'update'])->name('user.dasawisma.update'); // Memperbarui Dasa Wisma
-    Route::delete('/{id}', [UserDasaWismaController::class, 'destroy'])->name('user.dasawisma.destroy'); // Menghapus Dasa Wisma
-});
+//Route::middleware(['auth'])->group(function () {
+//  Route::resource('dasawisma', UserDasaWismaController::class)->names('user.dasawisma');
+//});
 
-Route::resource('dasawisma', UserDasaWismaController::class)->middleware('auth');
+//Route::prefix('user/dasawisma')->group(function () {
+//  Route::get('/', [UserDasaWismaController::class, 'index'])->name('user.dasawisma.index'); // Menampilkan daftar Dasa Wisma
+// Route::get('/create', [UserDasaWismaController::class, 'create'])->name('user.dasawisma.create'); // Menampilkan form untuk membuat Dasa Wisma baru
+//Route::post('/', [UserDasaWismaController::class, 'store'])->name('user.dasawisma.store'); // Menyimpan Dasa Wisma baru
+//Route::get('/{id}', [UserDasaWismaController::class, 'show'])->name('user.dasawisma.show'); // Menampilkan detail Dasa Wisma
+//Route::get('/{id}/edit', [UserDasaWismaController::class, 'edit'])->name('user.dasawisma.edit'); // Menampilkan form untuk mengedit Dasa Wisma
+//Route::put('/{id}', [UserDasaWismaController::class, 'update'])->name('user.dasawisma.update'); // Memperbarui Dasa Wisma
+//Route::delete('/{id}', [UserDasaWismaController::class, 'destroy'])->name('user.dasawisma.destroy'); // Menghapus Dasa Wisma
+//});
+
+//oute::resource('dasawisma', UserDasaWismaController::class)->middleware('auth');
 
 
 //Route::post('/dasawisma/submit', [UserDasaWismaController::class, 'store'])->name('user.dasawisma.submit');
 
-Route::get('/api/kabupaten/{provinsi}', [UserDasaWismaController::class, 'getKabupaten']);
-Route::get('/api/kecamatan/{kabupaten}', [UserDasaWismaController::class, 'getKecamatan']);
-Route::get('/api/kelurahan/{kecamatan}', [UserDasaWismaController::class, 'getKelurahan']);
+//Route::get('/api/kabupaten/{provinsi}', [UserDasaWismaController::class, 'getKabupaten']);
+//Route::get('/api/kecamatan/{kabupaten}', [UserDasaWismaController::class, 'getKecamatan']);
+//Route::get('/api/kelurahan/{kecamatan}', [UserDasaWismaController::class, 'getKelurahan']);
 
 
 // Jika Anda tidak menggunakan AJAX untuk mengambil data kabupaten, kecamatan, dan kelurahan, hapus route berikut

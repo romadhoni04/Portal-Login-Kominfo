@@ -67,8 +67,9 @@
                             <li><a href="{{ route('blog.index') }}">Blog</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('dasawisma') }}">Dasa Wisma</a></li>
-                    <!-- <li><a href="{{ route('team') }}">Tim</a></li> -->
+                    <li><a href="{{ url('dasawisma-show') }}">Dasa Wisma</a></li>
+
+
                     <li><a href="{{ url('contact') }}">Kontak</a></li>
                     <li><a href="{{ url('login') }}">Masuk</a></li>
                     <!-- <li>
@@ -150,7 +151,7 @@
                         <div class="carousel-container">
                             <h2>Selamat Datang di Dasa Wisma Kabupaten Jepara</h2>
                             <p>Dasa Wisma Kabupaten Jepara adalah organisasi yang berperan penting dalam meningkatkan kesejahteraan masyarakat melalui partisipasi aktif perempuan. Kami berkomitmen untuk mendukung berbagai program sosial, kesehatan, dan pendidikan demi membangun masyarakat yang lebih sejahtera dan mandiri.</p>
-                            <a href="{{ route('dasawisma') }}" class="btn-get-started">Pelajari Lebih Lanjut</a>
+                            <a href="{{ route('dasawisma.index') }}" class="btn-get-started">Pelajari Lebih Lanjut</a>
                         </div>
                     </div><!-- End Carousel Item -->
 

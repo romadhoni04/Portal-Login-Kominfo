@@ -25,7 +25,6 @@ class Dawis extends Model
         'no_kab',
         'no_prop',
         'tahun',
-        'user_id',
     ];
 
     // Model Dawis
