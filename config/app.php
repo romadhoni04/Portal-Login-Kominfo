@@ -19,6 +19,7 @@ return [
 
     'aliases' => [
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+
     ],
 
 

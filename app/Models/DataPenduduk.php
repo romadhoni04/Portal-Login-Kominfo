@@ -9,21 +9,21 @@ class DataPenduduk extends Model
 {
     use HasFactory;
 
-    // Nama tabel di database
     protected $table = 'data_penduduk';
+    protected $primaryKey = 'id_penduduk';
+    public $timestamps = false;
 
-    // Field yang bisa diisi massal
     protected $fillable = [
         'no_kk',
-        'no_nik',
+        'no_ktp',
         'nama_lengkap',
         'jenis_kelamin',
         'tempat_lahir',
         'tanggal_lahir',
-        'shdk', // relasi ke ref_shdk
-        'status_kawin', // relasi ke ref_perkawinan
-        'pendidikan', // relasi ke ref_pendidikan
-        'pekerjaan', // relasi ke ref_pekerjaan
+        'shdk',
+        'status_kawin',
+        'pendidikan',
+        'pekerjaan',
         'difabel',
         'keg_pancasila',
         'keg_gotong_royong',
@@ -36,27 +36,23 @@ class DataPenduduk extends Model
         'keterangan',
     ];
 
-    // Relasi ke ref_shdk
-    public function shdkRef()
+    public function refShdk()
     {
-        return $this->belongsTo(RefShdk::class, 'shdk', 'id');
+        return $this->belongsTo(RefShdk::class, 'shdk');
     }
 
-    // Relasi ke ref_perkawinan
-    public function statusKawinRef()
+    public function refPerkawinan()
     {
-        return $this->belongsTo(RefPerkawinan::class, 'status_kawin', 'id');
+        return $this->belongsTo(RefPerkawinan::class, 'status_kawin');
     }
 
-    // Relasi ke ref_pendidikan
-    public function pendidikanRef()
+    public function refPendidikan()
     {
-        return $this->belongsTo(RefPendidikan::class, 'pendidikan', 'id');
+        return $this->belongsTo(RefPendidikan::class, 'pendidikan');
     }
 
-    // Relasi ke ref_pekerjaan
-    public function pekerjaanRef()
+    public function refPekerjaan()
     {
-        return $this->belongsTo(RefPekerjaan::class, 'pekerjaan', 'id');
+        return $this->belongsTo(RefPekerjaan::class, 'pekerjaan');
     }
 }

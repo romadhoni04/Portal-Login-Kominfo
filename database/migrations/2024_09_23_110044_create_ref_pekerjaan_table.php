@@ -10,10 +10,11 @@ class CreateRefPekerjaanTable extends Migration
     {
         Schema::create('ref_pekerjaan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100); // Misalnya: Petani, Pedagang, PNS, dll.
+            $table->string('nama');
             $table->timestamps();
         });
     }
+
 
     public function down()
     {

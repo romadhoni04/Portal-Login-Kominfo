@@ -40,6 +40,7 @@
                     <img src="https://sippn.menpan.go.id/images/article/large/logo-jepara-11.png" alt="Logo" style="max-height: 50px;">
                 </div>
                 <div class="sidebar-brand-text mx-3">
+                    @if(auth()->check())
                     @if(auth()->user()->hasRole('superadmin'))
                     Superadmin <sup>Dasa Wisma</sup>
                     @elseif(auth()->user()->hasRole('administrator'))
@@ -47,7 +48,11 @@
                     @elseif(auth()->user()->hasRole('user'))
                     User <sup>Dasa Wisma</sup>
                     @endif
+                    @else
+                    <span>Guest <sup>Dasa Wisma</sup></span>
+                    @endif
                 </div>
+
 
             </a>
 
@@ -76,7 +81,6 @@
                     <span>{{ __('Dasa Wisma') }}</span>
                 </a>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -298,38 +302,41 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    @if (auth()->check())
                                     {{ Auth::user()->fullName }}<br>
                                     <small class="font-weight-bold text-center" style="display: block;">
                                         {{ ucfirst(Auth::user()->role) }}
-                                    </small> <!-- Display the role -->
+                                    </small>
+                                    @else
+                                    <span>Guest</span> <!-- Jika user tidak login -->
+                                    @endif
                                 </span>
-                                @if (Auth::user()->profile_photo)
+
+                                @if (auth()->check() && Auth::user()->profile_photo)
                                 <img class="img-profile rounded-circle" src="{{ asset('storage/profile_photos/' . Auth::user()->profile_photo) }}" alt="Profile Photo">
-                                @else
+                                @elseif (auth()->check())
                                 <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="{{ Auth::user()->name[0] }}"></figure>
+                                @else
+                                <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="G"></figure>
                                 @endif
                             </a>
+
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                @if (auth()->check())
                                 <a class="dropdown-item" href="{{ route('admin.profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('Profile') }}
+                                    Profile
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('Settings') }}
+                                @else
+                                <a class="dropdown-item" href="{{ route('login') }}">
+                                    <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Login
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('Activity Log') }}
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('Logout') }}
-                                </a>
+                                @endif
                             </div>
                         </li>
+
 
                     </ul>
 

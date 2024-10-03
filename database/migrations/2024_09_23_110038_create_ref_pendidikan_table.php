@@ -10,10 +10,11 @@ class CreateRefPendidikanTable extends Migration
     {
         Schema::create('ref_pendidikan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 100); // Misalnya: SD, SMP, SMA, S1
+            $table->string('nama');
             $table->timestamps();
         });
     }
+
 
     public function down()
     {

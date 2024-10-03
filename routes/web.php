@@ -38,6 +38,8 @@ use App\Http\Controllers\SuperAdminSearchController;
 use App\Http\Controllers\AdminSearchController;
 use App\Http\Controllers\DasaWismaController;
 
+
+
 // routes/web.php
 
 
@@ -517,14 +519,52 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::prefix('admin/dasawisma')->group(function () {
-    Route::get('/', [AdminDasaWismaController::class, 'index'])->name('admin.dasawisma.index'); // Menampilkan daftar Dasa Wisma
-    Route::get('/create', [AdminDasaWismaController::class, 'create'])->name('admin.dasawisma.create'); // Menampilkan form untuk membuat Dasa Wisma baru
-    Route::post('/', [AdminDasaWismaController::class, 'store'])->name('admin.dasawisma.store'); // Menyimpan Dasa Wisma baru
-    Route::get('/{id}', [AdminDasaWismaController::class, 'show'])->name('admin.dasawisma.show'); // Menampilkan detail Dasa Wisma
-    Route::get('/{id}/edit', [AdminDasaWismaController::class, 'edit'])->name('admin.dasawisma.edit'); // Menampilkan form untuk mengedit Dasa Wisma
-    Route::put('/{id}', [AdminDasaWismaController::class, 'update'])->name('admin.dasawisma.update'); // Memperbarui Dasa Wisma
-    Route::delete('/{id}', [AdminDasaWismaController::class, 'destroy'])->name('admin.dasawisma.destroy'); // Menghapus Dasa Wisma
+    Route::get('/', [AdminDasaWismaController::class, 'index'])->name('admin.dasawisma.index');
+    Route::get('/create', [AdminDasaWismaController::class, 'create'])->name('admin.dasawisma.create');
+    Route::post('/', [AdminDasaWismaController::class, 'store'])->name('admin.dasawisma.store');
+    Route::get('/{id}', [AdminDasaWismaController::class, 'show'])->name('admin.dasawisma.show');
+    Route::get('/{id}/edit', [AdminDasaWismaController::class, 'edit'])->name('admin.dasawisma.edit');
+    Route::put('/{id}', [AdminDasaWismaController::class, 'update'])->name('admin.dasawisma.update');
+    Route::delete('/{id}', [AdminDasaWismaController::class, 'destroy'])->name('admin.dasawisma.destroy');
+
+    // Route untuk mengelola Kepala Rumah Tangga dari Dasa Wisma tertentu
+    Route::get('/{id}/kepala-rumah-tangga', [AdminDasaWismaController::class, 'kepalaRumahTangga'])->name('admin.dasawisma.kepalaRumahTangga');
 });
+
+
+
+use App\Http\Controllers\AdminKepalaRumahTanggaController;
+
+
+
+Route::prefix('admin/kepala-rumah-tangga')->group(function () {
+    Route::get('{dawisId}', [AdminKepalaRumahTanggaController::class, 'index'])->name('admin.dasawisma.kepalaRumahTangga');
+    Route::get('{dawisId}/create', [AdminKepalaRumahTanggaController::class, 'create'])->name('admin.dasawisma.kepalaRumahTanggaCreate');
+    Route::post('{dawisId}', [AdminKepalaRumahTanggaController::class, 'store'])->name('admin.dasawisma.kepalaRumahTangga.store');
+    Route::get('edit/{id}', [AdminKepalaRumahTanggaController::class, 'edit'])->name('admin.dasawisma.kepalaRumahTanggaEdit'); // Tambahkan route ini
+    Route::put('{id}', [AdminKepalaRumahTanggaController::class, 'update'])->name('admin.kepalaRumahTangga.update');
+    Route::get('{dawisId}/show/{id}', [AdminKepalaRumahTanggaController::class, 'show'])->name('admin.dasawisma.kepalaRumahTanggaShow'); // Pastikan route ini adax 
+    Route::delete('{id}', [AdminKepalaRumahTanggaController::class, 'destroy'])->name('admin.dasawisma.kepalaRumahTangga.destroy');
+});
+
+use App\Http\Controllers\AdminDataKeluargaController;
+
+Route::prefix('admin/datakeluarga')->group(function () {
+    Route::get('/', [AdminDataKeluargaController::class, 'index'])->name('admin.datakeluarga.index');
+    Route::get('create', [AdminDataKeluargaController::class, 'create'])->name('admin.datakeluarga.create');
+    Route::post('/datakeluarga/store', [AdminDataKeluargaController::class, 'store'])->name('admin.datakeluarga.store');
+
+    Route::get('{no_kk}', [AdminDataKeluargaController::class, 'show'])->name('admin.datakeluarga.show');
+    Route::get('{no_kk}/edit', [AdminDataKeluargaController::class, 'edit'])->name('admin.datakeluarga.edit');
+    Route::put('{no_kk}', [AdminDataKeluargaController::class, 'update'])->name('admin.datakeluarga.update');
+    Route::delete('{no_kk}', [AdminDataKeluargaController::class, 'destroy'])->name('admin.datakeluarga.destroy');
+});
+
+Route::get('/api/kabupaten/{provinsi}', [AdminDataKeluargaController::class, 'getKabupaten']);
+Route::get('/api/kecamatan/{kabupaten}', [AdminDataKeluargaController::class, 'getKecamatan']);
+Route::get('/api/kelurahan/{kecamatan}', [AdminDataKeluargaController::class, 'getKelurahan']);
+
+
 
 Route::resource('dasawisma', AdminDasaWismaController::class)->middleware('auth');
 
@@ -535,7 +575,45 @@ Route::get('/api/kabupaten/{provinsi}', [AdminDasaWismaController::class, 'getKa
 Route::get('/api/kecamatan/{kabupaten}', [AdminDasaWismaController::class, 'getKecamatan']);
 Route::get('/api/kelurahan/{kecamatan}', [AdminDasaWismaController::class, 'getKelurahan']);
 
+use App\Http\Controllers\AdminDataPendudukController;
 
+Route::prefix('admin')->group(function () {
+    Route::resource('data_penduduk', AdminDataPendudukController::class);
+});
+
+
+
+//Route::prefix('admin/kepala_rumah_tangga')->name('admin.kepala_rumah_tangga.')->group(function () {
+// Route untuk menampilkan daftar kepala rumah tangga
+//  Route::get('/', [AdminKepalaRumahTanggaController::class, 'index'])->name('index');
+
+// Route untuk menampilkan form tambah kepala rumah tangga baru
+//Route::get('/create', [AdminKepalaRumahTanggaController::class, 'create'])->name('create');
+
+// Route untuk menyimpan data kepala rumah tangga yang baru
+//Route::post('/', [AdminKepalaRumahTanggaController::class, 'store'])->name('store');
+
+// Route untuk menampilkan detail kepala rumah tangga tertentu
+//Route::get('/{kepalaRumahTangga}', [AdminKepalaRumahTanggaController::class, 'show'])->name('show');
+
+// Route untuk menampilkan form edit kepala rumah tangga
+//Route::get('/{kepalaRumahTangga}/edit', [AdminKepalaRumahTanggaController::class, 'edit'])->name('edit');
+
+// Route untuk memperbarui data kepala rumah tangga
+//Route::put('/{kepalaRumahTangga}', [AdminKepalaRumahTanggaController::class, 'update'])->name('update');
+
+// Route untuk menghapus data kepala rumah tangga
+//Route::delete('/{kepalaRumahTangga}', [AdminKepalaRumahTanggaController::class, 'destroy'])->name('destroy');
+// });
+
+
+
+//use App\Http\Controllers\AdminDawisReportController;
+
+//Route::post('/admin/dasawisma/report', [AdminDawisReportController::class, 'generateReport'])->name('admin.dasawisma.report');
+
+
+//Route::get('/admin/dasawisma/report', [AdminDawisReportController::class, 'generateReport'])->name('admin.dasawisma.report');
 
 // Route untuk menampilkan halaman pemilihan Dasa Wisma
 

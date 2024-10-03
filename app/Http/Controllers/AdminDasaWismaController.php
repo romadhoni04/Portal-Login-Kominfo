@@ -7,6 +7,7 @@ use App\Models\Kab;
 use App\Models\Kec;
 use App\Models\Kel;
 use App\Models\Dawis; // Import model Dawis
+use App\Models\KepalaRumahTangga;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -184,6 +185,20 @@ class AdminDasaWismaController extends Controller
         $dawis = Dawis::with(['provinsi', 'kabupaten', 'kecamatan', 'kelurahan'])->findOrFail($id);
         return view('admin.dasawisma.show', compact('dawis'));
     }
+
+    public function kepalaRumahTangga($id)
+    {
+        $dawis = dawis::findOrFail($id);
+        $kepalaRumahTanggaList = KepalaRumahTangga::where('dawis_id', $id)->paginate(10);
+
+        return view('admin.dasawisma.kepalaRumahTangga', [
+            'dawisName' => $dawis->nama_dawis,
+            'kepalaRumahTanggaList' => $kepalaRumahTanggaList,
+            'dawisId' => $id,
+        ]);
+    }
+
+
 
 
     public function edit($id)

@@ -10,10 +10,11 @@ class CreateRefPerkawinanTable extends Migration
     {
         Schema::create('ref_perkawinan', function (Blueprint $table) {
             $table->id();
-            $table->string('status', 100); // Misalnya: Belum Kawin, Kawin, Cerai
+            $table->string('status');
             $table->timestamps();
         });
     }
+
 
     public function down()
     {

@@ -45,7 +45,13 @@
     <div class="mt-4">
         <a href="{{ route('admin.dasawisma.create') }}" class="btn btn-success">Tambah Dasa Wisma Baru</a>
     </div>
+    <div class="mt-2">
+        <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+        </a>
+    </div>
     @endif
+
 
     <br>
     <!-- Cek jika tidak ada hasil pencarian -->
@@ -93,6 +99,7 @@
                 <td>{{ $item->kel->nama_kel ?? 'Tidak ada' }}</td>
                 <td>
                     <div class="btn-group" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+                        <a href="{{ route('admin.dasawisma.kepalaRumahTangga', $item->id) }}" class="btn btn-primary">KRT</a>
                         <a href="{{ route('admin.dasawisma.show', $item->id) }}" class="btn btn-info">Lihat</a>
                         <a href="{{ route('admin.dasawisma.edit', $item->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('admin.dasawisma.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Anda yakin ingin menghapus Dasa Wisma ini?');">
@@ -140,7 +147,7 @@
         vertical-align: middle;
         text-overflow: ellipsis;
         text-align: center;
-        padding: 10px 18px;
+        padding: auto;
         /* Padding yang lebih kecil */
         font-size: 1rem;
         /* Ukuran font yang lebih kecil */

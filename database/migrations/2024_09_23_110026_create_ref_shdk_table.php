@@ -10,10 +10,11 @@ class CreateRefShdkTable extends Migration
     {
         Schema::create('ref_shdk', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_shdk', 100);
+            $table->string('nama_shdk');
             $table->timestamps();
         });
     }
+
 
     public function down()
     {
