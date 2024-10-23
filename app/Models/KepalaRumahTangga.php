@@ -17,4 +17,9 @@ class KepalaRumahTangga extends Model
     {
         return $this->belongsTo(Dawis::class, 'dawis_id');
     }
+
+    public function dataKeluarga()
+    {
+        return $this->hasMany(DataKeluarga::class, 'kepala_rumah_tangga_id');
+    }
 }

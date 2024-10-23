@@ -30,22 +30,22 @@ class Dawis extends Model
     // Model Dawis
     public function kel()
     {
-        return $this->belongsTo(Kel::class, 'no_kel');
+        return $this->belongsTo(Kel::class, 'no_kel', 'no_kel');
     }
 
     public function kec()
     {
-        return $this->belongsTo(Kec::class, 'no_kec');
+        return $this->belongsTo(Kec::class, 'no_kec', 'no_kec');
     }
 
     public function kab()
     {
-        return $this->belongsTo(Kab::class, 'no_kab');
+        return $this->belongsTo(Kab::class, 'no_kab', 'no_kab');
     }
 
     public function prop()
     {
-        return $this->belongsTo(Prop::class, 'no_prop');
+        return $this->belongsTo(Prop::class, 'no_prop', 'no_prop');
     }
     /**
      * Relasi ke model Prop (Provinsi).

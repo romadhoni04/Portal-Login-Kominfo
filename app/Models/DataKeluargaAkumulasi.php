@@ -46,4 +46,13 @@ class DataKeluargaAkumulasi extends Model
     {
         return $this->belongsTo(DataKeluarga::class, 'no_kk', 'no_kk');
     }
+    public function kel()
+    {
+        return $this->belongsTo(Kel::class, 'no_kel');
+    }
+
+    public function kec()
+    {
+        return $this->belongsTo(Kec::class, 'no_kec');
+    }
 }

@@ -190,12 +190,7 @@
                     <span>{{ __('Profile') }}</span>
                 </a>
             </li>
-            <li class="nav-item {{ Nav::isRoute('superadmin.dawis.index') }}">
-                <a class="nav-link" href="{{ route('superadmin.dawis.index') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>{{ __('Dawis') }}</span>
-                </a>
-            </li>
+
 
 
             <!-- Nav Item - Logout -->

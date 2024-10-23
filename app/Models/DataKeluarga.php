@@ -32,6 +32,7 @@ class DataKeluarga extends Model
         return $this->belongsTo(Dawis::class, 'dawis_id');
     }
 
+
     // Model Dawis
     public function kel()
     {
@@ -86,5 +87,9 @@ class DataKeluarga extends Model
     public function kepalaRumahTangga()
     {
         return $this->belongsTo(KepalaRumahTangga::class, 'kepala_rumah_tangga_id');
+    }
+    public function kepala_rumah_tangga()
+    {
+        return $this->belongsTo(KepalaRumahTangga::class, 'kepala_rumah_tangga_id', 'id');
     }
 }

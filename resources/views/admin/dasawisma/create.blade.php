@@ -118,21 +118,14 @@
                     dataType: "json",
                     success: function(data) {
                         $.each(data, function(key, value) {
-                            $('#kelurahan').append('<option value="' + value.no_kel + '">' + value.nama_kel + '</option>');
+                            // Tampilkan nama kelurahan sesuai kecamatan
+                            $('#kelurahan').append('<option value="' + value.no_kel + '-' + value.no_kec + '-' + value.no_kab + '-' + value.no_prop + '">' + value.nama_kel + '</option>');
                         });
                     },
                     error: function() {
                         alert('Error retrieving kelurahan data. Please try again.');
                     }
                 });
-            }
-        });
-
-        // Validasi form sebelum submit
-        $('#dasawisma-form').on('submit', function(e) {
-            if ($('#nama_dawis').val().trim() === '') {
-                e.preventDefault();
-                alert('Nama Dasa Wisma harus diisi.');
             }
         });
     });

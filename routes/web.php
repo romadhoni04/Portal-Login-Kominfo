@@ -537,7 +537,7 @@ use App\Http\Controllers\AdminKepalaRumahTanggaController;
 
 
 
-Route::prefix('admin/kepala-rumah-tangga')->group(function () {
+Route::prefix('admin/kepalarumahtangga')->group(function () {
     Route::get('{dawisId}', [AdminKepalaRumahTanggaController::class, 'index'])->name('admin.dasawisma.kepalaRumahTangga');
     Route::get('{dawisId}/create', [AdminKepalaRumahTanggaController::class, 'create'])->name('admin.dasawisma.kepalaRumahTanggaCreate');
     Route::post('{dawisId}', [AdminKepalaRumahTanggaController::class, 'store'])->name('admin.dasawisma.kepalaRumahTangga.store');
@@ -550,15 +550,18 @@ Route::prefix('admin/kepala-rumah-tangga')->group(function () {
 use App\Http\Controllers\AdminDataKeluargaController;
 
 Route::prefix('admin/datakeluarga')->group(function () {
-    Route::get('/', [AdminDataKeluargaController::class, 'index'])->name('admin.datakeluarga.index');
-    Route::get('create', [AdminDataKeluargaController::class, 'create'])->name('admin.datakeluarga.create');
-    Route::post('/datakeluarga/store', [AdminDataKeluargaController::class, 'store'])->name('admin.datakeluarga.store');
+    Route::get('show/{no_kk}', [AdminDataKeluargaController::class, 'show'])->name('admin.datakeluarga.show'); // Taruh di paling atas
 
-    Route::get('{no_kk}', [AdminDataKeluargaController::class, 'show'])->name('admin.datakeluarga.show');
-    Route::get('{no_kk}/edit', [AdminDataKeluargaController::class, 'edit'])->name('admin.datakeluarga.edit');
-    Route::put('{no_kk}', [AdminDataKeluargaController::class, 'update'])->name('admin.datakeluarga.update');
-    Route::delete('{no_kk}', [AdminDataKeluargaController::class, 'destroy'])->name('admin.datakeluarga.destroy');
+    Route::get('/{dawis_id}/{kepala_rumah_tangga_id?}', [AdminDataKeluargaController::class, 'index'])->name('admin.datakeluarga.index');
+    Route::get('/create/{dawis_id}/{kepala_rumah_tangga_id?}', [AdminDataKeluargaController::class, 'create'])->name('admin.datakeluarga.create');
+    Route::post('store', [AdminDataKeluargaController::class, 'store'])->name('admin.datakeluarga.store');
+    Route::get('/edit/{no_kk}/{dawis_id}/{kepala_rumah_tangga_id}', [AdminDataKeluargaController::class, 'edit'])->name('data-keluarga.edit');
+    Route::put('/{no_kk}/{dawis_id}', [AdminDataKeluargaController::class, 'update'])->name('admin.datakeluarga.update');
+    Route::delete('/{no_kk}/{dawis_id}/{kepala_rumah_tangga_id?}', [AdminDataKeluargaController::class, 'destroy'])->name('admin.datakeluarga.destroy');
 });
+
+
+
 
 Route::get('/api/kabupaten/{provinsi}', [AdminDataKeluargaController::class, 'getKabupaten']);
 Route::get('/api/kecamatan/{kabupaten}', [AdminDataKeluargaController::class, 'getKecamatan']);
@@ -575,11 +578,58 @@ Route::get('/api/kabupaten/{provinsi}', [AdminDasaWismaController::class, 'getKa
 Route::get('/api/kecamatan/{kabupaten}', [AdminDasaWismaController::class, 'getKecamatan']);
 Route::get('/api/kelurahan/{kecamatan}', [AdminDasaWismaController::class, 'getKelurahan']);
 
+Route::get('/admin/dasawisma/get-kelurahan', [AdminDasaWismaController::class, 'getKelurahan']);
+Route::get('/kelurahan/{kecamatan}', [AdminDasaWismaController::class, 'getKelurahan']);
+
+
+
 use App\Http\Controllers\AdminDataPendudukController;
 
-Route::prefix('admin')->group(function () {
-    Route::resource('data_penduduk', AdminDataPendudukController::class);
+Route::prefix('admin/datapenduduk')->group(function () {
+
+    // Tambahkan rute show di sini
+    Route::get('/show/{id}/{no_kk}', [AdminDataPendudukController::class, 'show'])->name('admin.datapenduduk.show');
+
+    Route::get('/{dawis_id}/{kepala_rumah_tangga_id}/{no_kk}', [AdminDataPendudukController::class, 'index'])->name('admin.datapenduduk.index');
+    Route::get('/create/{dawis_id}/{kepala_rumah_tangga_id}/{no_kk}', [AdminDataPendudukController::class, 'create'])->name('admin.datapenduduk.create');
+    Route::post('/store', [AdminDataPendudukController::class, 'store'])->name('admin.datapenduduk.store');
+    Route::get('/edit/{no_kk}', [AdminDataPendudukController::class, 'edit'])->name('admin.datapenduduk.edit');
+    Route::put('/update/{no_kk}', [AdminDataPendudukController::class, 'update'])->name('admin.datapenduduk.update');
+    Route::delete('/destroy/{id}/{no_kk}/{dawis_id}/{kepala_rumah_tangga_id}', [AdminDataPendudukController::class, 'destroy'])->name('admin.datapenduduk.destroy');
 });
+
+use App\Http\Controllers\AdminDataKeluargaAkumulasiController;
+
+// Route untuk Data Keluarga Akumulasi
+Route::prefix('admin/datakeluargaakumulasi')->group(function () {
+    Route::get('/', [AdminDataKeluargaAkumulasiController::class, 'index'])->name('admin.datakeluargaakumulasi.index');
+    Route::get('/create', [AdminDataKeluargaAkumulasiController::class, 'create'])->name('admin.datakeluargaakumulasi.create');
+    Route::post('/', [AdminDataKeluargaAkumulasiController::class, 'store'])->name('admin.datakeluargaakumulasi.store');
+    Route::get('/{id}', [AdminDataKeluargaAkumulasiController::class, 'show'])->name('admin.datakeluargaakumulasi.show');
+    Route::get('/{id}/edit', [AdminDataKeluargaAkumulasiController::class, 'edit'])->name('admin.datakeluargaakumulasi.edit');
+    Route::put('/{id}', [AdminDataKeluargaAkumulasiController::class, 'update'])->name('admin.datakeluargaakumulasi.update');
+    Route::delete('/{id}', [AdminDataKeluargaAkumulasiController::class, 'destroy'])->name('admin.datakeluargaakumulasi.destroy');
+});
+
+
+//Route::prefix('admin/datakeluarga')->group(function () {
+
+//  Route::get('/show/{id}/{no_kk}', [AdminDataPendudukController::class, 'show'])->name('admin.datapenduduk.show');
+
+//Route::get('{dawis_id}/{kepala_rumah_tangga_id}/{no_kk}', [AdminDataPendudukController::class, 'index'])->name('admin.datapenduduk.index');
+//Route::get('{dawis_id}/{kepala_rumah_tangga_id}/{no_kk}', [AdminDataPendudukController::class, 'create'])->name('admin.datapenduduk.create');
+//Route::post('/', [AdminDataPendudukController::class, 'store'])->name('admin.datapenduduk.store');
+//Route::get('{dawis_id}/{kepala_rumah_tangga_id}/{no_kk}/edit/{id}', [AdminDataPendudukController::class, 'edit'])->name('admin.datapenduduk.edit');
+//Route::put('{id}/{no_kk}', [AdminDataPendudukController::class, 'update'])->name('admin.datapenduduk.update');
+//Route::delete('{id}/{no_kk}', [AdminDataPendudukController::class, 'destroy'])->name('admin.datapenduduk.destroy');
+//});
+
+Route::get('/test-update/{no_kk}', function ($no_kk) {
+    return "Testing update for no KK: " . $no_kk;
+});
+
+
+
 
 
 

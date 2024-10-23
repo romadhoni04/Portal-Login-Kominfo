@@ -10,7 +10,7 @@ class DataPenduduk extends Model
     use HasFactory;
 
     protected $table = 'data_penduduk';
-    protected $primaryKey = 'id_penduduk';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
@@ -54,5 +54,14 @@ class DataPenduduk extends Model
     public function refPekerjaan()
     {
         return $this->belongsTo(RefPekerjaan::class, 'pekerjaan');
+    }
+    public function dawis()
+    {
+        return $this->belongsTo(Dawis::class, 'dawis_id');
+    }
+
+    public function kepalaKeluarga()
+    {
+        return $this->belongsTo(KepalaRumahTangga::class, 'kepala_rumah_tangga_id');
     }
 }

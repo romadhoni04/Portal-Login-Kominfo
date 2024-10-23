@@ -35,7 +35,7 @@
         </div>
     </form>
     <!-- Cek jika ada data secara keseluruhan -->
-    @if ($dawisList->isEmpty() && !request()->has('search'))
+    @if ($dasawisma->isEmpty() && !request()->has('search'))
     <div class="alert alert-warning text-center">
         Tidak ada data Dasa Wisma. <a href="{{ route('admin.dasawisma.create') }}" class="alert-link">Buat sekarang</a>.
     </div>
@@ -56,7 +56,7 @@
     <br>
     <!-- Cek jika tidak ada hasil pencarian -->
     <!-- Cek jika tidak ada hasil pencarian -->
-    @if ($dawisList->isEmpty() && request()->has('search'))
+    @if ($dasawisma->isEmpty() && request()->has('search'))
     <div class="alert alert-warning">
         Tidak ada data yang sesuai dengan pencarian atau filter yang dipilih.
     </div>
@@ -67,7 +67,7 @@
     @endif
 
     <!-- Tampilkan tabel jika ada data -->
-    @if ($dawisList->isNotEmpty())
+    @if ($dasawisma->isNotEmpty())
     <table class="table table-striped">
         <thead>
             <tr>
@@ -85,7 +85,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($dawisList as $index => $item)
+            @foreach ($dasawisma as $index => $item)
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->nama_dawis }}</td>
@@ -93,10 +93,13 @@
                 <td>{{ $item->rw }}</td>
                 <td>{{ $item->dusun }}</td>
                 <td>{{ $item->tahun }}</td>
-                <td>{{ $item->prop->nama_prop ?? 'Tidak ada' }}</td>
-                <td>{{ $item->kab->nama_kab ?? 'Tidak ada' }}</td>
-                <td>{{ $item->kec->nama_kec ?? 'Tidak ada' }}</td>
-                <td>{{ $item->kel->nama_kel ?? 'Tidak ada' }}</td>
+                <td>{{ $item->nama_prop }}</td>
+                <td>{{ $item->nama_kab }}</td>
+                <td>{{ $item->nama_kec }}</td>
+                <td>{{ $item->nama_kel }}</td>
+
+
+
                 <td>
                     <div class="btn-group" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
                         <a href="{{ route('admin.dasawisma.kepalaRumahTangga', $item->id) }}" class="btn btn-primary">KRT</a>
@@ -114,9 +117,7 @@
         </tbody>
     </table>
 
-    <div class="mt-3">
-        {{ $dawisList->links() }}
-    </div>
+
     @endif
 
 </div>

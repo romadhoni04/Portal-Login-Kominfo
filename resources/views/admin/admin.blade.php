@@ -81,6 +81,12 @@
                     <span>{{ __('Dasa Wisma') }}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.datakeluargaakumulasi.index') }}">
+                    <i class="fas fa-fw fa-users"></i> <!-- Ganti dengan ikon yang sesuai -->
+                    <span>{{ __('Data Keluarga Akumulasi') }}</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
