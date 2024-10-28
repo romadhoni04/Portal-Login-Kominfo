@@ -550,7 +550,7 @@ Route::prefix('admin/kepalarumahtangga')->group(function () {
 use App\Http\Controllers\AdminDataKeluargaController;
 
 Route::prefix('admin/datakeluarga')->group(function () {
-    Route::get('show/{no_kk}', [AdminDataKeluargaController::class, 'show'])->name('admin.datakeluarga.show'); // Taruh di paling atas
+    Route::get('show//{no_kk}/{dawis_id}/{kepala_rumah_tangga_id?}', [AdminDataKeluargaController::class, 'show'])->name('admin.datakeluarga.show'); // Taruh di paling atas
 
     Route::get('/{dawis_id}/{kepala_rumah_tangga_id?}', [AdminDataKeluargaController::class, 'index'])->name('admin.datakeluarga.index');
     Route::get('/create/{dawis_id}/{kepala_rumah_tangga_id?}', [AdminDataKeluargaController::class, 'create'])->name('admin.datakeluarga.create');

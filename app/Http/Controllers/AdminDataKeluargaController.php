@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataKeluarga;
+use App\Models\DataKeluargaAkumulasi;
 use App\Models\Prop;
 use App\Models\Kab;
 use App\Models\Kec;
@@ -34,7 +35,8 @@ class AdminDataKeluargaController extends Controller
                     ->on('data_keluarga.no_prop', '=', 'kab.no_prop');
             })
             ->leftJoin('prop', 'data_keluarga.no_prop', '=', 'prop.no_prop')
-            ->select('data_keluarga.*', 'kel.nama_kel', 'kec.nama_kec', 'kab.nama_kab', 'prop.nama_prop')
+            ->leftJoin('data_keluarga_akumulasi', 'data_keluarga.no_kk', '=', 'data_keluarga_akumulasi.no_kk') // Join dengan data_keluarga_akumulasi
+            ->select('data_keluarga.*', 'data_keluarga_akumulasi.*', 'kel.nama_kel', 'kec.nama_kec', 'kab.nama_kab', 'prop.nama_prop')
             ->where('data_keluarga.dawis_id', '=', $dawis_id); // Filter berdasarkan Dasa Wisma yang dipilih
 
         // Jika kepala rumah tangga ditentukan, tambahkan filter
@@ -42,11 +44,11 @@ class AdminDataKeluargaController extends Controller
             $dataKeluargaQuery->where('data_keluarga.kepala_rumah_tangga_id', $kepala_rumah_tangga_id);
         }
 
+        // Mengambil data keluarga
+        $dataKeluarga = $dataKeluargaQuery->get(); // Mengambil data setelah semua filter diterapkan
+
         // Mengambil semua kepala rumah tangga yang terkait dengan Dasa Wisma yang dipilih
         $kepalaRumahTanggaList = KepalaRumahTangga::where('dawis_id', $dawis_id)->get();
-
-        // Mengambil data provinsi
-        $provinsi = Prop::all();
 
         // Ambil nama kepala rumah tangga yang dipilih (jika ada)
         $kepalaRumahTanggaName = null;
@@ -55,8 +57,8 @@ class AdminDataKeluargaController extends Controller
             $kepalaRumahTanggaName = $kepalaRumahTangga ? $kepalaRumahTangga->nama : 'Tidak ada kepala rumah tangga';
         }
 
-        // Ambil data keluarga
-        $dataKeluarga = $dataKeluargaQuery->get(); // Mengambil data setelah semua filter diterapkan
+        // Ambil data provinsi
+        $provinsi = Prop::all();
 
         // Ambil informasi Dasa Wisma
         $dawis = Dawis::findOrFail($dawis_id);
@@ -78,11 +80,8 @@ class AdminDataKeluargaController extends Controller
 
 
 
-
-
-
     // Method untuk menampilkan form create
-    public function create($dawis_id, $kepala_rumah_tangga_id = null) // Berikan default null pada $kepala_rumah_tangga_id
+    public function create($dawis_id, $kepala_rumah_tangga_id = null)
     {
         // Mengambil data Dawis yang dipilih berdasarkan $dawis_id
         $dawis = Dawis::findOrFail($dawis_id);
@@ -100,7 +99,7 @@ class AdminDataKeluargaController extends Controller
         if ($kepala_rumah_tangga_id) {
             $kepalaRumahTangga = KepalaRumahTangga::find($kepala_rumah_tangga_id);
             $kepalaRumahTanggaName = $kepalaRumahTangga ? $kepalaRumahTangga->nama : 'Tidak ada kepala rumah tangga';
-            $kepalaRumahTanggaId = $kepalaRumahTangga ? $kepalaRumahTangga->id : null; // Pastikan ini ditambahkan
+            $kepalaRumahTanggaId = $kepalaRumahTangga ? $kepalaRumahTangga->id : null;
         }
 
         // Kirim nama dan ID Dawis ke view
@@ -114,14 +113,10 @@ class AdminDataKeluargaController extends Controller
             'provinsi',
             'kepala_rumah_tangga_id',
             'kepalaRumahTanggaName',
-            'kepalaRumahTanggaId', // Pastikan ini ada
+            'kepalaRumahTanggaId',
             'kepalaRumahTanggaList'
         ));
     }
-
-
-
-
 
     // Method untuk menampilkan kabupaten berdasarkan provinsi
     public function getKabupaten($provinsi)
@@ -145,50 +140,101 @@ class AdminDataKeluargaController extends Controller
     }
 
     // Method untuk menyimpan data keluarga ke database
-    // Method untuk menyimpan data keluarga ke database
     public function store(Request $request)
     {
         // Validasi input
         $request->validate([
-            'no_kk' => 'required|string|min:16|max:16|unique:data_keluarga,no_kk', // Ubah menjadi string dan tambahkan min/max 16
+            'no_kk' => 'required|digits:16|unique:data_keluarga,no_kk',
             'nama_kepala_keluarga' => 'required|string|max:255',
             'dawis_id' => 'required|exists:dawis,id',
             'kepala_rumah_tangga_id' => 'required|exists:kepala_rumah_tangga,id',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'kelurahan' => 'required', // Pastikan kelurahan tetap dalam format yang dapat dipecah
+            'provinsi' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kelurahan' => 'required|string',
+            // Validasi tambahan untuk data_keluarga_akumulasi
+
+            'balita' => 'nullable|integer',
+            'pus' => 'nullable|integer',
+            'wus' => 'nullable|integer',
+            'buta_baca' => 'nullable|integer',
+            'buta_tulis' => 'nullable|integer',
+            'buta_hitung' => 'nullable|integer',
+            'ibu_hamil' => 'nullable|integer',
+            'ibu_menyusui' => 'nullable|integer',
+            'lansia' => 'nullable|integer',
+            'makanan_pokok' => 'required|integer', // Pastikan ini sesuai kebutuhan
+            'makanan_pokok_lain' => 'nullable|string',
+            'jamban_keluarga' => 'nullable|integer',
+            'jamban_keluarga_jumlah' => 'nullable|integer',
+            'sumber_air_keluarga' => 'required|integer', // Pastikan ini sesuai kebutuhan
+            'sumber_air_keluarga_lain' => 'nullable|string',
+            'tempat_sampah_keluarga' => 'nullable|integer',
+            'saluran_air_limbah' => 'nullable|integer',
+            'stiker_p4k' => 'nullable|integer',
+            'kriteria_rumah' => 'nullable|integer',
+            'aktivitas_up2k' => 'nullable|integer',
+            'aktivitas_up2k_lain' => 'nullable|string',
+            'aktivitas_usaha_kesehatan_lingkungan' => 'nullable|integer',
+            'memiliki_tabungan' => 'nullable|integer',
         ]);
+
+        // Logika penyimpanan data ke database...
+
+
 
         // Membuat data keluarga baru
         DataKeluarga::create([
-            'no_kk' => $request->no_kk, // Pastikan input no_kk sesuai dengan varchar 16
+            'no_kk' => $request->no_kk,
             'nama_kepala_keluarga' => $request->nama_kepala_keluarga,
             'dawis_id' => $request->dawis_id,
             'kepala_rumah_tangga_id' => $request->kepala_rumah_tangga_id,
             'no_prop' => $request->provinsi,
             'no_kab' => $request->kabupaten,
             'no_kec' => $request->kecamatan,
-            'no_kel' => explode('-', $request->kelurahan)[0], // Tetap gunakan explode jika format masih sama
+            'no_kel' => explode('-', $request->kelurahan)[0],
+        ]);
+
+        // Membuat data akumulasi baru untuk keluarga tersebut
+        DataKeluargaAkumulasi::create([
+            'no_kk' => $request->no_kk,
+            'balita' => $request->balita,
+            'pus' => $request->pus,
+            'wus' => $request->wus,
+            'buta_baca' => $request->buta_baca,
+            'buta_tulis' => $request->buta_tulis,
+            'buta_hitung' => $request->buta_hitung,
+            'ibu_hamil' => $request->ibu_hamil,
+            'ibu_menyusui' => $request->ibu_menyusui,
+            'lansia' => $request->lansia,
+            'makanan_pokok' => $request->makanan_pokok,
+            'makanan_pokok_lain' => $request->makanan_pokok_lain,
+            'jamban_keluarga' => $request->jamban_keluarga,
+            'jamban_keluarga_jumlah' => $request->jamban_keluarga_jumlah,
+            'sumber_air_keluarga' => $request->sumber_air_keluarga,
+            'sumber_air_keluarga_lain' => $request->sumber_air_keluarga_lain,
+            'tempat_sampah_keluarga' => $request->tempat_sampah_keluarga,
+            'saluran_air_limbah' => $request->saluran_air_limbah,
+            'stiker_p4k' => $request->stiker_p4k,
+            'kriteria_rumah' => $request->kriteria_rumah,
+            'aktivitas_up2k' => $request->aktivitas_up2k,
+            'aktivitas_up2k_lain' => $request->aktivitas_up2k_lain,
+            'aktivitas_usaha_kesehatan_lingkungan' => $request->aktivitas_usaha_kesehatan_lingkungan,
+            'memiliki_tabungan' => $request->memiliki_tabungan,
         ]);
 
         // Redirect ke halaman daftar data keluarga dengan pesan sukses
         return redirect()->route('admin.datakeluarga.index', [
             'dawis_id' => $request->dawis_id,
-            'kepala_rumah_tangga_id' => $request->kepala_rumah_tangga_id // Tambahkan kepala rumah tangga ID
-        ])->with('success', 'Data keluarga berhasil ditambahkan'); // Mengirim pesan sukses
+            'kepala_rumah_tangga_id' => $request->kepala_rumah_tangga_id
+        ])->with('success', 'Data keluarga dan data akumulasi berhasil ditambahkan');
     }
 
 
 
-
-    public function show($no_kk)
+    public function show($no_kk, $dawis_id, $kepala_rumah_tangga_id = null)
     {
-        if (!is_numeric($no_kk)) {
-            abort(404, 'Nomor KK tidak valid');
-        }
-
-        // Query untuk mengambil data keluarga dengan informasi kelurahan, kecamatan, kabupaten, dan provinsi
+        // Mengambil data keluarga berdasarkan no KK dan Dasa Wisma
         $dataKeluarga = DB::table('data_keluarga')
             ->leftJoin('kel', function ($join) {
                 $join->on('data_keluarga.no_kel', '=', 'kel.no_kel')
@@ -206,33 +252,39 @@ class AdminDataKeluargaController extends Controller
                     ->on('data_keluarga.no_prop', '=', 'kab.no_prop');
             })
             ->leftJoin('prop', 'data_keluarga.no_prop', '=', 'prop.no_prop')
-            ->leftJoin('kepala_rumah_tangga', 'data_keluarga.kepala_rumah_tangga_id', '=', 'kepala_rumah_tangga.id')
-            ->select(
-                'data_keluarga.*',
-                'kel.nama_kel',
-                'kec.nama_kec',
-                'kab.nama_kab',
-                'prop.nama_prop',
-                'kepala_rumah_tangga.nama as nama_kepala_rumah_tangga'
-            )
-            ->where('data_keluarga.no_kk', $no_kk)
-            ->first();
+            ->leftJoin('data_keluarga_akumulasi', 'data_keluarga.no_kk', '=', 'data_keluarga_akumulasi.no_kk') // Join dengan data_keluarga_akumulasi
+            ->where('data_keluarga.no_kk', '=', $no_kk)
+            ->where('data_keluarga.dawis_id', '=', $dawis_id);
 
-        if (!$dataKeluarga) {
-            abort(404, 'Data keluarga tidak ditemukan.');
+        // Jika kepala rumah tangga ditentukan, tambahkan filter
+        if ($kepala_rumah_tangga_id) {
+            $dataKeluarga->where('data_keluarga.kepala_rumah_tangga_id', $kepala_rumah_tangga_id);
         }
 
-        return view('admin.dasawisma.datakeluarga.show', compact('dataKeluarga'));
+        // Mengambil data keluarga
+        $dataKeluarga = $dataKeluarga->first(); // Mengambil data setelah semua filter diterapkan
+
+        // Jika data tidak ditemukan, tampilkan halaman 404
+        if (!$dataKeluarga) {
+            abort(404, 'Data tidak ditemukan');
+        }
+
+        // Mengambil data provinsi
+        $provinsi = Prop::all();
+
+        // Mengembalikan view dengan data yang diperlukan
+        return view('admin.dasawisma.datakeluarga.show', compact(
+            'dataKeluarga',
+            'provinsi'
+        ));
     }
-
-
 
 
     // Method untuk menampilkan form edit
     public function edit($no_kk, $dawis_id, $kepala_rumah_tangga_id)
     {
         // Mengambil data keluarga
-        $keluarga = DataKeluarga::with(['kelurahan', 'kecamatan', 'kabupaten', 'provinsi', 'dawis'])
+        $keluarga = DataKeluarga::with(['kelurahan', 'kecamatan', 'kabupaten', 'provinsi', 'dawis', 'akumulasi'])
             ->where('no_kk', $no_kk)
             ->first();
 
@@ -292,11 +344,35 @@ class AdminDataKeluargaController extends Controller
             'no_kk' => 'required|numeric|digits:16|unique:data_keluarga,no_kk,' . $no_kk . ',no_kk', // Pastikan No KK valid dan unik
             'nama_kepala_keluarga' => 'required|string|max:255',
             'dawis_id' => 'required|integer|exists:dawis,id',
-            'provinsi' => 'required|integer|exists:prop,no_prop',
-            'kabupaten' => 'required|integer|exists:kab,no_kab',
-            'kecamatan' => 'required|integer|exists:kec,no_kec',
+            'kepala_rumah_tangga_id' => 'required|exists:kepala_rumah_tangga,id',
+            'provinsi' => 'required|string',
+            'kabupaten' => 'required|string',
+            'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
-            'kepala_rumah_tangga_id' => 'nullable|exists:kepala_rumah_tangga,id',
+            // Validasi tambahan untuk data_keluarga_akumulasi
+            'balita' => 'nullable|integer',
+            'pus' => 'nullable|integer',
+            'wus' => 'nullable|integer',
+            'buta_baca' => 'nullable|integer',
+            'buta_tulis' => 'nullable|integer',
+            'buta_hitung' => 'nullable|integer',
+            'ibu_hamil' => 'nullable|integer',
+            'ibu_menyusui' => 'nullable|integer',
+            'lansia' => 'nullable|integer',
+            'makanan_pokok' => 'required|integer', // Pastikan ini sesuai kebutuhan
+            'makanan_pokok_lain' => 'nullable|string',
+            'jamban_keluarga' => 'nullable|integer',
+            'jamban_keluarga_jumlah' => 'nullable|integer',
+            'sumber_air_keluarga' => 'required|integer', // Pastikan ini sesuai kebutuhan
+            'sumber_air_keluarga_lain' => 'nullable|string',
+            'tempat_sampah_keluarga' => 'nullable|integer',
+            'saluran_air_limbah' => 'nullable|integer',
+            'stiker_p4k' => 'nullable|integer',
+            'kriteria_rumah' => 'nullable|integer',
+            'aktivitas_up2k' => 'nullable|integer',
+            'aktivitas_up2k_lain' => 'nullable|string',
+            'aktivitas_usaha_kesehatan_lingkungan' => 'nullable|integer',
+            'memiliki_tabungan' => 'nullable|integer',
         ]);
 
         // Pisahkan kelurahan
@@ -321,13 +397,42 @@ class AdminDataKeluargaController extends Controller
             'kepala_rumah_tangga_id' => $validatedData['kepala_rumah_tangga_id'],
         ]);
 
+        // Membuat atau memperbarui data akumulasi baru untuk keluarga tersebut
+        DataKeluargaAkumulasi::updateOrCreate(
+            ['no_kk' => $validatedData['no_kk']],
+            [
+                'balita' => $validatedData['balita'],
+                'pus' => $validatedData['pus'],
+                'wus' => $validatedData['wus'],
+                'buta_baca' => $validatedData['buta_baca'],
+                'buta_tulis' => $validatedData['buta_tulis'],
+                'buta_hitung' => $validatedData['buta_hitung'],
+                'ibu_hamil' => $validatedData['ibu_hamil'],
+                'ibu_menyusui' => $validatedData['ibu_menyusui'],
+                'lansia' => $validatedData['lansia'],
+                'makanan_pokok' => $validatedData['makanan_pokok'],
+                'makanan_pokok_lain' => $validatedData['makanan_pokok_lain'],
+                'jamban_keluarga' => $validatedData['jamban_keluarga'],
+                'jamban_keluarga_jumlah' => $validatedData['jamban_keluarga_jumlah'],
+                'sumber_air_keluarga' => $validatedData['sumber_air_keluarga'],
+                'sumber_air_keluarga_lain' => $validatedData['sumber_air_keluarga_lain'],
+                'tempat_sampah_keluarga' => $validatedData['tempat_sampah_keluarga'],
+                'saluran_air_limbah' => $validatedData['saluran_air_limbah'],
+                'stiker_p4k' => $validatedData['stiker_p4k'],
+                'kriteria_rumah' => $validatedData['kriteria_rumah'],
+                'aktivitas_up2k' => $validatedData['aktivitas_up2k'],
+                'aktivitas_up2k_lain' => $validatedData['aktivitas_up2k_lain'],
+                'aktivitas_usaha_kesehatan_lingkungan' => $validatedData['aktivitas_usaha_kesehatan_lingkungan'],
+                'memiliki_tabungan' => $validatedData['memiliki_tabungan'],
+            ]
+        );
+
         // Redirect ke index dengan dawis_id dan kepala_rumah_tangga_id
         return redirect()->route('admin.datakeluarga.index', [
-            'dawis_id' => $dawis_id,
+            'dawis_id' => $validatedData['dawis_id'],
             'kepala_rumah_tangga_id' => $validatedData['kepala_rumah_tangga_id']
-        ])->with('success', 'Data keluarga berhasil diperbarui.');
+        ])->with('success', 'Data keluarga dan data akumulasi berhasil diperbarui.');
     }
-
 
 
 
@@ -336,17 +441,24 @@ class AdminDataKeluargaController extends Controller
     // Destroy: Menghapus data penduduk
     public function destroy($no_kk, $dawis_id, $kepala_rumah_tangga_id)
     {
-        // Temukan data penduduk berdasarkan no_kk
-        $penduduk = DataKeluarga::where('no_kk', $no_kk)->firstOrFail();
+        // Temukan data keluarga berdasarkan no_kk
+        $dataKeluarga = DataKeluarga::where('no_kk', $no_kk)->firstOrFail();
 
-        // Hapus data penduduk
-        $penduduk->delete();
+        // Temukan data akumulasi berdasarkan no_kk yang sama
+        $dataAkumulasi = DataKeluargaAkumulasi::where('no_kk', $no_kk)->first();
+
+        // Hapus data akumulasi jika ada
+        if ($dataAkumulasi) {
+            $dataAkumulasi->delete();
+        }
+
+        // Hapus data keluarga
+        $dataKeluarga->delete();
 
         // Redirect kembali ke index dengan semua parameter yang diperlukan
         return redirect()->route('admin.datakeluarga.index', [
             'dawis_id' => $dawis_id,
             'kepala_rumah_tangga_id' => $kepala_rumah_tangga_id,
-            'no_kk' => $no_kk,
-        ])->with('success', 'Data penduduk berhasil dihapus.');
+        ])->with('success', 'Data keluarga dan data akumulasi berhasil dihapus.');
     }
 }

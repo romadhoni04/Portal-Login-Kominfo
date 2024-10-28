@@ -92,4 +92,8 @@ class DataKeluarga extends Model
     {
         return $this->belongsTo(KepalaRumahTangga::class, 'kepala_rumah_tangga_id', 'id');
     }
+    public function akumulasi()
+    {
+        return $this->hasOne(DataKeluargaAkumulasi::class, 'no_kk', 'no_kk'); // Asumsi no_kk sebagai foreign key
+    }
 }

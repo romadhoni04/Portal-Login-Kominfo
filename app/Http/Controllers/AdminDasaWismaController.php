@@ -40,7 +40,8 @@ class AdminDasaWismaController extends Controller
             })
             ->leftJoin('prop', 'kab.no_prop', '=', 'prop.no_prop')
             ->select('dawis.*', 'kel.nama_kel', 'kec.nama_kec', 'kab.nama_kab', 'prop.nama_prop')
-            ->get();
+            ->paginate(10); // Ubah '10' dengan jumlah item per halaman yang diinginkan
+
 
         return view('admin.dasawisma.index', compact('dasawisma'));
     }

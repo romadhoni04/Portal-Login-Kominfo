@@ -11,7 +11,8 @@ class DataKeluargaAkumulasi extends Model
 
     // Menentukan nama tabel
     protected $table = 'data_keluarga_akumulasi';
-
+    // Nonaktifkan timestamps
+    public $timestamps = false;
     // Menentukan primary key jika diperlukan
     protected $primaryKey = 'no_kk';
 
@@ -21,23 +22,25 @@ class DataKeluargaAkumulasi extends Model
         'balita',
         'pus',
         'wus',
-        'tiga_buta',
         'ibu_hamil',
         'ibu_menyusui',
         'lansia',
+        'buta_baca',
+        'buta_tulis',
+        'buta_hitung',
         'makanan_pokok',
         'makanan_pokok_lain',
-        'jumlah_keluarga',
-        'jumlah_keluarga_jumlah',
+        'jamban_keluarga',
+        'jamban_keluarga_jumlah',
         'sumber_air_keluarga',
         'sumber_air_keluarga_lain',
         'tempat_sampah_keluarga',
         'saluran_air_limbah',
-        'stiker_pkk',
+        'stiker_p4k',
         'kriteria_rumah',
         'aktivitas_up2k',
         'aktivitas_up2k_lain',
-        'aktivitas_usaha_lingkungan',
+        'aktivitas_usaha_kesehatan_lingkungan',
         'memiliki_tabungan',
     ];
 

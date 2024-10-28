@@ -116,6 +116,10 @@
             @endforeach
         </tbody>
     </table>
+    <!-- Tampilkan links pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ $dasawisma->links() }}
+    </div>
 
 
     @endif
