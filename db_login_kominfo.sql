@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2024 at 02:57 AM
+-- Generation Time: Oct 29, 2024 at 04:37 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.10
 
@@ -173,18 +173,11 @@ CREATE TABLE `data_keluarga` (
 --
 
 INSERT INTO `data_keluarga` (`no_kk`, `nama_kepala_keluarga`, `dawis_id`, `no_kel`, `no_kec`, `no_kab`, `no_prop`, `kepala_rumah_tangga_id`) VALUES
-('3173010412020000', 'Doni Tes', 22, 2009, 13, 20, 33, 2),
-('3173010412020005', 'Roma Dhoni', 22, 2001, 10, 20, 33, 2),
-('3173010412020007', 'Doni Tes', 36, 2001, 10, 20, 33, 6),
-('33456', 'doni anjay 4', 23, 2005, 15, 20, 33, 2),
-('444333', 'doniii karimun 4 5', 22, 2004, 15, 20, 33, 4),
-('54321', 'Roma Dhoni Keren tes', 22, 2004, 5, 20, 33, 4),
-('556478', 'Roma Dhoni tanjung Fix', 34, 2002, 15, 20, 33, NULL),
-('77865432', 'doniii anjay 4 tes aja ya', 34, 2009, 14, 20, 33, NULL),
-('7886543', 'doni anjay 3', 34, 2003, 15, 20, 33, NULL),
-('78962', 'Doni tanjung', 34, 2005, 15, 20, 33, NULL),
-('887652390', 'Nuril Ganteng', 34, 2007, 4, 20, 33, 5),
-('9876520', 'tes tes doni aja', 34, 2007, 13, 20, 33, NULL);
+('3173010412020007', 'Roma Dhoni Tes', 22, 2009, 14, 20, 33, 2),
+('3173010412020090', 'Nuril Anwar', 22, 2014, 12, 20, 33, 2),
+('3332001003004000', 'MAS KUSNADI', 22, 2011, 12, 20, 33, 2),
+('4000200010004098', 'ANJAY', 22, 2011, 3, 20, 33, 2),
+('4000300060006998', 'anwar', 22, 2011, 13, 20, 33, 2);
 
 -- --------------------------------------------------------
 
@@ -197,14 +190,16 @@ CREATE TABLE `data_keluarga_akumulasi` (
   `balita` int DEFAULT NULL,
   `pus` int DEFAULT NULL,
   `wus` int DEFAULT NULL,
-  `tiga_buta` int DEFAULT NULL,
   `ibu_hamil` int DEFAULT NULL,
   `ibu_menyusui` int DEFAULT NULL,
   `lansia` int DEFAULT NULL,
+  `buta_baca` int DEFAULT NULL,
+  `buta_tulis` int DEFAULT NULL,
+  `buta_hitung` int DEFAULT NULL,
   `makanan_pokok` int DEFAULT NULL,
   `makanan_pokok_lain` varchar(255) DEFAULT NULL,
-  `jumlah_keluarga` int DEFAULT NULL,
-  `jumlah_keluarga_jumlah` int DEFAULT NULL,
+  `jamban_keluarga` int DEFAULT NULL,
+  `jamban_keluarga_jumlah` int DEFAULT NULL,
   `sumber_air_keluarga` int DEFAULT NULL,
   `sumber_air_keluarga_lain` varchar(255) DEFAULT NULL,
   `tempat_sampah_keluarga` int DEFAULT NULL,
@@ -221,10 +216,12 @@ CREATE TABLE `data_keluarga_akumulasi` (
 -- Dumping data for table `data_keluarga_akumulasi`
 --
 
-INSERT INTO `data_keluarga_akumulasi` (`no_kk`, `balita`, `pus`, `wus`, `tiga_buta`, `ibu_hamil`, `ibu_menyusui`, `lansia`, `makanan_pokok`, `makanan_pokok_lain`, `jumlah_keluarga`, `jumlah_keluarga_jumlah`, `sumber_air_keluarga`, `sumber_air_keluarga_lain`, `tempat_sampah_keluarga`, `saluran_air_limbah`, `stiker_p4k`, `kriteria_rumah`, `aktivitas_up2k`, `aktivitas_up2k_lain`, `aktivitas_usaha_kesehatan_lingkungan`, `memiliki_tabungan`) VALUES
-('3173010412020005', 1, 2, 1, 1, 0, 1, 1, 1, 'Nasi', 1, 1, 1, 'Sumur', 1, 1, 1, 1, 1, 'Kegiatan A', 1, 1),
-('3173010412020005', 2, 1, 2, 0, 1, 0, 2, 2, 'Beras', 1, 1, 2, 'Sumur', 1, 1, 0, 1, 2, 'Kegiatan B', 0, 1),
-('33456', 0, 1, 1, 0, 0, 1, 0, 1, 'Jagung', 0, 0, 1, 'Air PAM', 1, 1, 1, 0, 1, 'Kegiatan C', 1, 0);
+INSERT INTO `data_keluarga_akumulasi` (`no_kk`, `balita`, `pus`, `wus`, `ibu_hamil`, `ibu_menyusui`, `lansia`, `buta_baca`, `buta_tulis`, `buta_hitung`, `makanan_pokok`, `makanan_pokok_lain`, `jamban_keluarga`, `jamban_keluarga_jumlah`, `sumber_air_keluarga`, `sumber_air_keluarga_lain`, `tempat_sampah_keluarga`, `saluran_air_limbah`, `stiker_p4k`, `kriteria_rumah`, `aktivitas_up2k`, `aktivitas_up2k_lain`, `aktivitas_usaha_kesehatan_lingkungan`, `memiliki_tabungan`) VALUES
+('3173010412020007', 1, 2, 3, 7, 7, 9, NULL, NULL, NULL, 1, 'Makanan pokok adalah Beras', NULL, NULL, 1, 'Sumber air keluarga adalah PDAM', 1, 0, NULL, 1, 0, 'Tidak memiliki aktivitas UP2K', NULL, 0),
+('3332001003004000', 2, 1, 1, 1, 1, 2, NULL, NULL, NULL, 1, 'Makanan pokok adalah Beras', NULL, NULL, 2, 'Sumber air keluarga adalah Sumur', 1, 1, NULL, 1, 0, 'Tidak memiliki aktivitas UP2K', NULL, 0),
+('4000200010004098', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Makanan pokok adalah Beras', 0, 0, 2, 'Sumber air keluarga adalah Sumur', 1, 1, 1, 1, 0, 'Tidak memiliki aktivitas UP2K', 1, 1),
+('4000300060006998', 9, 8, 7, 3, 2, 1, 6, 5, 4, 2, 'jagung', 0, 0, 2, 'Sumber air keluarga adalah Sumur', 0, 1, 0, 0, 1, 'Supir', 1, 0),
+('3173010412020090', 1, 2, 1, 0, 1, 0, 0, 0, 0, 1, 'Makanan pokok adalah Beras', 0, 0, 2, 'Sumber air keluarga adalah Sumur', 1, 1, 0, 1, 0, 'Tidak memiliki aktivitas UP2K', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -305,7 +302,10 @@ INSERT INTO `dawis` (`id`, `nama_dawis`, `rt`, `rw`, `dusun`, `no_kel`, `no_kec`
 (32, 'DASA WISMA KARIMUN ANJAY 2', 2, 1, 'DUSUN KARIMUN ANJAY 2', 2006, 12, 20, 33, 2001),
 (33, 'DASA WISMA KARIMUN ANJAY 3', 2, 1, 'DUSUN KARIMUN ANJAY 3', 2001, 10, 20, 33, 2001),
 (34, 'DASA WISMA KARIMUN ANJAY 4', 2, 1, 'DUSUN KARIMUN ANJAY 5', 2002, 4, 20, 33, 2001),
-(36, 'Dasa Wisma Tes 1', 1, 2, 'Dusun Jebol', 2007, 4, 20, 33, 2024);
+(36, 'Dasa Wisma Tes 1', 1, 2, 'Dusun Jebol', 2007, 4, 20, 33, 2024),
+(37, 'Dasa Wisma Tes 2', 1, 2, 'Dusun Tes 2', 2006, 8, 20, 33, 2024),
+(38, 'Dasa Wisma Tes 3', 1, 2, 'Dusun Tes 3', 2001, 2, 20, 33, 2024),
+(39, 'Dasa Wisma Tes 4', 1, 2, 'Dusun Tes 4', 2010, 14, 20, 33, 2024);
 
 -- --------------------------------------------------------
 
@@ -1440,7 +1440,7 @@ ALTER TABLE `data_penduduk`
 -- AUTO_INCREMENT for table `dawis`
 --
 ALTER TABLE `dawis`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
